@@ -1,0 +1,74 @@
+<section class="">
+    <div class="container d-flex justify-content-center">
+      <div class="row w-75 mt-5">
+        <div class="col-md-12">
+          <h2 class="text-center">Product List</h2>
+          <form
+            action="/admin/add_sub"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Table section -->
+  <section  mx-auto>
+    <div class="card-body">
+      <div class="row mt-5 mx-auto">
+        <div class="table-responsive">
+          <div class="table-responsive">
+            <table class="table align-middle table-nowrap mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="align-middle" scope="col">No:</th>
+                  <th class="align-middle" scope="col">product Name</th>
+                  <th class="align-middle" scope="col">Description</th>
+                  <th class="align-middle" scope="col">price</th>
+                  <th class="align-middle" scope="col">Category</th>
+                  <th class="align-middle" scope="col">Quantity</th>
+                  <th class="align-middle" scope="col">Image</th>
+                  <th class="align-middle" scope="col">option</th>
+                
+                </tr>
+              </thead>
+              <tbody>
+                <%  viewProduct.forEach(function(user,index)
+              { %>
+                <tr>
+               <td><%=index+1 %></td> 
+                <td><%=user.productName %></td>
+               <td><%= user.description %> </td> 
+               <td><%= user.Price %></td>
+               <td><%= user.category %></td> 
+               <td><%= user.quantity %></td>
+<td><img style="border-radius:0;height: 100px;width: 100px;" src="/productImages/<%= user.image[0] %>" alt="img"></td>
+               <td>
+                <a href="/admin/editProduct/<%=user._id %>"><button class="btn btn-info btn-sm">edit</button></a>
+                <a href="addProducts"><button class="btn btn-info btn-sm"></button></a>
+               </td>
+
+               <td><%= %></td> 
+               </tr>
+               <% }
+               )
+               %>
+
+               
+
+               
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- table-responsive end// -->
+      </div>
+    </div>
+  </section>
+  
+
+  <script>
+   
+  </script>

@@ -1,0 +1,92 @@
+<section class="">
+  <div class="container d-flex justify-content-center">
+    <div class="row w-75 mt-5">
+      <div class="col-md-12">
+        <h2 class="text-center">Edit Product</h2>
+        
+        <form
+          id="form"
+        >
+          <label for="">Product Name</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control"
+            value="<%=editProduct.productName%>"
+          />
+          <label for="">Description</label>
+          <input
+            type="text"
+            name="description"
+            class="form-control"
+            value="<%=editProduct.description%>"
+          />
+
+          <label for="">Price</label>
+          <input
+            type="text"
+            name="price"
+            class="form-control"
+            value="<%=editProduct.Price%>"
+          />
+
+          <label for="cars">Category</label>
+
+           
+          <select class="form-select" name="category" id="cars" >
+            <% editCategory.forEach( function(response){ %>
+            <option><%=response.CategoryName %></option>
+            <% }) %>
+          </select>
+
+          <label for="">Quantity</label>
+          <input
+            type="text"
+            name="quantity"
+            class=""
+            value="<%=editProduct.quantity %>"
+          />
+    
+          <br />
+          <img src="" alt="" style="width:100px;height:auto ">
+          <img src="" alt="" style="width:100px;height:auto ">
+          <img src="" alt="" style="width:100px;height:auto ">
+          <img src="" alt="" style="width:100px;height:auto ">
+        
+          
+          <input type="file" name="image1" class="form-control" >
+          <input type="file" name="image2" class="form-control" >
+          <input type="file" name="image3" class="form-control" >
+          <input type="file" name="image4" class="form-control" >
+
+          <input style="display: none;" type="text" name="image1" id="" value="">
+          <input style="display: none;"type="text" name="image2" id="" value="">
+          <input style="display: none;"type="text" name="image3" id="" value="">
+          <input style="display: none;"type="text" name="image4" id="" value="">
+
+          
+
+          <button   class="btn btn-success mt-4" onclick="editProduct('<%= editProduct._id %>')">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function editProduct(id){
+  $.ajax({
+    url:'/admin/editProduct/'+id,
+    method: 'post',
+    data: $('#form').serialize(),
+
+    success:()=>
+    {
+
+    }
+  })
+}
+</script>   
+
+
+
