@@ -10,6 +10,8 @@ router.get('/login',adminController.getLogin)
 
 router.post('/login',adminController.postLogin)
 
+router.get('/logout',adminController.logout)
+
 router.get('/viewUser',adminController.getstatusproductList)
 
 
@@ -33,6 +35,14 @@ router.get('/viewProduct',adminController.getViewproduct)
 router.get('/editProduct/:id',adminController.editProduct)
 
 router.post('/editProduct/:id',adminController.postEditproduct)
+
+router.get('/unlistProduct/:id',adminController.unlistProduct)
+
+router.get('/unlistCategory/:id',adminController.unlistCategory)
+
+
+
+
 
 
 

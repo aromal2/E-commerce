@@ -3,13 +3,7 @@
       <div class="row w-75 mt-5">
         <div class="col-md-12">
           <h2 class="text-center">Product List</h2>
-          <form
-            action="/admin/add_sub"
-            method="post"
-            enctype="multipart/form-data"
-          >
-            
-          </form>
+         
         </div>
       </div>
     </div>
@@ -35,22 +29,23 @@
                 </tr>
               </thead>
               <tbody>
-                <%  viewProduct.forEach(function(user,index)
+                <%  viewProduct.forEach(function(product,index)
               { %>
                 <tr>
                <td><%=index+1 %></td> 
-                <td><%=user.productName %></td>
-               <td><%= user.description %> </td> 
-               <td><%= user.Price %></td>
-               <td><%= user.category %></td> 
-               <td><%= user.quantity %></td>
-<td><img style="border-radius:0;height: 100px;width: 100px;" src="/productImages/<%= user.image[0] %>" alt="img"></td>
+                <td><%=product.productName %></td>
+               <td><%= product.description %> </td> 
+               <td><%= product.Price %></td>
+               <td><%= product.category %></td> 
+               <td><%= product.quantity %></td>
+<td><img style="border-radius:0;height: 100px;width: 100px;" src="/productImages/<%= product.image[0] %>" alt="img"></td>
                <td>
-                <a href="/admin/editProduct/<%=user._id %>"><button class="btn btn-info btn-sm">edit</button></a>
-                <a href="addProducts"><button class="btn btn-info btn-sm"></button></a>
-               </td>
-
-               <td><%= %></td> 
+                <a href="/admin/editProduct/<%=product._id %>"><button class="btn btn-info btn-sm">edit</button></a>
+              </td>
+              
+              <td> 
+              <button type="button" onclick="doUnlist('<%=product._id %>')">unlist</button>
+            </td>
                </tr>
                <% }
                )
@@ -70,5 +65,16 @@
   
 
   <script>
-   
+   function doUnlist(userId){
+    console.log(userId,';;;');
+    $.ajax({
+      url : '/admin/unlistProduct/'+userId,
+      method : 'GET',
+      success:(response)=>{
+        if(response){
+          location.href = '/admin/viewProduct'
+        }
+      }
+    })
+   }
   </script>

@@ -19,9 +19,12 @@
     <link href="/backEnd/css/main.css" rel="stylesheet" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-</head>
+    
 
+</head>
+<% if (locals.admin){%>
 <%-include('./partials/adminHeader')%>
+<%}%>
 
 <%-body%>
 <%-include('./partials/adminFooter')%>

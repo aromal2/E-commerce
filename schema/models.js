@@ -97,8 +97,30 @@ const categorySchema = mongoose.Schema({
       },
       subCategory:{
           type:Array
-      } 
-    });   
+      } ,
+      unlist:{
+        type: Boolean,
+        default:false
+      }
+    });  
+    
+    
+    const cartSchema = mongoose.Schema({
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+          },
+        
+          cartItems: [
+            {
+              productId: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+              Quantity: { type: Number, default: 1 },
+              price: { type: Number },
+            },
+          ],
+        });
+
+    
 
     
 
@@ -111,5 +133,6 @@ module.exports={
     admin:mongoose.model("admin",adminSchema),
     category:mongoose.model("category",categorySchema),
     product:mongoose.model("product",productSchema),
+    cart:mongoose.model("cart",cartSchema)
 
 }

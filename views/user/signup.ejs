@@ -47,9 +47,9 @@
                       <!-- <a href="page-privacy-policy.html"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a> -->
                     </div>
                     <div class="form-group d-flex justify-content-center">
-                      <button type="button" onclick="validate(),signup()" class="btn btn-fill-out btn-block hover-up" name="login">Submit</button>
+                     <a button type="button" onclick="validate(),signup()" class="btn btn-fill-out btn-block hover-up" name="login" href="/login">Submit</button></a>
                     </div>
-                  </form>
+                </form>
                   <div class="divider-text-center mt-15 mb-15">
                     <span> or</span>
                   </div>
@@ -142,7 +142,7 @@
         error4.innerText='Enter a valid password'
         flag=2
        }
-       else if(passwordvalue.match(/^.{8,}$/))
+       else if(!passwordvalue.match(/^.{8,}$/))
        {
         error4.innerText='Password is not matching'
         flag =2

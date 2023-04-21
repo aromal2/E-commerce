@@ -15,13 +15,20 @@
     <meta property="og:image" content="">
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="/frontEnd/imgs/theme/favicon.svg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
     <!-- Template CSS -->
     <link rel="stylesheet" href="/frontEnd/css/main.css">
+    
+    
    
     
 </head>
+<% if (locals.user){%>
+    <%-include('./partials/userHeader')%>
+    <%}%>
 
-<%-include("./partials/userHeader")%>
+
 <%-body%>
 <%-include("./partials/userFooter")%>
 

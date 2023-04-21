@@ -10,16 +10,20 @@
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
-                    <a href="shop-product-right.html">
-                      <img class="default-img" src="frontEnd/imgs/shop/product-2-1.jpg" alt="">
-                      <img class="hover-img" src="frontEnd/imgs/shop/product-2-2.jpg" alt="">
+                    <a href="/singleproductView/<%=shop._id %>">
+                      <img class="default-img" src="/productImages/<%=shop.image[0]%>" alt="">
+                      <img class="hover-img" src="/productImages/<%=shop.image[2]%>" alt="">
                     </a>
                   </div>
                   <div class="product-action-1">
-                    <a aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                    <!-- <button
+                      type="button"
+                     aria-label="Quick view" class="action-btn hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal">
                       <i class="fi-rs-search"></i></a>
-                    <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                    <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                    <a aria-label="Add To Wishlist" class="action-btn hover-up" onclick="addtoCart('<%-shop._id%>')"><i class="bi bi-bag"></i></button> -->
+
+
+                    <!-- <a aria-label="Add to Cart" class="action-btn hover-up" onclick="ad/<%=shop._id%>"><i class="bi bi-bag"></i></a>   -->
                   </div>
                   <div class="product-badges product-badges-position product-badges-mrg">
                    
@@ -46,9 +50,9 @@
 
                             <span class="old-price">$<%=shop.Price%></span>
                         </div>
-                        <!-- <div class="product-action-1 show">
-                            <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="fi-rs-shopping-bag-add"></i></a>
-                        </div> -->
+                        <div class="product-action-1 show">
+                            <button aria-label="Add To Cart" class="action-btn hover-up" onclick="addtoCart('<%-shop._id%>')"><i class="fi-rs-shopping-bag-add"></i></button>
+                        </div>
                     </div>
                 
 
@@ -75,4 +79,19 @@
       </div>
   </section>
 </main>
+<script>
+  function addtoCart(productId)
+  {
+    $.ajax({
+      url:"/cart/"+productId,
+      method:"post",
+
+      success:(response)=>{
+        if(response.status) {
+
+        }
+      }
+    })
+  }
+</script>
   

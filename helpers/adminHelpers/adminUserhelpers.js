@@ -91,7 +91,9 @@ module.exports = {
 
   getCategory: () => {
     return new Promise(async (resolve, reject) => {
-      await dbAdmin.category.find().then((result) => {
+      await dbAdmin.category.find({
+      
+      }).then((result) => {
         //console.log(result);
         resolve(result)
       });
@@ -149,7 +151,7 @@ module.exports = {
 
       viewProductlist: ()=>{
         return new Promise(async(resolve,reject)=>{
-          await dbAdmin.product.find().then((result)=>{
+          await dbAdmin.product.find({unlist:false}).then((result)=>{
             resolve(result)
           })
         })
@@ -204,6 +206,27 @@ module.exports = {
             })
           })
           
+        },
+
+        unlist:(data)=>{
+          return new Promise(async(resolve,reject)=>{
+            await dbAdmin.product.updateOne({_id:data},{$set:{
+              unlist:true
+            }}).then((result)=>{
+              console.log(result,'lll');
+              resolve(result)
+            })
+          })
+        },
+
+        unlistCategory:(data)=>{
+          return new Promise(async(resolve,reject)=>{
+            await dbAdmin.category.updateOne({_id:data},{$set:{
+              unlist:true
+            }}).then ((result)=>{
+              resolve(result)
+            })
+          })
         }
 
   }

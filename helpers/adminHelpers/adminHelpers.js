@@ -1,6 +1,6 @@
 const dbAdmin=require('../../schema/models')
 const bcrypt=require('bcrypt')
-
+let admins;
 module.exports=
 {
     doLogin:(data)=>
@@ -16,6 +16,7 @@ module.exports=
                             if(loginTrue)
                             {
                                 resolve(admins)
+                               // console.log(admins,"99999999999999999999999");
                             }else{
                                 resolve(false)
                             }
