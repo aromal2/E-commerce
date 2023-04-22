@@ -4,7 +4,6 @@ const { ObjectId } = require("mongodb");
 
 module.exports = {
   psignupPage: (data) => {
-
     return new Promise(async (resolve, reject) => {
       try {
         let email = data.email;
@@ -12,7 +11,6 @@ module.exports = {
         if (userexist) {
           resolve({ finded: true });
         } else {
-
           let hashedPassword = await bcrypt.hash(data.password[0], 10);
           let userdata = new DB.user({
             username: data.username,
@@ -50,11 +48,7 @@ module.exports = {
                   response.lstatus = true;
                   let userName = user.username;
                   let id = user._id;
-                  // response.status=true
-                  console.log(
-                    response.user,
-                    "00000000000000000000000000000000000"
-                  );
+
                   resolve(response);
                 } else {
                   //console.log("no");
@@ -101,14 +95,12 @@ module.exports = {
     };
     try {
       return new Promise((resolve, reject) => {
-
         DB.cart.findOne({ user: userId }).then(async (cart) => {
-          if (cart)   {
-
+          if (cart) {
             let productExist = cart.cartItems.findIndex(
               (cartItems) => cartItems.productId == proId
             );
-            
+
             if (productExist != -1) {
               DB.cart
                 .updateOne(
@@ -131,7 +123,7 @@ module.exports = {
                   }
                 )
                 .then((response) => {
-                  console.log(response,"12211111111111111111111111");
+                  console.log(response, "12211111111111111111111111");
                   resolve(response, { status: true });
                 });
             }
@@ -158,9 +150,8 @@ module.exports = {
 
       if (cart) {
         count = cart.cartItems.length;
-      
-      } 
-        resolve(count);
+      }
+      resolve(count);
     });
   },
 
@@ -170,7 +161,7 @@ module.exports = {
         .aggregate([
           {
             $match: {
-              'user': new ObjectId(userId),
+              user: new ObjectId(userId),
             },
           },
           {
@@ -196,7 +187,7 @@ module.exports = {
               quantity: 1,
               carted: { $arrayElemAt: ["$carted", 0] },
             },
-          }
+          },
         ])
         .then((cartItems) => {
           //console.log(cartItems,"565555555555555555555555555555555555");
@@ -204,54 +195,123 @@ module.exports = {
         });
     });
   },
-  
+
   totalAmount: (userId) => {
-    console.log(userId,"iiiii");
+    console.log(userId, "iiiii");
     return new Promise(async (resolve, reject) => {
       try {
-       
         let total = await DB.cart.aggregate([
           {
-            $match: { user: new ObjectId(userId) }
+            $match: { user: new ObjectId(userId) },
           },
           {
-            $unwind: "$cartItems"
+            $unwind: "$cartItems",
           },
           {
             $project: {
               product: "$cartItems.productId",
-              quantity: "$cartItems.Quantity"
-            }
+              quantity: "$cartItems.Quantity",
+            },
           },
           {
             $lookup: {
               from: "products",
               localField: "product",
               foreignField: "_id",
-              as: "carted"
-            }
+              as: "carted",
+            },
           },
           {
             $project: {
               product: 1,
               quantity: 1,
-              carted: { $arrayElemAt: ["$carted", 0] }
-            }
+              carted: { $arrayElemAt: ["$carted", 0] },
+            },
           },
           {
             $group: {
               _id: null,
               total: {
-                $sum: { $multiply: ["$quantity", "$carted.offerPrice"] }
-              }
-            }
-          }
+                $sum: { $multiply: ["$quantity", "$carted.offerPrice"] },
+              },
+            },
+          },
         ]);
         resolve(total);
       } catch (err) {
         reject(err);
       }
     });
-  }
-  
+  },
+
+  addAddress: (data, userId) => {
+    let addressInfo = {
+      fname: data.fname,
+      lname: data.lname,
+      email: data.email,
+      mobile: data.mobile,
+      street: data.street,
+      apartment: data.apartment,
+      city: data.city,
+      state: data.state,
+      pincode: data.pincode,
+    };
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        address = await DB.address.findOne({ user: userId });
+        console.log(address, "address");
+        if (address) {
+          await DB.address
+            .updateOne({ user: userId }, { $push: { address: addressInfo } })
+            .then((response) => {
+              resolve(response);
+              console.log("koooooooooooo");
+            });
+        } else {
+          let addressData = new DB.address({
+            user: userId,
+            address: addressInfo,
+          });
+          await addressData.save().then((response) => {
+            resolve(response);
+          });
+        }
+      });
+    } catch (error) {
+      resolve(error);
+    }
+  },
+
+  viewAddress: (userId) => {
+    console.log(userId, "------------------------------------");
+    try {
+      console.log("tryyyy");
+      return new Promise(async (resolve, reject) => {
+        await DB.address
+          .aggregate([
+            {
+              $match: {
+                user: new ObjectId(userId),
+              },
+            },
+            {
+              $unwind: "$address",
+            },
+            {
+              $project: {
+                item: "$address",
+              },
+            },
+          ])
+          .then((response) => {
+            console.log(response);
+            resolve(response,"9990111");
+          });
+      });
+    } catch (error) {
+      console.log("catchhhhh");
+      resolve(error);
+    }
+  },
 };

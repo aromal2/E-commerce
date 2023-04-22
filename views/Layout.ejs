@@ -24,13 +24,16 @@
    
     
 </head>
-<% if (locals.user){%>
+
     <%-include('./partials/userHeader')%>
-    <%}%>
+    <%-body%>
+    <%-include("./partials/userFooter")%>
 
 
-<%-body%>
-<%-include("./partials/userFooter")%>
+
+
+
+
 
 
  <!-- Vendor JS-->

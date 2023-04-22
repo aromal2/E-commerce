@@ -6,9 +6,9 @@ const multer=require("../config/multer")
 
 router.get('/dashboard',adminController.getDashboard)
 
-router.get('/login',adminController.getLogin)
+router.get('/',adminController.getLogin)
 
-router.post('/login',adminController.postLogin)
+router.post('/',adminController.postLogin)
 
 router.get('/logout',adminController.logout)
 

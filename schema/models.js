@@ -120,6 +120,28 @@ const categorySchema = mongoose.Schema({
           ],
         });
 
+        const addressSchema = new mongoose.Schema({
+            user: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: "user",
+            },
+            address: [
+              {
+                fname: { type: String },
+                lname: { type: String },
+                email: { type: String },
+                mobile: { type: Number },
+                street: { type: String },
+                apartment: { type: String },
+                city: { type: String },
+                state: { type: String },
+                pincode: { type: Number }
+               
+                
+              },
+            ],
+          });
+
     
 
     
@@ -133,6 +155,7 @@ module.exports={
     admin:mongoose.model("admin",adminSchema),
     category:mongoose.model("category",categorySchema),
     product:mongoose.model("product",productSchema),
-    cart:mongoose.model("cart",cartSchema)
+    cart:mongoose.model("cart",cartSchema),
+    address:mongoose.model("address",addressSchema)
 
 }

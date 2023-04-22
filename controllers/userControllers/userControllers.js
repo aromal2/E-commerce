@@ -1,12 +1,15 @@
 const userHelpers = require("../../helpers/userHelpers/userHelpers");
 
-let user;
+let user, count;
 module.exports = {
   //ejs file edukka
-  getHomePage: (req, res) => {
+  getHomePage: async(req, res) => {
+   
     if (req.session.user) {
       user = req.session.user;
-       res.render("user/homepage", {layout:"Layout", user });
+     // let userId = req.session.user
+      let count = await userHelpers.countCart(user._id)
+       res.render("user/homepage", {layout:"Layout", user ,count});
     } else {
       user = req.session.user;
 
@@ -37,6 +40,7 @@ module.exports = {
     let data = req.body;
     userHelpers.ploginpage(data).then((response) => {
       req.session.user = response.user;
+      req.session.userLoggedIn = true;
       user = req.session.user;
 
       if (response.lstatus == true) {
@@ -50,14 +54,17 @@ module.exports = {
 
   logout: (req, res) => {
     req.session.user = null;
+    req.session.userLoggedIn = false
     res.redirect("/login");
   },
 
   getShop: async (req, res) => {
     let shop = await userHelpers.getShop();
+    user = req.session.user;
+     let count = await userHelpers.countCart(user._id)
      user = req.session.user;
 
-    res.render("user/shop", { layout: "Layout", shop, user });
+    res.render("user/shop", { layout: "Layout", shop, user ,count});
   },
   getSingleproduct: async (req, res) => {
       let product = await userHelpers.viewSingleproduct(req.params.id);
@@ -99,15 +106,21 @@ module.exports = {
 
     getAddress: async (req,res) =>{
      //console.log(req.body,"rrrrrrrrrrrrrrrrrrrrrrrrrrrrr"); 
+        user=req.session.user._id
+         console.log(user,'sesssionnnnnnnnn');
+        let address = await userHelpers.viewAddress(user)
 
-      res.render("user/accountPage",{layout:"Layout"})
+      res.render("user/accountPage",{layout:"Layout", address})
     },
 
     postAddress: async (req,res) =>{
       console.log(req.body,"rrrrrrrrrrrrrrrrrrrrrrrrrrrrr"); 
- 
-
-     },
-
-
+      let address=req.session.user
+      console.log(req.session.user._id,"777777777");
+      await userHelpers.addAddress(req.body,req.session.user._id.toString()).then((response)=>{
+        console.log(response,"ooooo");
+        res.redirect("/address",{layout:"Layout"})
+      })
+    
+    }
 };

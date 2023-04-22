@@ -26,7 +26,7 @@ module.exports = {
 
   logout: (req,res) =>{
     req.session.admin=null
-    res.redirect("/login");
+    res.redirect("/admin/");
   },
     
   getstatusproductList: (req,res) => {

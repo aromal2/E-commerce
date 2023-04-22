@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userControllers/userControllers');
 //const userControllers = require('../controllers/userControllers');
+const middleware = require('../middleware/userMiddleware')
 
 /* GET home page. */
 router.get('/',userController.getHomePage)
@@ -19,7 +20,7 @@ router.post('/signup',userController.postSignuppage)
 router.get('/logout',userController.logout)
 
 
-router.get('/shop',userController.getShop)
+router.get('/shop', middleware.userauth, userController.getShop)
 
  router.get('/singleproductView/:id',userController.getSingleproduct)
 
@@ -27,11 +28,16 @@ router.get('/shop',userController.getShop)
 
 router.post('/cart/:id',userController.addtoCart)
 
-router.get("/viewCart",userController.viewCart)
+router.get("/viewCart",middleware.userauth, userController.viewCart)
 
-router.get("/address",userController.getAddress)
+router.get("/address",middleware.userauth, userController.getAddress)
 
 router.post("/address",userController.postAddress)
+
+//router.get("/editAddress",middleware.userauth,userController.editAddress)
+
+
+
 
 
 
