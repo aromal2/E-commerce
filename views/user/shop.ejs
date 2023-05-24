@@ -1,12 +1,73 @@
 <main class="main">
 <section class="mt-50 mb-50">
     <div class="container">
+      <div class="col-lg-12">
+        <div class="shop-product-fillter">
+          
+          
+
       <div class="row flex-row-reverse">
-        <div class="col-lg-9">
-          <div class="row product-grid-3">
+       
+        <div class="col-lg-9 mx-auto">
+          <div class="sort-by-product-area mt-3">
+            <form id="search-form">
+              <input type="text" id="search-input" name="query" placeholder="Search...">
+              <button type="submit">Search</button>
+            </form>
+        
+          
+              
+               
+              <div class="sort-by-cover mr-10 mb-sm-5 align-items-left">
+                  <form id="category">
+                   <div class="sort-by-product-wrap">
+                        <div class="sort-by">
+                            <span><i class="fi-rs-apps"></i>Category</span>
+                        </div>
+                       
+                     <div>
+                     
+                      <select id="myCategory" onchange="category()">
+                        <option value="MEN" >Men</option>
+                        <option value="WOMEN">Women</option>
+                        <option value="UNISEX">Unisex</option>
+                        
+                       </select>
+                     </div>
+                   </div>
+
+                  </form>
+              </div>
+
+                 <div class="sort-by-cover">
+                  <form id="sort" >
+                   <div class="sort-by-product-wrap">
+                       <div class="sort-by">
+                    
+                        <span><i class="fi-rs-apps-sort"></i>Sort by:</span>
+                        </div>
+                       <div>
+                       <select id="myFilter" onchange="filterProducts()">
+                        <option value="featured" >Featured</option>
+                        <option value="low-to-high">Price: Low to High</option>
+                        <option value="high-to-low">Price: High to Low</option>
+                        <option value="release-date">Release Date</option>
+                        <option value="avg-rating">Avg. Rating</option>
+                       </select>
+                     </div>
+                   </div>
+                 
+                
+                 </form>
+                </div>
+                
+            </div> 
+        
+          <div class="row product-grid-3" id="product-loop">
+          
             <% shop.forEach(function(shop) { %>
 
-            <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+            <div class="col-lg-4 col-md-4 col-12 col-sm-6" >
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
@@ -38,17 +99,18 @@
                         </div>
                         <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
                         <div class="rating-result" title="90%">
-                            <span>
+                            <!-- <span>
                                 <span>95%</span>
-                            </span>
+                            </span> -->
                         </div>
                         <div class="product-price">
 
-                            <span class="old-price"><%=shop.category%></span>
+                           <%=shop.category%>
                         </div>
-                        <div class="product-price">
 
-                            <span class="old-price">$<%=shop.Price%></span>
+                        <div class="product-price">
+            
+                          ₹<%=shop.Price%>
                         </div>
                         <div class="product-action-1 show">
                             <button aria-label="Add To Cart" class="action-btn hover-up" onclick="addtoCart('<%-shop._id%>')"><i class="fi-rs-shopping-bag-add"></i></button>
@@ -65,12 +127,13 @@
             <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
               <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-start">
-                  <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                  <li class="page-item"><a class="page-link" href="#">02</a></li>
-                  <li class="page-item"><a class="page-link" href="#">03</a></li>
-                  <li class="page-item"><a class="page-link dot" href="#">...</a></li>
-                  <li class="page-item"><a class="page-link" href="#">16</a></li>
-                  <li class="page-item"><a class="page-link" href="#"><i class="fi-rs-angle-double-small-right"></i></a></li>
+                  <% for(let i=1;i<=pages;i++){%>
+                  <li class="page-item active">
+                    <a class="page-link" href="/shop?i=<%=i %>"><%=i %></a>
+                  </li>
+                  <%}%>
+                
+                  
                 </ul>
               </nav>
             </div>
@@ -79,6 +142,7 @@
       </div>
   </section>
 </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   function addtoCart(productId)
   {
@@ -87,11 +151,247 @@
       method:"post",
 
       success:(response)=>{
-        if(response.status) {
+          Swal.fire({
+            title:'Added to Cart',
+            text:'product added successfully',
+            icon:'success',
+            timer:5000
+          })
 
-        }
+        
       }
     })
   }
+
+
+function filterProducts(){
+  // let categor = document.getElementById("myFilter").options[document.getElementById("myFilter").selectedIndex].value;
+  let categor = document.getElementById("myFilter").value;
+  let productloop=document.getElementById("product-loop")
+  
+    console.log('varfarrs',categor);
+    $.ajax({
+      type: 'get',
+      url: `/sort/${categor}`,
+   
+      success: function(response) {
+
+        console.log(response);
+        console.log(productloop);
+        let loop = ''
+        for (let i = 0; i < response.length; i++) {
+                      loop+=`  <div class="col-lg-4 col-md-4 col-12 col-sm-6" >
+              <div class="product-cart-wrap mb-30">
+                <div class="product-img-action-wrap">
+                  <div class="product-img product-img-zoom">
+                    <a href="/singleproductView/${response[i]._id}">
+                      <img class="default-img" src="/productImages/${response[i].image[0]}" alt="">
+                      <img class="hover-img" src="/productImages/${response[i].image[0]}" alt="">
+                    </a>
+                  </div>
+                  <div class="product-action-1">
+                  
+
+
+                  </div>
+                  <div class="product-badges product-badges-position product-badges-mrg">
+                   
+                  </div>
+                </div>
+
+
+                
+                    <div class="product-content-wrap">
+                        <div class="product-category">
+                            <a href="shop-grid-right.html">${response[i].category}</a>
+                        </div>
+                        <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
+                        <div class="rating-result" title="90%">
+                            <span>
+                                <span>95%</span>
+                            </span>
+                        </div>
+                        <div class="product-price">
+
+                          ${ response[i].category}
+                        </div>
+                        <div class="product-price">
+
+                          ₹${response[i].Price}
+                        </div>
+                        <div class="product-action-1 show">
+                            <button aria-label="Add To Cart" class="action-btn hover-up" onclick="addtoCart('${response[i]._id}')"><i class="fi-rs-shopping-bag-add"></i></button>
+                        </div>
+                    </div>
+                
+
+
+              </div>
+              </div>`
+        }
+        productloop.innerHTML = loop
+        
+      },
+      error: function(err) {
+        
+      }
+    });
+
+}
+
+function category()
+{
+  let categorys=document.getElementById("myCategory").value
+  let productloop=document.getElementById("product-loop")
+  
+  $.ajax({
+      type: 'get',
+      url: `/sortCategory/${categorys}`,
+   
+      success: function(category) {
+        console.log(category,'------------');
+        let loops=''
+        for(let i=0; i< category.length;i++)
+        {
+          loops+=`  <div class="col-lg-4 col-md-4 col-12 col-sm-6" >
+              <div class="product-cart-wrap mb-30">
+                <div class="product-img-action-wrap">
+                  <div class="product-img product-img-zoom">
+                    <a href="/singleproductView/${category[i]._id}">
+                      <img class="default-img" src="/productImages/${category[i].image[0]}" alt="">
+                      <img class="hover-img" src="/productImages/${category[i].image[0]}" alt="">
+                    </a>
+                  </div>
+                  <div class="product-action-1">
+                  
+
+
+                  </div>
+                  <div class="product-badges product-badges-position product-badges-mrg">
+                   
+                  </div>
+                </div>
+
+
+                
+                    <div class="product-content-wrap">
+                        <div class="product-category">
+                            <a href="shop-grid-right.html">${category[i].category}</a>
+                        </div>
+                        <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
+                        <div class="rating-result" title="90%">
+                            <span>
+                                <span>95%</span>
+                            </span>
+                        </div>
+                        <div class="product-price">
+
+                          ${ category[i].category}
+                        </div>
+                        <div class="product-price">
+
+                          ₹${category[i].Price}
+                        </div>
+                        <div class="product-action-1 show">
+                            <button aria-label="Add To Cart" class="action-btn hover-up" onclick="addtoCart('${category[i]._id}')"><i class="fi-rs-shopping-bag-add"></i></button>
+                        </div>
+                    </div>
+                
+
+
+              </div>
+              </div>`
+        }
+       productloop.innerHTML= loops
+        },
+
+      })
+   
+    }
+    
+  
+
+
+$(function() {
+  $('#search-form').submit(function(event) {
+    event.preventDefault(); // Prevent the form from submitting normally
+
+    const query = $('#search-input').val(); // Get the search query
+    let productloop=document.getElementById("product-loop")
+
+    $.ajax({
+      type: 'POST',
+      url: '/search',
+      data: { query: query },
+      success: function(results) {
+      
+let loopss=''
+for (let i = 0; i < results.length; i++) {
+                      loopss+=`  <div class="col-lg-4 col-md-4 col-12 col-sm-6" >
+              <div class="product-cart-wrap mb-30">
+                <div class="product-img-action-wrap">
+                  <div class="product-img product-img-zoom">
+                    <a href="/singleproductView/${results[i]._id}">
+                      <img class="default-img" src="/productImages/${results[i].image[0]}" alt="">
+                      <img class="hover-img" src="/productImages/${results[i].image[0]}" alt="">
+                    </a>
+                  </div>
+                  <div class="product-action-1">
+                  
+
+
+                  </div>
+                  <div class="product-badges product-badges-position product-badges-mrg">
+                   
+                  </div>
+                </div>
+
+
+                
+                    <div class="product-content-wrap">
+                        <div class="product-category">
+                            <a href="shop-grid-right.html">${results[i].category}</a>
+                        </div>
+                        <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
+                        <div class="rating-result" title="90%">
+                            <span>
+                                <span>95%</span>
+                            </span>
+                        </div>
+                        <div class="product-price">
+
+                          ${ results[i].category}
+                        </div>
+                        <div class="product-price">
+
+                          ₹${results[i].Price}
+                        </div>
+                        <div class="product-action-1 show">
+                            <button aria-label="Add To Cart" class="action-btn hover-up" onclick="addtoCart('${results[i]._id}')"><i class="fi-rs-shopping-bag-add"></i></button>
+                        </div>
+                    </div>
+                
+
+
+              </div>
+              </div>`
+        }
+        productloop.innerHTML = loopss
+        
+
+    
+
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+});
+
+
+
+
 </script>
+
   

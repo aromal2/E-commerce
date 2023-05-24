@@ -1,3 +1,4 @@
+
 <!-- <!DOCTYPE html>
 <html class="no-js" lang="en"> -->
 
@@ -419,15 +420,15 @@
     </div> -->
     <main class="main">
         <div class="page-header breadcrumb-wrap">
-            <div class="container">
+            <!-- <div class="container">
                 <div class="breadcrumb">
                     <a href="index.html" rel="nofollow">Home</a>
                     <span></span> Pages
                     <span></span> Account
                 </div>
-            </div>
+            </div> -->
         </div>
-        <section class="pt-150 pb-150">
+        <section class="pt-150 pb-150 mt-2">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 m-auto">
@@ -448,20 +449,21 @@
                                             <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
+                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Add an Address</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="page-login-register.html"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                            <a class="nav-link" href="/logout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
+                            
                             <div class="col-md-8">
                                 <div class="tab-content dashboard-content">
                                     <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5 class="mb-0">Hello Rosie! </h5>
+                                                <h5 class="mb-0">Hello  </h5>
                                             </div>
                                             <div class="card-body">
                                                 <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
@@ -473,43 +475,56 @@
                                             <div class="card-header">
                                                 <h5 class="mb-0">Your Orders</h5>
                                             </div>
-                                            <div class="card-body">
-                                                <div class="table-responsive">
-                                                    <table class="table">
+                                            <div class="card-body" width="100">
+                                                <form id="order">
+                                                 <div class="table-responsive">
+                                                    <table class="table" width="200">
                                                         <thead>
                                                             <tr>
-                                                                <th>Order</th>
+                                                                <th>Index</th>
+                                                                <th>Order Id</th>
                                                                 <th>Date</th>
                                                                 <th>Status</th>
                                                                 <th>Total</th>
+                                                                <th></th>
                                                                 <th>Actions</th>
+                                                                
                                                             </tr>
                                                         </thead>
+                                                        <%orderList.forEach(function(order,index) {%>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>#1357</td>
-                                                                <td>March 45, 2020</td>
-                                                                <td>Processing</td>
-                                                                <td>$125.00 for 2 item</td>
-                                                                <td><a href="#" class="btn-small d-block">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>#2468</td>
-                                                                <td>June 29, 2020</td>
-                                                                <td>Completed</td>
-                                                                <td>$364.00 for 5 item</td>
-                                                                <td><a href="#" class="btn-small d-block">View</a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>#2366</td>
-                                                                <td>August 02, 2020</td>
-                                                                <td>Completed</td>
-                                                                <td>$280.00 for 3 item</td>
-                                                                <td><a href="#" class="btn-small d-block">View</a></td>
-                                                            </tr>
+                                                            <td><%=index+1%></td>
+                                                            <td>arrow<%=order.item._id%></td>
+                                                            <td><%=order.item.createdAt.toLocaleString() %></td>
+                                                            <td><%=order.item.paymentStatus%></td>
+                                                            <td>₹<%=order.item.totalPrice%></td>
+                                                            <td><%=order.item.paymentMethod%></td>
+                                                            
+                            
+                                                          
+                                                             <td> <div class="col-md-20">
+                                                                <a href='/orderDetails/<%=order.item._id%>'>view</a>
+                                                             
+                                                           
+
+                                                            <!-- <button type="button" class="btn btn-fill-out submit btn-info"  onclick="cancelOrder('<%= order._id%>','<%= order.item._id%>')" name="submit" >Cancel</button> -->
+                                                              </div></tbody></td>
+                                                                <!-- <button type="button" class="btn btn-fill-out submit"  onclick="cancelOrder('<%= order._id%>','<%= order.item._id%>')" name="submit" >Cancel</button>
+                                                            </div></tbody></td> -->
+                                                           <!-- <td> <div class="col-md-1">
+                                                                <button type="button" class="btn btn-fill-out submit"  onclick="returnOrder('<%= order._id%>','<%= order.item._id%>')" name="submit" >Return</button>
+                                                           </div></td> -->
+                                                            
+                                                            <!-- <td> <div class="col-md-12">
+
+                                                                
+                                                            </div></tbody></td> -->
+                                                            
                                                         </tbody>
+                                                            <%}) %>
                                                     </table>
-                                                </div>
+                                                  </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -540,79 +555,104 @@
                                     </div>
                                     <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
 
-                                        <ul>
-                                            <% address?.forEach(function(address) { %>
-                                                <div class="row">
-                                        
-                                        
-                                                    <div class="col-lg-6">
-                                                        <div class="card">
-                                                         
-                                                            <div class="card-body">
-                                                                <address><br>
-                                                                    <%=address.item.email%> <br>FL 34249 USA <br>Phone: 1.941.227.4444</address>
-                                                                <p>Sarasota</p>
-                                                                <a href="#" class="btn-small">Edit</a>
+                                        <% if (address) { %>
+                                            <div class="card-header">
+                                                <h5> Address</h5>
+                                            </div>
+                                            <!-- code to be executed if the condition is true -->
+                                            <ul>
+                                                <% address.forEach(function(address) { %>
+                                                    <div class="row">
+                                            
+                                            
+                                                        <div class="col-lg-6">
+                                                            <div class="card">
+                                                             
+                                                                <div class="card-body">
+                                                                    <address><br> <%=address?.item.email%> </br>
+                                                                        <br><%=address?.item.street%> <br> <%=address.item.apartment%><br> <%=address.item.city%>
+                                                                    <br><%=address?.item.state%></br><br><%=address.item.pincode%></br>
+                                                                       </address>
+                                                                    <td>
+                                                                        <a href="/editAddress/<%=address.item._id%>"><button type="button"   class="btn btn-info btn-sm">edit</button></a>
+                                                                      </td>
+                                                                    
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            <% }); %>
-                                          </ul>
+                                                <% }); %>
+                                              </ul>
+                                          <% } else { %>
+                                            <!-- code to be executed if the condition is false -->
+                                          <% } %>
+                                          
+
+                                      
                                           
                                      
                                     </div>
                                     <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Account Details</h5>
+                                                <h5>Add An Address</h5>
                                             </div>
                                             <div class="card-body">
-                                                <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p>
+                                                
                                                 <form id="form" >
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label>First Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="name" type="text">
+                                                            <input type="text" class="form-control square"
+                                                            id="firstname" name="Firstname" type="text">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>Last Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="phone">
+                                                            <input required="" class="form-control square" name="lastname"  id="lastname">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                        
                                                         <div class="form-group col-md-12">
                                                             <label>Email <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="email" type="email">
+                                                            <input required="" class="form-control square" name="email" id="email">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>Mobile no<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="mobileno" type="mobileno">
+                                                            <input required="" class="form-control square" name="mobileno" id="mobileno">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>Street<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="street" type="street">
+                                                            <input required="" class="form-control square" name="street" id="street">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>Apartment<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="apartment" type="apartment">
+                                                            <input required="" class="form-control square" name="apartment" id="apartment">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>City<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="city" type="mobileno">
+                                                            <input required="" class="form-control square" name="city" id="city">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>State<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="shopping-cart-title" type="state">
+                                                            <input required="" class="form-control square" name="state" id="state">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>Pincode<span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="pincode" type="pincode">
+                                                            <input required="" class="form-control square" name="pincode" id="pincode">
+                                                            <p id="err" class="text-danger"></p>
                                                         </div>
                                                       
                                                       
                                                       
                                                         <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-fill-out submit"  onclick="addressFunc()" name="submit" >Save</button>
+                                                            <button type="button" class="btn btn-fill-out submit"  onclick="validationFunc()" name="submit" >Save</button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -631,15 +671,189 @@
     </main>
     
    <script>
+    function validationFunc() {
+            
+        const firstname = document.getElementById('firstname')
+        const lastname=document.getElementById('lastname')
+        const email=document.getElementById('email')
+        const mobileno=document.getElementById('mobileno')
+        const street=document.getElementById('street')
+        const apartment=document.getElementById('apartment')
+        const city=document.getElementById('city')
+        const state=document.getElementById('state')
+        const pincode=document.getElementById('pincode')
+        
+        let firstnamevalue=firstname.value.trim()
+        let lastnamevalue=lastname.value.trim()
+        let emailvalue=email.value.trim()
+        let mobilevalue=mobileno.value.trim()
+        let streetvalue=street.value.trim()
+        let apartmentvalue=apartment.value.trim()
+        let cityvalue=city.value.trim()
+        let statevalue=state.value.trim()
+        let pincodevalue=pincode.value.trim()
+
+        
+
+        const error1=firstname.parentElement.querySelector('p')
+        const error2=lastname.parentElement.querySelector('p')
+
+        const error9=email.parentElement.querySelector('p')
+      
+        const error3=mobileno.parentElement.querySelector('p')
+        const error4=street.parentElement.querySelector('p')
+        const error5=apartment.parentElement.querySelector('p')
+        const error6=city.parentElement.querySelector('p')
+        const error7=state.parentElement.querySelector('p')
+        const error8=pincode.parentElement.querySelector('p')
+
+        error1.innerText=''
+        error2.innerText=''
+        error3.innerText=''
+        error4.innerText=''
+        error5.innerText=''
+        error6.innerText=''
+        error7.innerText=''
+        error8.innerText=''
+        error9.innerText=''
+       
+    let flag=1
+
+  // Check if the first name is empty
+  if (firstnamevalue == "") 
+  {
+    error1.innerText="First name must be filled out"
+    flag=2
+  }
+  else if(firstname.length<2)
+  {
+    error1.innerText="enter a valid name"
+    flag=2
+  }
+  else if (!firstnamevalue.match((/^[a-zA-Z\s]+$/)))
+  {
+    error1.innerText="enter a valid firstname"
+    flag=2
+  }
+
+  // Check if the last name is empty
+  if (lastnamevalue == "") {
+error2.innerText="Last name must be filled out"
+    flag=2
+  }else if(lastname.length<2)
+  {
+    error2.innerText="enter a valid name"
+    flag=2
+  }
+  else if (!lastnamevalue.match((/^[a-zA-Z\s]+$/)))
+  {
+    error2.innerText="enter a valid lastname"
+    flag=2
+  }
+
+
+  // Check if the email is empty and valid
+  if (emailvalue == "") {
+    error9.innerText="Email must be filled out"
+    flag=2
+  } 
+    // Regular expression to check if the email is valid
+   
+    // if(!emailvalue.match(/\S+@\S+\.\S+/),'++++++++++++');
+    // {
+    //     error9.innerText="Invalid email address"
+    //     flag=2
+    // }
+    
+    
+  
+
+  // Check if the mobile no is empty and valid
+  if (mobilevalue == "") {
+    error3.innerText="Mobile no must be filled out"
+    flag=2
+  } else {
+    // Regular expression to check if the mobile no is valid
+    if (!mobilevalue<10 && !mobilevalue >10){
+      error3.innerText="Invalid mobile no"
+      flag=2
+    }
+  }
+
+  // Check if the street is empty
+  if (streetvalue == "") {
+    error4.innerText="Street must be filled out"
+    flag=2
+  }
+
+  // Check if the apartment is empty
+  if (apartmentvalue == "") {
+    error5.innerText="Street must be filled out"
+    
+    flag=2
+  }
+
+  // Check if the city is empty
+  if (cityvalue == "") {
+    error6.innerText="city must be filled out"
+    flag=2
+  }
+
+  // Check if the state is empty
+  if (statevalue == "") {
+    error7.innerText="State must be filled out"
+    flag=2
+  }
+
+  // Check if the pincode is empty and valid
+  if (pincodevalue == "") {
+    error8.innerText="pincode must be filled out"
+    flag=2
+  } else {
+    // Regular expression to check if the pincode is valid
+    if (!pincodevalue.match(/^.{6,}$/)) {
+        error8.innerText="correct pincode must be filled out"
+      flag=2
+    }
+}  if(flag==1)
+{
+    console.log('accepted');
+    addressFunc() 
+}
+else{
+    console.log('rejected');
+}
+}
+
 
     function addressFunc()
     {
         //console.log('---------------------');
         $.ajax({
-            url:'/address',
+            url:'/accountPage',
             method:'POST',
             data: $('#form').serialize()
 
         })
     }
+
+
+  
+
+
+    // function viewDetail(userId,orderId)
+    // {
+    
+    //     console.log("...........");
+    //     $.ajax({
+    //         url:`/orderDetails?userId=${userId}&orderId=${orderId}`,
+    //         method:'get',
+
+    //     })
+    // }
+
+
+
+
+
    </script>

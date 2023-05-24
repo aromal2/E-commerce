@@ -4,7 +4,7 @@
         <div class="card-body">
           <h4 class="card-title mb-4">Admin Login</h4>
           <p id="error" class="text-danger"></p>
-          <form action="post" class="p-10 ">
+          <form  class="p-10 ">
             <div class="mb-3">
               <input class="form-control" name="email" id="email" placeholder="Email" type="text">
               <p id="error1" class="text-danger"></p>
@@ -22,7 +22,7 @@
             </div>
             <div class="mb-4">
               <button type="button" onclick="validate()" class="btn btn-primary w-100"> Login </button>
-            </div> <!-- form-group// -->
+            </div> 
           </form>
         </div>
       </div>
@@ -49,7 +49,7 @@ function validate()
     let flag=1
     if(emailValue=='')
     {
-        error1.innerText='Field is Required0'
+        error1.innerText='Field is required'
         flag = 2
     }
     if(passwordValue=='')
@@ -67,8 +67,8 @@ function validate()
 
 function submit(email,password){
   $.ajax({
-    url : "/admin",
-    method : "post",
+        url : "/admin",
+    method : "POST",
     data : {
       email : email,
       password : password

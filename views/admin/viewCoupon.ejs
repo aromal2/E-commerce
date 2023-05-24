@@ -1,0 +1,131 @@
+
+
+<section>
+    <div class="col-12 ml-2">
+      <div class="card mt-2">
+        <div class="card-header pb-0">
+          <h6>Coupon Management</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    #
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Coupon Code
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Discount Percent
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Max Discount
+                  </th>
+                  <th
+                    class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    Expiry
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% coupons.forEach((element,index)=>{ %>
+                    <tr>
+                  <td
+                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
+                  >
+                    
+                  </td>
+                  <td>
+                    <div class="d-flex px-2 py-1">
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="mb-0 text-sm"></h6>
+                        <p class="text-xs text-secondary mb-0">
+                        <%= element.couponName%>
+                        </p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm">
+                        <%= element.discountPercentage%>
+                    </h6>
+                  </td>
+                  <td>
+                    <h6 class="mb-0 text-sm"> <%= element.maxDiscountValue%></h6>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">
+                        <%= element.expiry .toLocaleDateString()%>
+                    </p>
+                  </td>
+                  <td class="align-middle text-center text-sm">
+                    <div class="ms-auto text-end">
+                      <a
+                        class="btn btn-primary text-gradient px-3 mb-0"
+                        href="javascript:;"
+                        onclick="deleteCoupon('<%= element._id%>')"
+                        ><i class="far fa-trash-alt me-2"></i>Delete</a
+                      >
+                    </div>
+                  </td>
+                </tr>
+                <%})%>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    function deleteCoupon(couponId) {
+      Swal.fire({
+      title: "Are you sure?",
+      text: "You want to cancel the order",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Deleted!",
+          "Your imaginary file has been deleted.",
+          "success"
+        );
+
+
+            $.ajax({
+              url: "/admin/deleteCoupon" ,
+              data:{
+                coupon:couponId
+              },
+              method: "DELETE",
+              success: (response) => {
+
+            location.reload(response)
+              },
+            });
+    
+          }else {
+        Swal.fire("Cancel");
+      }
+    });
+  }
+    
+    
+  </script>

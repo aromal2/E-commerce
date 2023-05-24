@@ -1,0 +1,188 @@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<div class="main_container m-5">
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn_print m-3" onclick="downloadAsPDF()" value="Download as PDF">Download as PDF</button>
+
+    
+      <button type="button" class="btn btn-primary btn_print m-3" onclick="export_data()"
+      value="Export to excel">Download as Excel</button>
+  
+    </div>
+  
+      
+     
+  <div style="margin-top: -5em;">
+  <form action="/admin/salesReport" method="POST" id="salesReport">
+  
+  <div> <input type="date" name="startdate" id="startdate" ></div>
+  <span id="date-error1" style="display: none; color: red;">Invalid Start Date</span>
+   
+    <div><input type="date" name="enddate" id="enddate" ></div>
+    <span id="date-error2" style="display: none; color: red;">Invalid End Date</span>
+    <br>
+  
+    <button class="btn btn-primary" type="submit" id="submit-button">submit</button>
+  
+  </form>
+  </div> 
+     
+     
+      </div>
+  
+  
+  
+  <table class="table table-striped" id="container_content">
+      <thead>
+        <tr>
+            <th scope="col">SI No</th>
+          <th scope="col">OrderId</th>
+          <th scope="col">user Name</th>
+           <!-- <th scope="col">Item Name</th>  -->
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          
+          <th scope="col">Payment Method</th>
+          <th scope="col">Delivered Date</th>
+        </tr>
+      </thead>
+      <tbody>
+          <% orderData.forEach((order,index)=>{%>
+        <tr>
+          
+          <td><%=index+1%></td>
+           <td><%=order.orders._id%></td>
+          <td><%=order. orders.fname%></td>
+          <!-- <td><%=order.orders.productsDetails.productName%></td> -->
+         <td><%=order.orders.totalQuantity%></td>
+          <td><%=order.orders.totalPrice%></td>
+          <td><%=order.orders.paymentMethod%></td>
+          <td><%=order.orders.createdAt.toLocaleDateString()%></td>
+          <td></td>
+         
+  
+        </tr>
+        <%})%>
+       
+      </tbody>
+    </table>
+  
+  </div>
+  <br>
+  <br>
+  
+  
+  </div>
+  
+  
+  
+  
+  <script>
+  
+  
+     let startDate = document.getElementById('startdate')
+     let endDate = document.getElementById('enddate')
+     let error1 = document.getElementById('date-error1')
+     let error2 = document.getElementById('date-error2')
+  
+     let submitButton = document.getElementById('submit-button');
+  
+  // Disable submit button on page load
+  submitButton.disabled = true;
+  
+  // Add event listeners to start date and end date inputs
+  startDate.addEventListener("input", validateDates);
+  endDate.addEventListener("input", validateDates);
+  
+  function validateDates() {
+    const selectedStartDate = new Date(startDate.value);
+    const selectedEndDate = new Date(endDate.value);
+    const today = new Date();
+  
+    if (selectedStartDate < today) {
+      error1.style.display = "none";
+    } else {
+      error1.style.display = "inline";
+    }
+  
+    if (selectedEndDate < today) {
+      error2.style.display = "none";
+    } else {
+      error2.style.display = "inline";
+    }
+  
+    // Check if either error is displayed or if end date is before start date
+    if (error1.style.display === "inline" || error2.style.display === "inline" || selectedEndDate < selectedStartDate) {
+      submitButton.disabled = true;
+    } else {
+      submitButton.disabled = false;
+    }
+  }
+  
+  
+ 
+  function export_data() {
+          let data = document.getElementById('container_content');
+          var fp = XLSX.utils.table_to_book(data, { sheet: 'vishal' });
+          XLSX.write(fp, {
+              bookType: 'xlsx',
+              type: 'base64'
+          });
+          XLSX.writeFile(fp, 'test.xlsx');
+        }
+
+        function downloadAsPDF() {
+  const element = document.getElementById('container_content');
+  html2pdf().from(element).save();
+}
+
+  
+
+
+
+
+    
+  
+  
+  
+  
+  </script>
+  
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px 0;
+      font-size: 1em;
+      min-width: 400px;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    table thead tr {
+      background-color: #088178;
+      color: #ffffff;
+      text-align: left;
+      font-weight: bold;
+    }
+    table th,
+    table td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    table tbody tr {
+      border-bottom: 1px solid #ddd;
+    }
+    table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+    table tbody tr:last-of-type {
+      border-bottom: 2px solid #3c8dbc;
+    }
+  </style>
+

@@ -35,21 +35,42 @@
                <td><%=index+1 %></td> 
                 <td><%=product.productName %></td>
                <td><%= product.description %> </td> 
-               <td><%= product.Price %></td>
+               <td>₹<%= product.Price %></td>
                <td><%= product.category %></td> 
                <td><%= product.quantity %></td>
-<td><img style="border-radius:0;height: 100px;width: 100px;" src="/productImages/<%= product.image[0] %>" alt="img"></td>
-               <td>
-                <a href="/admin/editProduct/<%=product._id %>"><button class="btn btn-info btn-sm">edit</button></a>
-              </td>
+               <td><img style="border-radius:0;height: 100px;width: 100px;" src="/productImages/<%= product.image[0] %>" alt="img"></td>
               
+              <td>
+                   
+                <a href="/admin/editProduct?id=<%=product._id%>"  class="btn btn-dark btn-sm">edit</a>
+            </td>
+
+              <% if (product.unlist) { %>
+              <td> 
+                <button type="button" onclick="doList('<%=product._id %>')">list</button>
+              </td>
+              <% }
+              else {%>
               <td> 
               <button type="button" onclick="doUnlist('<%=product._id %>')">unlist</button>
             </td>
+            <%} %>
                </tr>
+              
+              
                <% }
                )
                %>
+
+               <div class="pagination-area mt-15 mb-sm-5 mb-lg-0">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-start">
+                    <% for(let i=1;i<=pages;i++){%>
+                    <li class="page-item active">
+                      <a class="page-link" href="/viewProduct?i=<%=i %>"><%=i %></a>
+                    </li>
+                    <%}%>
+
 
                
 
@@ -69,6 +90,19 @@
     console.log(userId,';;;');
     $.ajax({
       url : '/admin/unlistProduct/'+userId,
+      method : 'GET',
+      success:(response)=>{
+        if(response){
+          location.href = '/admin/viewProduct'
+        }
+      }
+    })
+   }
+
+   function doList(userId){
+    console.log(userId,';;;');
+    $.ajax({
+      url : '/admin/listProduct/'+userId,
       method : 'GET',
       success:(response)=>{
         if(response){

@@ -1,0 +1,81 @@
+
+    <div class="screen-overlay"></div>
+    
+    <main class="main-wrap mx-auto">
+       
+        <section class="content-main">
+            <div class="content-header">
+                <div ms-5>
+                    <h2 class="content-title card-title ms-1">Categories </h2>
+                    <p class="ms-1`">Add, edit or delete a category</p>
+                </div>
+                <div>
+                    <input type="text" placeholder="Search Categories" class="form-control bg-white">
+                </div>
+            </div>
+            <div class="card ms-1">
+                <div class="card-body ms-6">
+                    <div class="row">
+       <div class="col-md-9">
+      <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">
+                        
+                    </th>
+                    <th>Index</th>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Sub-category</th>
+                    
+                    <!-- <th>Order</th> -->
+                    <th class="text-end">Action</th>
+
+                </tr>
+
+                <%  Categories.forEach(function(category,index)
+                { %>
+                  <tr>
+                    <td></td>
+                 <td><%=index+1 %></td> 
+                  <td><%=category._id %></td>
+                 <td><%= category.CategoryName %> </td> 
+                 <td><%= category.subCategory %></td>
+                 <td>
+                   
+                    <a href="/admin/categoryEdit?id=<%=category._id%>"  class="btn btn-dark btn-sm">edit</a>
+                </td>
+                
+                
+                    <td>
+                     <a href="/admin/unlistCategory/<%=category._id %>" class="btn btn-dark btn-sm" >unlist</a>
+                    </td>
+
+                 </tr>
+                 <% }
+                )
+                %>
+                     
+
+            </thead>
+            <tbody>
+               
+             
+               
+               
+              
+               
+               
+            </tbody>
+        </table>
+     </div>
+      </div>
+
+     </div> <!-- .row // -->
+       </div> <!-- card body .// -->
+       </div> <!-- card .// -->
+        </section> <!-- content-main end// -->
+      <script>
+    
+        </script>

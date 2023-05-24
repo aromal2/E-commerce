@@ -1,0 +1,282 @@
+<section class="h-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px">
+          <div class="card-header px-4 py-5">
+            <h5 class="text-muted mb-0">
+              Thanks for your Order, <span style="color: #b00734"></span>!
+            </h5>
+            <input type="text" id="invoiceNumber" />
+            <p style="display: none" id="aromal">
+              <%= JSON.stringify(locals.data) %>
+            </p>
+            <% if ( viewsOrderdetails[0].item.orderStatus==='Delivered') {%>
+            <button class="btn btn-suucess mt-4" onclick="downloadInvoice()">
+              Download invoice
+            </button>
+            <%} %>
+          </div>
+
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #700220">Receipt</p>
+              <!-- <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p> -->
+            </div>
+
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ProductName</th>
+
+                    <th>Quantity</th>
+
+                    <th>ProductPrice</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.forEach(function(product) { %>
+
+                  <tr>
+                    <td><%=product.productName%></td>
+                    <td class="text-center"><%=product.quantity%></td>
+                    <td class="text-center">₹<%=product.productPrice%></td>
+                  </tr>
+
+                  <% }); %>
+                  <tr>
+                    <td class="text-center" colspan="2">Total</td>
+                    <td class="text-center">
+                      ₹<%=viewsOrderdetails[0].item.totalPrice%>
+                    </td>
+                  </tr>
+                </tbody>
+
+                <tbody></tbody>
+              </table>
+
+              <!-- <ul>
+                     
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                        
+                         <td>class="text-muted mb-0"></td>
+                         <td> class="text-muted mb-0"></td>
+                          <td> class="text-muted mb-0"></td>
+                          
+                        </div>
+                      </ul> -->
+            </div>
+
+            <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1" />
+            <div class="row d-flex align-items-center">
+              <div class="col-md-2">
+                <p class="text-muted mb-0 small">Track Order</p>
+              </div>
+              <!-- <div class="col-md-10">
+                      <div class="progress" style="height: 6px; border-radius: 16px;">
+                        <div id="progress-bar" class="progress-bar" role="progressbar" style="border-radius: 16px; background-color: #a8729a;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <div class="d-flex justify-content-around mb-1">
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Packed & ready to ship</p>
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Out for delivery</p>
+                        <p class="text-muted mt-1 mb-0 small ms-xl-5">Delivered</p>
+                      </div>
+                    </div> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between pt-2">
+          <p class="fw-bold mb-0">Address Details</p>
+
+          <p class="text-muted mb-0">
+            <span class="fw-bold me-4">Total</span
+            >₹<%=viewsOrderdetails[0].item.totalPrice%>
+          </p>
+        </div>
+
+        <div class="d-flex justify-content-between pt-2">
+          <p class="text-muted mb-0">
+            <%=getAddress[0].shippingAddress.fname%>
+            <%=getAddress[0].shippingAddress.lname%>
+          </p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <p class="text-muted mb-0">
+            <%=getAddress[0].shippingAddress.street%>,
+          </p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <p class="text-muted mb-0">
+            <%=getAddress[0].shippingAddress.apartment%>,<%=getAddress[0].shippingAddress.city%>
+          </p>
+          <p class="text-muted mb-0"></p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <p class="text-muted mb-0">
+            <%=getAddress[0].shippingAddress.state%>,<%=getAddress[0].shippingAddress.pincode%>
+          </p>
+          <p class="text-muted mb-0"></p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+        </div>
+        <div class="d-flex justify-content-between pt-2">
+          <p class="text-muted mb-0">
+            Mobile Number :<%=viewsOrderdetails[0].item.mobile%>
+          </p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <p class="text-muted mb-0">
+            Payment Method : <%=viewsOrderdetails[0].item.paymentMethod%>
+          </p>
+          <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p> -->
+        </div>
+
+        <div class="d-flex justify-content-between mb-5">
+          <p class="text-muted mb-0"></p>
+          <p class="text-muted mb-0">
+            <span class="fw-bold me-4">Delivery Charges</span> Free
+          </p>
+        </div>
+      </div>
+
+      <style>
+        .red-text {
+          color: red;
+        }
+
+        .blue-text {
+          color: grey;
+        }
+      </style>
+
+      <div
+        class="card-footer border-0 px-4 py-5"
+        style="
+          background-color: #fff;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        "
+      >
+        <% if ( viewsOrderdetails[0].item.orderStatus==='Delivered') {%>
+        <button
+          class="btn-info btn-lg"
+          onclick="returnOrder('<%= viewsOrderdetails[0]._id %>','<%= viewsOrderdetails[0].item._id %>')"
+        >
+          Return
+        </button>
+        <% } else if (viewsOrderdetails[0].item.orderStatus==='cancelled') { %>
+        <p>Order is <span class="blue-text">Cancelled</span></p>
+        <% } else if (viewsOrderdetails[0].item.orderStatus==='returned') { %>
+        <p>Order is <span class="red-text">Returned</span></p>
+        <% } else{%>
+        <button
+          class="btn-info btn-lg"
+          onclick="cancelOrder('<%= viewsOrderdetails[0]._id %>','<%= viewsOrderdetails[0].item._id %>')"
+        >
+          Cancel
+        </button>
+        <%} %>
+      </div>
+      <h5
+        class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
+      >
+        Total paid: <span class="h2 mb-0 ms-2">></span>
+      </h5>
+    </div>
+  </div>
+
+</section>
+<script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+
+<script>
+  function cancelOrder(commonId, orderId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to cancel the order",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Deleted!",
+          "Your imaginary file has been deleted.",
+          "success"
+        );
+
+        $.ajax({
+          url: "/getOrdercancel",
+          data: {
+            common: commonId,
+            order: orderId,
+          },
+          method: "POST",
+          success: (response) => {
+            location.reload();
+          },
+        });
+      } else {
+        Swal.fire("Cancel");
+      }
+    });
+  }
+
+  function returnOrder(commonId, orderId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to cancel the order",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Yes",
+      cancelButtonText: "No",
+      allowEscapeKey: false,
+      allowOutsideClick: false,
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "Deleted!",
+          "Your imaginary file has been deleted.",
+          "success"
+        );
+
+        $.ajax({
+          url: "/returnOrder",
+          data: {
+            common: commonId,
+            order: orderId,
+          },
+          method: "POST",
+          success: (response) => {
+            location.reload();
+          },
+        });
+      } else {
+        Swal.fire("Cancel");
+      }
+    });
+  }
+
+  function downloadInvoice() {
+    //Import the library into your project
+    let data = JSON.parse(document.getElementById("aromal").innerHTML);
+    console.log(easyinvoice);
+
+    //Create your invoice! Easy!
+    easyinvoice.createInvoice(data, function (result) {
+      //The response will contain a base64 encoded PDF file
+      console.log("PDF base64 string: ", result.pdf);
+      easyinvoice.download("invoice.pdf");
+    });
+  }
+</script>

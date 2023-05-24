@@ -9,7 +9,7 @@ module.exports=
             try{
                 let email=data.email
                 dbAdmin.admin.findOne({email:email}).then(async(admins)=>{
-                    //console.log(admins);
+                    // console.log(admins);
                     if(admins)
                     {
                         await bcrypt.compare(data.password,admins.password).then((loginTrue)=>{

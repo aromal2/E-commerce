@@ -15,19 +15,19 @@
                   <div class="row">
                     <div class="col-lg-6 mb-3">
                       <label for="product_name" class="form-label">Product Name</label>
-                      <input type="text" name="name" placeholder="Type here" class="form-control" id="name" >
+                      <input type="text" name="name" placeholder="Type here" class="form-control" id="name"  >
                       <p id="error1" class="text-danger"></p>
                     </div>
                     <div class="col-lg-6 mb-3">
                       <label for="product_brand" class="form-label">Brand</label>
-                      <input type="text" name="brand" placeholder="Type here" class="form-control" id="brand">
+                      <input type="text" name="brand" placeholder="Type here" class="form-control" id="brand"  style="text-transform:capitalize ">
                       <p id="error2" class="text-danger"></p>
                     </div>
                   </div>
   
                   <div class="mb-4">
                     <label class="form-label">Description</label>
-                    <textarea placeholder="Type here" name="description" id="description" class="form-control" rows="4"></textarea>
+                    <textarea placeholder="Type here" name="description" id="description" class="form-control" rows="4" ></textarea>
                     <p id="error3" class="text-danger"></p>
                   </div>
                   <div class="row">
@@ -43,7 +43,7 @@
                     <div class="col-lg-4">
                       <div class="mb-4">
                         <label class="form-label">Quantity</label>
-                        <input name="quantity" id="quantity" type="number" min="1" max="100" required class="form-control">
+                        <input name="quantity" id="quantity" type="number" min="1" max="100" required class="form-control" step="1" pattern="[0-9]*" inputmode="numeric" >
                         <p id="error5" class="text-danger"></p>
                       </div>
                     </div>
@@ -69,7 +69,7 @@
               <div class="card-body">
                 <div class="input-upload">
                   <img src="/imgs/theme/upload.svg" id="imgView1" alt="">
-                  <input class="form-control" name="file" onchange="viewImage1(event)" type="file">
+                  <input class="form-control" name="file" onchange="viewImage1(event)" type="file" accept="image/*">
                 </div>
               </div>
             </div> <!-- card end// -->
@@ -82,7 +82,7 @@
               <div class="card-body">
                 <div class="input-upload">
                   <img src="/imgs/theme/upload.svg" id="imgView2" alt="">
-                  <input class="form-control" name="file" onchange="viewImage2(event)" type="file">
+                  <input class="form-control" name="file" onchange="viewImage2(event)" type="file" accept="image/*">
                 </div>
               </div>
             </div> <!-- card end// -->
@@ -95,7 +95,7 @@
               <div class="card-body">
                 <div class="input-upload">
                   <img src="/imgs/theme/upload.svg" id="imgView3" alt="">
-                  <input class="form-control" name="file" onchange="viewImage3(event)" type="file">
+                  <input class="form-control" name="file" onchange="viewImage3(event)" type="file" accept="image/*">
                 </div>
               </div>
             </div> <!-- card end// -->
@@ -108,7 +108,7 @@
               <div class="card-body">
                 <div class="input-upload">
                   <img src="/imgs/theme/upload.svg" id="imgView4" alt="">
-                  <input class="form-control" name="file" onchange="viewImage4(event)" type="file">
+                  <input class="form-control" name="file" onchange="viewImage4(event)" type="file" accept="image/*">
                 </div>
               </div>
             </div> <!-- card end// -->
@@ -123,6 +123,63 @@
   </div>
   
   <script>
+ // Get the form and all the form inputs
+const myForm = document.getElementById("myForm");
+const nameInput = document.getElementById("name");
+const brandInput = document.getElementById("brand");
+const descriptionInput = document.getElementById("description");
+const priceInput = document.getElementById("price");
+const quantityInput = document.getElementById("quantity");
+
+// Listen for the form submit event
+myForm.addEventListener("submit", function(event) {
+  // Prevent the form from submitting
+  event.preventDefault();
+
+  // Validate the form inputs
+  let isValid = true;
+  
+  if (nameInput.value.trim() === "") {
+    isValid = false;
+    document.getElementById("error1").textContent = "Please enter a product name";
+  } else {
+    document.getElementById("error1").textContent = "";
+  }
+  
+  if (brandInput.value.trim() === "") {
+    isValid = false;
+    document.getElementById("error2").textContent = "Please enter a brand name";
+  } else {
+    document.getElementById("error2").textContent = "";
+  }
+  
+  if (descriptionInput.value.trim() === "") {
+    isValid = false;
+    document.getElementById("error3").textContent = "Please enter a description";
+  } else {
+    document.getElementById("error3").textContent = "";
+  }
+  
+  if (priceInput.value.trim() === "") {
+    isValid = false;
+    document.getElementById("error4").textContent = "Please enter a price";
+  } else {
+    document.getElementById("error4").textContent = "";
+  }
+  
+  if (quantityInput.value.trim() === "") {
+    isValid = false;
+    document.getElementById("error5").textContent = "Please enter a quantity";
+  } else {
+    document.getElementById("error5").textContent = "";
+  }
+
+  // If all inputs are valid, submit the form
+  if (isValid) {
+    myForm.submit()
+  }
+});
+
       
     </script>
   

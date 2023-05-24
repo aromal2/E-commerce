@@ -1,39 +1,42 @@
+
+
+
 <header class="header-area header-style-1 header-height-2">
   <div class="header-top header-top-ptb-1 d-none d-lg-block">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-xl-3 col-lg-4">
-          <div class="header-info">
+          <!-- <div class="header-info">
             <ul>
               <li><i class="fi-rs-smartphone"></i> <a href="#">(+01) - 2345 - 6789</a></li>
               <li><i class="fi-rs-marker"></i><a href="page-contact.html">Our location</a></li>
             </ul>
-          </div>
+          </div> -->
         </div>
         <div class="col-xl-6 col-lg-4">
           <div class="text-center">
-            <div id="news-flash" class="d-inline-block">
+            <!-- <div id="news-flash" class="d-inline-block">
               <ul>
                 <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a>
                 </li>
                 <li>Supper Value Deals - Save more with coupons</li>
                 <li>Trendy 25silver jewelry, save up 35% off today <a href="shop-grid-right.html">Shop now</a></li>
               </ul>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-xl-3 col-lg-4">
           <div class="header-info header-info-right">
             <ul>
-              <li>
+              <!-- <li>
                 <a class="language-dropdown-active" href="#"> <i class="fi-rs-world"></i> English <i class="fi-rs-angle"></i></a>
                 <!-- <ul class="language-dropdown">
                   <li><a href="#"><img src="/frontEnd/imgs/theme/flag-fr.png" alt="">Français</a>
                   </li>
                   <li><a href="#"><img src="/frontEnd/imgs/theme/flag-dt.png" alt="">Deutsch</a></li>
                   <li><a href="#"><img src="/frontEnd/imgs/theme/flag-ru.png" alt="">Pусский</a></li>
-                </ul> -->
-              </li>
+                </ul> 
+              </li> -->
               <% if(locals.user){ %>
               <li><i class="fi-rs-user"></i><%= user.name %><a></a>
               </li>
@@ -54,8 +57,9 @@
   <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
     <div class="container">
       <div class="header-wrap">
-        <div class="logo logo-width-1">
-          <a href="/"><img src="/frontEnd/imgs/theme/logo.svg" alt="logo"></a>
+        <!-- <div class="logo logo-width-1"> -->
+          <div class="header">
+          <a href="/"><img src="/public/productImages/arrow-website-favicon-black.png" ></a>
         </div>
         <div class="header-right">
           <div class="search-style-2">
@@ -73,7 +77,7 @@
                   <option>Shoes</option>
                   <option>Mother & Kids</option>
                 </select> -->
-              <input type="text" placeholder="Search for items...">
+              <!-- <input type="text" placeholder="Search for items..."> -->
             </form>
           </div>
           <div class="header-action-right">
@@ -81,16 +85,16 @@
               <div class="header-action-icon-2">
                 <a href="shop-wishlist.html">
                   <img class="svgInject" alt="Evara" src="/frontEnd/imgs/theme/icons/icon-heart.svg">
-                  <span class="pro-count blue">4</span>
+                  <!-- <span class="pro-count blue"></span> -->
                 </a>
               </div>
               <div class="header-action-icon-2">
                 <!-- <% if (locals.user) { %> -->
                   <a class="mini-cart-icon" href="/viewCart">
                     <img alt="Evara" src="/frontEnd/imgs/theme/icons/icon-cart.svg">
-                    <% if (locals.count !=0) { %>
-                    <span class="pro-count blue"><%locals.count%></span>
-                    <% }%>
+                
+                    <span class="pro-count blue"><%=count%></span>
+                   
                   </a>
                 <!-- <% } %> -->
                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
@@ -132,7 +136,7 @@
                 </div>
                </div>
                 <div class="header-action-icon-2">
-                 <a href="/address">
+                 <a href="/accountPage">
                   <img class="svgInject" alt="Evara" src="/frontEnd/imgs/theme/icons/user.png">
                   
                  </a>
@@ -477,13 +481,13 @@
             <div class="header-action-icon-2">
               <a href="shop-wishlist.html">
                 <img alt="Evara" src="/frontEnd/imgs/theme/icons/icon-heart.svg">
-                <span class="pro-count white">4</span>
+                <!-- <span class="pro-count white">4</span> -->
               </a>
             </div>
             <div class="header-action-icon-2">
               <a class="mini-cart-icon" href="shop-cart.html">
                 <img alt="Evara" src="/frontEnd/imgs/theme/icons/icon-cart.svg">
-                <span class="pro-count white">2</span>
+                <!-- <span class="pro-count white">2</span> -->
               </a>
               <div class="cart-dropdown-wrap cart-dropdown-hm2">
                 <ul>

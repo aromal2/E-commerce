@@ -3,59 +3,59 @@
       <div class="row w-75 mt-5">
         <div class="col-md-12">
           <h2 class="text-center">Edit Category</h2>
-          <form  id="form">
-            <label for="">Category Name</label>
-            <input type="text" name="Categoryname" class="form-control" value="<%=editCategory.CategoryName%>"/>
-            <label for="">SubCategory </label>
-            <input type="text" name="Subcategoryname" class="form-control" value="<%=editCategory.subCategory%>"/>
-            <!-- <label for="">Add an offer</label>
-            <input type="text" name="editCategoryoffer" class="form-control" value="0"/> -->
-            <button type="submit" class="btn btn-info text-white mt-4"  onClick="editCategory('<%= editCategory._id %>')">Submit</button>
+          <form id="form">
+            <label for="editCategoryname">Category Name</label>
+            <input type="text" name="editCategoryname" id="editCategoryname" class="form-control" value="<%=response.CategoryName %>"/>
+            <label for="editCategoryoffer">Add an offer</label>
+            <input type="number" name="editCategoryoffer" id="editCategoryoffer" class="form-control" value="<%=response.categoryOfferpercentage%>"/>
+            <button onclick="editCategory('<%=response._id%>'); event.preventDefault();">Submit</button>
           </form>
         </div>
       </div>
     </div>
   </section>
-
   
-<style>
-  body {
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-  }
-  
-  form {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  
-  
-  </style>
-  <script>
-    function editCategory(id){
-        $.ajax({
-            url:'/admin/editCategory/'+id,
-            method:'post',
-            data:$('#form').serialize(),
-            success:()=>{
-
-            }
-
-        })
+  <style>
+    body {
+      font-family: Arial, sans-serif;
     }
-
-
-
+    
+    h1 {
+      text-align: center;
+    }
+    
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+  
+  <script>
+    function editCategory(categoryId) {
+      console.log(categoryId);
+      // Add your code for editing the category here
+      $.ajax({
+        url: `/admin/editCategory/${categoryId}`,
+        method: 'POST',
+        data: $('#form').serialize(),
+        success: function(response) {
+          console.log(response);
+          location.href='/admin/viewCategory'
+          // Handle the response from the server
+        },
+        error: function(error) {
+          console.log(error);
+          // Handle any errors that occur during the AJAX request
+        }
+      });
+    }
   </script>
+  

@@ -1,45 +1,71 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/userControllers/userControllers');
+const userController = require("../controllers/userControllers/userControllers");
 //const userControllers = require('../controllers/userControllers');
-const middleware = require('../middleware/userMiddleware')
+const middleware = require("../middleware/userMiddleware");
 
 /* GET home page. */
-router.get('/',userController.getHomePage)
+router.get("/", userController.getHomePage);
 
-router.get('/login',userController.getLoginpage)
+router.get("/login", userController.getLoginpage);
 
-router.post('/login',userController.postLoginpage)
+router.post("/login", userController.postLoginpage);
 
-router.post('/logout',userController.logout)
+router.post("/logout", userController.logout);
 
-router.get('/signup',userController.getSignuppage)
+router.get("/signup", userController.getSignuppage);
 
-router.post('/signup',userController.postSignuppage)
+router.post("/signup", userController.postSignuppage);
 
-router.get('/logout',userController.logout)
+router.get("/logout", userController.logout);
 
+router.get("/shop", middleware.userauth, userController.getShop);
 
-router.get('/shop', middleware.userauth, userController.getShop)
+router.get("/singleproductView/:id", userController.getSingleproduct);
 
- router.get('/singleproductView/:id',userController.getSingleproduct)
+router.post("/cart/:id", userController.addtoCart);
 
-// router.post('/singleproductView:id',userController.postSingleproduct)
+router.get("/viewCart", middleware.userauth, userController.viewCart);
 
-router.post('/cart/:id',userController.addtoCart)
+router.put("/changeQuantity", userController.changeQuantity);
 
-router.get("/viewCart",middleware.userauth, userController.viewCart)
+router.delete("/deleteProduct", userController.deleteProductcart);
 
-router.get("/address",middleware.userauth, userController.getAddress)
+router.get("/accountPage", middleware.userauth, userController.getAddress);
 
-router.post("/address",userController.postAddress)
+router.post("/accountPage", userController.postAddress);
 
-//router.get("/editAddress",middleware.userauth,userController.editAddress)
+router.get("/editAddress/:id",middleware.userauth,userController.geteditAddress);
 
+router.post("/editAddress", userController.posteditAddress);
 
+router.get("/checkoutPage", middleware.userauth,userController.getCheckoutpage);
 
+router.post("/checkoutPage", userController.postCheckoutpage);
 
+router.get("/orderSuccess",middleware.userauth,userController.orderSuccess)
 
+router.get("/orderDetails/:id", userController.getorderDetails);
+
+ router.post("/getOrdercancel", userController.getOrdercancel);
+ 
+ router.post("/returnOrder",userController.returnOrder)
+
+router.get("/otpLogin", userController.otpLogin);
+
+router.post("/send-otp", userController.sendOtp);
+
+router.get("/validateCoupon/:id",userController.validateCoupon)
+
+router.get("/applyCoupon",userController.applyCoupon)
+
+router.post("/verifyPayment",userController.postVerifypayment)
+
+router.get("/sort/:id",userController.sort)
+
+router.get("/sortCategory/:id",userController.sortCategory)
+
+router.post("/search",userController.search)
 
 
 

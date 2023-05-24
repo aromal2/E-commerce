@@ -1,0 +1,82 @@
+<section class="content-main">
+  <div class="content-header">
+    <div>
+      <h2 class="content-title card-title">Orders</h2>
+    </div>
+    <div>
+    
+      
+    </div>
+  </div>
+  <div class="card mb-4">
+    <div class="card-body">
+      <form id="order">
+       <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th scope="col">Name</th>
+              <th scope="col">Mobile No</th>
+              <th scope="col">Total</th>
+              <th scope="col">Payment Status</th>
+              <th scope="col">Order Status</th>
+              <th scope="col">Date</th>
+              <th></th>
+              <th scope="col" class="text-end">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+          
+
+            <% orders.forEach(function(order,index) { %>
+              <tr>
+              <td><%= index+1 %></td>  
+                <td><%=order.orders?.fname%></td>
+                <td><%=order.orders?.mobile%></td>
+                <td>₹<%=order.orders?.totalPrice%></td>
+                <td><%=order.orders?.paymentStatus%></td>
+                <td><%=order.orders?.orderStatus%></td>
+                <td><%=order.orders?.createdAt.toLocaleDateString()%></td>
+                <td>
+                  <td>
+                    <div class="col-md-20">
+                    <a href="/admin/viewOneorder?userid=<%=order.user%>&orderid=<%=order.orders._id%> " class="btn btn-outline-success" >view Details </a></td>
+               
+              </tr>
+                <% }) %>
+            
+          
+            
+          </tbody>
+        </table>
+       </div>
+      </form>
+      <!-- table-responsive //end -->
+    </div>
+    <!-- card-body end// -->
+  </div>
+  <!-- card end// -->
+  <div class="pagination-area mt-15 mb-50">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-start">
+        <li class="page-item active"><a class="page-link" href="#">01</a></li>
+        <li class="page-item"><a class="page-link" href="#">02</a></li>
+        <li class="page-item"><a class="page-link" href="#">03</a></li>
+        <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+        <li class="page-item"><a class="page-link" href="#">16</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#"
+            ><i class="material-icons md-chevron_right"></i
+          ></a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+<!-- content-main end// -->
+<script>
+ 
+ 
+</script>
