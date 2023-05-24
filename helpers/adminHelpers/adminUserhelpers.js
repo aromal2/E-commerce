@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
 const couponCode = require("coupon-code");
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+
 
 
 module.exports = {
@@ -130,6 +132,14 @@ module.exports = {
   },
 
   addProduct: (data) => {
+
+    const string1 = data.name;
+const string2 = data.brand;
+
+const combinedString = string1 + ' ' + string2;
+const slug = slugify(combinedString);
+
+console.log(slug);
     return new Promise((resolve, reject) => {
       // prod= dbAdmin.product.find({productName:data.name})
 
@@ -141,6 +151,7 @@ module.exports = {
         quantity: data.quantity,
         category: data.category,
         image: data.img,
+        slug:slug
       });
       productD.save().then((result) => {
         resolve(result);
@@ -629,4 +640,16 @@ console.log(response);
       }
     });
   },
+
+  slugify:(productName)=>{
+    return new Promise(async(resolve,reject)=>{
+      try {
+
+
+      } catch(error)
+      {
+        reject(error)
+      }
+    })
+  }
 }  

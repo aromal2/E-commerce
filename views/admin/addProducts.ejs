@@ -24,6 +24,20 @@
                       <p id="error2" class="text-danger"></p>
                     </div>
                   </div>
+
+                  <!-- <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Slugify</label>
+                      <div class="col-sm-9">
+                        <div class="input-group ">
+                          <input type="text" id="couponName" value="" class="form-control" placeholder="Generate Coupon Code" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                            <a class="btn btn-outline-info" onclick="slugify()">Generate Code</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div> 
+                  </div>-->
   
                   <div class="mb-4">
                     <label class="form-label">Description</label>
@@ -179,6 +193,22 @@ myForm.addEventListener("submit", function(event) {
     myForm.submit()
   }
 });
+
+function slugify()
+{
+
+  $.ajax({
+      url: '/admin/generateCoupon',
+      method: 'post',
+      success: (response) => {
+  
+        document.getElementById('couponName').value = response
+      
+    //     $('#couponName').val(response.couponCode);
+      }
+    });
+      
+}
 
       
     </script>

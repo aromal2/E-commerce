@@ -69,4 +69,5 @@ router.get("/salesReport",adminController.salesReport)
 
  router.post("/salesReport",adminController.postSalesreport)
 
+
 module.exports = router;

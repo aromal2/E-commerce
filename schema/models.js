@@ -85,6 +85,7 @@ const productSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
+   slug:String
 });
 
 const categorySchema = mongoose.Schema({

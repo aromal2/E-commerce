@@ -23,7 +23,8 @@ module.exports = {
 
   getLoginpage: (req, res) => {
     user = req.session.user;
-    res.render("user/login", { layout: "Layout", user });
+    let count=0
+    res.render("user/login", { layout: "Layout", user ,count});
   },
   getSignuppage: (req, res) => {
     res.render("user/signup", { layout: "Layout", user });
@@ -99,9 +100,11 @@ module.exports = {
 
 
   getSingleproduct: async (req, res) => {
+    console.log(req.params);
     let product = await userHelpers.viewSingleproduct(req.params.id);
     user = req.session.user;
-    res.render("user/singleProductview", { layout: "Layout", product, user });
+    let count=0
+    res.render("user/singleProductview", { layout: "Layout", product, user,count });
   },
 
   addtoCart: async (req, res) => {
@@ -180,7 +183,7 @@ console.log(count,"456789");
     let address = req.session.user;
     let addressId = address._id.toString();
     await userHelpers.addAddress(req.body, addressId).then((response) => {
-      res.redirect("/address");
+      res.send(response)
     });
   },
 
@@ -199,6 +202,7 @@ console.log(count,"456789");
 
   posteditAddress: async (req, res) => {
     let addressId = req.body;
+    console.log(addressId,"ytrews");
 
     let userId = req.session.user;
     await userHelpers

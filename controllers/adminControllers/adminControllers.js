@@ -303,8 +303,13 @@ let pages=Math.ceil(docCount/perPage)
 
   getOrderList: async (req, res) => {
     let userId = req.session.user;
+    let i=req.query.id
+let perPage=10
+let docCount=await adminUserHelpers.documentCount()
+let pages=Math.ceil(docCount/perPage)
 
-    await adminUserHelpers.getOrders().then((orders) => {
+    await adminUserHelpers.getOrders(i,perPage).then((orders) => {
+
       res.render("admin/orderList", { layout: "adminLayout", orders });
     });
   },
@@ -405,4 +410,4 @@ let pages=Math.ceil(docCount/perPage)
       res.render("admin/salesReport1", { layout: "adminLayout", orderData });
     });
   },
-};
+}

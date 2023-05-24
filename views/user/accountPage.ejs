@@ -832,7 +832,13 @@ else{
         $.ajax({
             url:'/accountPage',
             method:'POST',
-            data: $('#form').serialize()
+            data: $('#form').serialize(),
+            sucess:(response)=>{
+            if(response)
+            {
+        location.href="/"
+            }
+        }
 
         })
     }

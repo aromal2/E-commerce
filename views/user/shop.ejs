@@ -71,7 +71,7 @@
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
-                    <a href="/singleproductView/<%=shop._id %>">
+                    <a href="/singleproductView/<%=shop.slug %>">
                       <img class="default-img" src="/productImages/<%=shop.image[0]%>" alt="">
                       <img class="hover-img" src="/productImages/<%=shop.image[2]%>" alt="">
                     </a>
@@ -184,7 +184,7 @@ function filterProducts(){
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
-                    <a href="/singleproductView/${response[i]._id}">
+                    <a href="/singleproductView/${response[i].slug}">
                       <img class="default-img" src="/productImages/${response[i].image[0]}" alt="">
                       <img class="hover-img" src="/productImages/${response[i].image[0]}" alt="">
                     </a>
@@ -203,7 +203,7 @@ function filterProducts(){
                 
                     <div class="product-content-wrap">
                         <div class="product-category">
-                            <a href="shop-grid-right.html">${response[i].category}</a>
+                            <a href="shop-grid-right.html">${response[i].productName}</a>
                         </div>
                         <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
                         <div class="rating-result" title="90%">
@@ -257,7 +257,7 @@ function category()
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
-                    <a href="/singleproductView/${category[i]._id}">
+                    <a href="/singleproductView/${category[i].slug}">
                       <img class="default-img" src="/productImages/${category[i].image[0]}" alt="">
                       <img class="hover-img" src="/productImages/${category[i].image[0]}" alt="">
                     </a>
@@ -276,7 +276,7 @@ function category()
                 
                     <div class="product-content-wrap">
                         <div class="product-category">
-                            <a href="shop-grid-right.html">${category[i].category}</a>
+                            <a href="shop-grid-right.html">${category[i].productName}</a>
                         </div>
                         <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
                         <div class="rating-result" title="90%">
@@ -331,7 +331,7 @@ for (let i = 0; i < results.length; i++) {
               <div class="product-cart-wrap mb-30">
                 <div class="product-img-action-wrap">
                   <div class="product-img product-img-zoom">
-                    <a href="/singleproductView/${results[i]._id}">
+                    <a href="/singleproductView/${results[i].slug}">
                       <img class="default-img" src="/productImages/${results[i].image[0]}" alt="">
                       <img class="hover-img" src="/productImages/${results[i].image[0]}" alt="">
                     </a>
@@ -350,7 +350,7 @@ for (let i = 0; i < results.length; i++) {
                 
                     <div class="product-content-wrap">
                         <div class="product-category">
-                            <a href="shop-grid-right.html">${results[i].category}</a>
+                            <a href="shop-grid-right.html">${results[i].productName}</a>
                         </div>
                         <h2><a href="shop-product-right.html"><%=shop.productName%></a></h2>
                         <div class="rating-result" title="90%">

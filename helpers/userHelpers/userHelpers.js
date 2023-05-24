@@ -86,7 +86,7 @@ module.exports = {
 
   viewSingleproduct: async (data) => {
     return new Promise(async (resolve, reject) => {
-      await DB.product.find({ _id: data }).then((res) => {
+      await DB.product.find({ slug: data }).then((res) => {
         resolve(res);
       });
     });
@@ -308,8 +308,9 @@ module.exports = {
     });
   },
   addAddress: (data, userId) => {
+    console.log(data,"34567890");
     let addressInfo = {
-      fname: data.name,
+      fname: data.Firstname,
       lname: data.lastname,
       email: data.email,
       mobile: data.mobileno,
@@ -389,6 +390,7 @@ module.exports = {
               "address._id": new ObjectId(addressId),
             },
           },
+          
         ]);
         resolve(response);
       } catch (error) {
@@ -438,6 +440,7 @@ module.exports = {
           .then((response) => {
         
             resolve(response);
+            console.log(response,"4567890");
           });
       } catch (error) {
         reject(error);
