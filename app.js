@@ -7,6 +7,8 @@ const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const ConnectMongodbSession = require('connect-mongodb-session')
 const mongodbSession = new ConnectMongodbSession(session)
+const connectDB = require('./schema/atlasConnection')
+const dotenv = require('dotenv')
 
 
 
@@ -16,6 +18,7 @@ const adminRouter = require("./routes/admin");
 const schema = require("./schema/models");
 
 const app = express();
+dotenv.config()
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -34,7 +37,7 @@ app.use(session({
   secret: 'sessionSe',
   resave: false,
   store: new mongodbSession({
-    uri: "mongodb://127.0.0.1:27017/E-commerce",
+    uri: process.env.MONGO_URL,
     collection: "session"
   }),
   cookie: {
@@ -42,9 +45,19 @@ app.use(session({
   },
 }))
 
-
+ 
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
+
+const start = function () {
+  try {
+    connectDB(process.env.MONGO_URL)
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+start() 
 
 //Session
 
