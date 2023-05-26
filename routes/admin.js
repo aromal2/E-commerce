@@ -14,7 +14,8 @@ router.get("/logout", adminController.logout);
 
 router.get("/viewUser", adminController.getstatusproductList);
 
-router.get("/category", adminController.getCategory);
+router.get("/category",  adminController.getCategory);
+
 router.post("/category", adminController.postCategory);
 
 router.get("/viewCategory", adminController.viewCategory);

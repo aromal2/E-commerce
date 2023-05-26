@@ -100,6 +100,7 @@ module.exports = {
   postLogin: (req, res) => {
     let data = req.body;
     console.log(data, "4321");
+    
     adminHelpers.doLogin(data).then((loginAction) => {
       let admin = (req.session.admin = loginAction);
 

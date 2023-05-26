@@ -91,9 +91,10 @@ module.exports = {
     let pages = Math.ceil(docCount / perPage);
     console.log(pages, "111111");
     // let shop = await userHelpers.getShop();
-    user = req.session.user;
-    let count = await userHelpers.countCart(user._id);
-    user = req.session.user;
+   let  userId = req.session.user
+   
+    let count = await userHelpers.countCart(userId._id);
+   let  user = req.session.user;
     let shop = await userHelpers.pageview(perPage, i)
     let layout = 'Layout'
 

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userControllers/userControllers");
 //const userControllers = require('../controllers/userControllers');
-const middleware = require("../middleware/userMiddleware");
+const middleware = require("../middleware/Middleware");
 
 /* GET home page. */
 router.get("/", userController.getHomePage);
@@ -19,7 +19,7 @@ router.post("/signup", userController.postSignuppage);
 
 router.get("/logout", userController.logout);
 
-router.get("/shop",  userController.getShop);
+router.get("/shop", middleware.userauth, userController.getShop);
 
 router.get("/singleproductView/:id", userController.getSingleproduct);
 
@@ -31,7 +31,7 @@ router.put("/changeQuantity", middleware.userauth, userController.changeQuantity
 
 router.delete("/deleteProduct", middleware.userauth, userController.deleteProductcart);
 
-router.get("/accountPage", middleware.userauth, userController.getAddress);
+router.get("/accountPage",  middleware.userauth,userController.getAddress);
 
 router.post("/accountPage", middleware.userauth,userController.postAddress);
 
