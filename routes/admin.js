@@ -7,7 +7,7 @@ const middleware = require('../middleware/Middleware')
 
 router.get("/dashboard",middleware.auth, adminController.getDashboard);
 
-router.get("/",middleware.auth, adminController.getLogin);
+router.get("/", adminController.getLogin);
 
 router.post("/", adminController.postLogin);
 

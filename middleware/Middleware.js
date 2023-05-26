@@ -2,7 +2,7 @@
 
 module.exports = {
     userauth:((req,res,next)=>{
-      console.log('------------------',req.session.userLoggedIn,'------------------');
+      console.log('------------------',req.session.userLoggedIn,'--------user----------');
         if(req.session.userLoggedIn){
             console.log('logeeddddd');
           next()
@@ -14,12 +14,13 @@ module.exports = {
       }),
 
       auth:(function(req,res,next){
-      
+      console.log('---------------------',req.session.admin,'-------------admin------------');
         if(req.session.admin){
+          console.log('admin sesion inddd');
           next()
         }else{
-
-          res.render('admin/',{layout:'adminLayout',admins:false})
+          console.log('admin session illaa');
+          res.render('admin/login',{layout:'adminLayout',admins:false})
         }
 })
 }
