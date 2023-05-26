@@ -94,8 +94,9 @@ module.exports = {
     let count = await userHelpers.countCart(user._id);
     user = req.session.user;
     let shop = await userHelpers.pageview(perPage, i)
+    let layout = 'Layout'
 
-    res.render("user/shop", { layout: "Layout", shop, user, count, pages });
+    res.render("user/shop", { layout, shop, user, count, pages });
   },
 
 
