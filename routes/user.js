@@ -19,7 +19,7 @@ router.post("/signup", userController.postSignuppage);
 
 router.get("/logout", userController.logout);
 
-router.get("/shop", middleware.userauth, userController.getShop);
+router.get("/shop",  userController.getShop);
 
 router.get("/singleproductView/:id", userController.getSingleproduct);
 
