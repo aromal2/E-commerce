@@ -51,7 +51,8 @@ module.exports = {
         res.redirect("/");
       } else {
         //user=false
-        res.render("user/login", { layout: "Layout", user: null });
+        layout = 'Layout'
+        res.render("user/login", { layout, user: null });
       }
     });
   },
