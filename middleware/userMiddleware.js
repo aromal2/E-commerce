@@ -1,4 +1,4 @@
-const DB = require('../schema/models')
+// const DB = require('../schema/models')
 
 module.exports = {
     userauth:((req,res,next)=>{
