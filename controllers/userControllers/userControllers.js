@@ -27,7 +27,8 @@ module.exports = {
     res.render("user/login", { layout: "Layout", user ,count});
   },
   getSignuppage: (req, res) => {
-    res.render("user/signup", { layout: "Layout", user });
+    let count=0
+    res.render("user/signup", { layout: "Layout", user,count });
   },
   postSignuppage: (req, res) => {
     let data = req.body;
@@ -70,6 +71,7 @@ module.exports = {
 
   sendOtp: (req, res) => {
     phone = Number(req.body.phoneno);
+    console.log(phone);
     userHelpers.findUser(phone).then((user) => {
       if (user) {
         req.session.user = user;
@@ -188,6 +190,7 @@ console.log(count,"456789");
     let address = req.session.user;
     let addressId = address._id.toString();
     await userHelpers.addAddress(req.body, addressId).then((response) => {
+      console.log(response);
       res.send(response)
     });
   },
@@ -304,13 +307,14 @@ let user=req.session.user
   },
 
   getorderDetails: async (req, res) => {
-    
+
 console.log(req.params.id);
     let users = req.session.user._id;
 let user=req.session.user
     let orderId = req.params.id;
     console.log(orderId,"oooooooooooooooooo");
     let getAddress = await userHelpers.getAddress(users, orderId);
+    let count = await userHelpers.countCart(users);
 
     userHelpers.getsingleOrderlist(user, orderId).then((viewsOrderdetails) => {
       let products = viewsOrderdetails[0].item.productsDetails;
@@ -323,7 +327,8 @@ let user=req.session.user
         getAddress,
         data,
         products,
-        users
+        users,
+        user,count
       });
     });
   },

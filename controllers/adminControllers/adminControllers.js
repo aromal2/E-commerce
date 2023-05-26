@@ -153,16 +153,18 @@ module.exports = {
   },
 
   viewCategory: async (req, res) => {
+    let admin = req.session.admin;
     let Categories = await adminUserHelpers.getCategory();
 
-    res.render("admin/viewCategory", { layout: "adminLayout", Categories });
+    res.render("admin/viewCategory", { layout: "adminLayout", Categories ,admin});
   },
 
   categoryEdit: async (req, res) => {
+    let admin = req.session.admin;
     console.log(req.query.id, "23456789");
     adminUserHelpers.getCategoryedit(req.query.id).then((response) => {
       console.log(response, "234567");
-      res.render("admin/editCategory", { layout: "adminLayout", response });
+      res.render("admin/editCategory", { layout: "adminLayout", response ,admin});
     });
   },
 
@@ -229,6 +231,7 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   editProduct: async (req, res) => {
+  
   console.log(req.query);
     let admin = req.session.admin;
     let editCategory = await adminUserhelpers.viewAddcategory();
@@ -243,6 +246,7 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   postEditproduct: async (req, res) => {
+    
      let id= req.params.id
      let files=req.files
      console.log(req.body,"bodyyyyyyyyyyy");
@@ -317,12 +321,14 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   viewOneorder: async (req, res) => {
+    let admin = req.session.admin;
     await adminUserHelpers
       .viewOneorderdetail(req.query.userid, req.query.orderid)
       .then((order) => {
         res.render("admin/viewOneorderdetail", {
           layout: "adminLayout",
           order,
+      admin
         });
       });
   },
@@ -336,8 +342,9 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   addCoupon: async (req, res) => {
+    let admin = req.session.admin;
     
-    res.render("admin/addCoupon", { layout: "adminLayout" });
+    res.render("admin/addCoupon", { layout: "adminLayout" ,admin});
   },
 
   postCoupon: async (req, res) => {
@@ -362,16 +369,17 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   viewCoupon: (req, res) => {
+    let admin = req.session.admin;
     adminUserHelpers.postViewcoupon().then((coupons) => {
       
 
-      res.render("admin/viewCoupon", { layout: "adminLayout", coupons });
+      res.render("admin/viewCoupon", { layout: "adminLayout", coupons,admin });
     });
   },
 
   deleteCoupon: (req, res) => {
     console.log(req.body);
-
+    
     adminUserHelpers.deleteCoupon(req.body.coupon).then((response) => {
       console.log(response);
       res.send(response);
@@ -379,6 +387,7 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   salesReport: async (req, res) => {
+    let admin = req.session.admin;
     let orders = await adminUserHelpers.salesReport();
     const getDate = (date) => {
       let orderDate = new Date(date);
@@ -391,7 +400,7 @@ let pages=Math.ceil(docCount/perPage)
     };
     console.log(orders, "567890432qqqqq");
 
-    res.render("admin/salesReport", { layout: "adminLayout", orders, getDate });
+    res.render("admin/salesReport", { layout: "adminLayout", orders, getDate ,admin});
   },
 
   postSalesreport: async (req, res) => {
@@ -408,9 +417,10 @@ let pages=Math.ceil(docCount/perPage)
     };
 
     await adminUserHelpers.postReport(req.body).then((orderData) => {
+      let admin = req.session.admin;
       console.log(orderData, "23456789");
 
-      res.render("admin/salesReport1", { layout: "adminLayout", orderData });
+      res.render("admin/salesReport1", { layout: "adminLayout", orderData,admin });
     });
   },
 }

@@ -38,14 +38,14 @@
                 </ul> 
               </li> -->
               <% if(locals.user){ %>
-              <li><i class="fi-rs-user"></i><%= user.name %><a></a>
+              <li><i class="fi-rs-user"></i><%= user.username %><a></a>
               </li>
-              <li><i class="fi-rs-user"></i><a href="/logout">Logout </a>
+              <li></i><a href="/logout">Logout </a>
               </li>
               <% }else{ %>
-              <li><i class="fi-rs-user"></i><a href="/login">Log In </a>
+              <li></i><a href="/login">Log In </a>
               </li>
-              <li><i class="fi-rs-user"></i><a href="/signup"> Sign Up</a>
+              <li></i><a href="/signup"> Sign Up</a>
               </li>
               <% } %>
             </ul>
@@ -83,10 +83,10 @@
           <div class="header-action-right">
             <div class="header-action-2">
               <div class="header-action-icon-2">
-                <a href="shop-wishlist.html">
+                <!-- <a href="shop-wishlist.html">
                   <img class="svgInject" alt="Evara" src="/frontEnd/imgs/theme/icons/icon-heart.svg">
-                  <!-- <span class="pro-count blue"></span> -->
-                </a>
+                   <span class="pro-count blue"></span> 
+                </a> -->
               </div>
               <div class="header-action-icon-2">
                 <!-- <% if (locals.user) { %> -->

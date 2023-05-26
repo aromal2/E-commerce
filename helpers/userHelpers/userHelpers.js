@@ -95,6 +95,7 @@ module.exports = {
   findUser: async (mobileno) => {
     try {
       const user = await DB.user.findOne({ phoneno: mobileno });
+      return user
     } catch (error) {
       resolve(error);
     }
@@ -702,13 +703,13 @@ module.exports = {
       },
       images: {
         // The logo on top of your invoice
-        logo: "https://freelogocreator.com/user_design/logos/2023/03/16/125820.jpg",
+        logo: "",
         // The invoice background
         // background: "https://public.easyinvoice.cloud/img/watermark-draft.jpg",
       },
       // Your own data
       sender: {
-        company: "Rapid Delux",
+        company: "Arrow",
         address: "Washington DC",
         zip: "4567 CD",
         city: "Los santos",
@@ -738,7 +739,7 @@ module.exports = {
         },
       ],
       // The message you would like to display on the bottom of your invoice
-      "bottom-notice": "Thank you for your order from Rapid Delux",
+      "bottom-notice": "Thank you for your order from Arrow",
       // Settings to customize your invoice
       settings: {
         currency: "INR", // See documentation 'Locales and Currency' for more info. Leave empty for no currency.
