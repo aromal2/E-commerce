@@ -170,13 +170,15 @@ console.log(count,"456789");
   },
 
   getAddress: async (req, res) => {
+    let user=req.session.user
    let userId = req.session.user._id;
-  
+   
+  let count= await userHelpers.countCart(userId)
 
     let address = await userHelpers.viewAddress(userId);
     let orderList = await userHelpers.getOrderlist(userId.toString());
 
-    res.render("user/accountPage", { layout: "Layout", address, orderList ,});
+    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count});
   },
 
   postAddress: async (req, res) => {
@@ -189,12 +191,12 @@ console.log(count,"456789");
 
   geteditAddress: async (req, res) => {
     let addressId = req.params.id;
-
+let user=req.session.user
     let userId = req.session.user._id;
 
     let address = await userHelpers.geteditAddress(
       addressId,
-      userId.toString()
+      userId.toString(),user
     );
 
     res.render("user/editAddress", { layout: "Layout", address });

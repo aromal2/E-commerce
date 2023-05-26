@@ -93,7 +93,7 @@ module.exports = {
   },
 
   getLogin: (req, res) => {
-    let admin = req.session.admin;
+    let admin = req.session.admin
     res.render("admin/login", { layout: "adminLayout", admin });
   },
 
@@ -180,6 +180,7 @@ module.exports = {
 
   getAddproduct: (req, res) => {
     let admin = req.session.admin;
+
     adminUserHelpers.getAddproductcategory().then((response) => {
       res.render("admin/addProducts", {
         layout: "adminLayout",
@@ -190,19 +191,19 @@ module.exports = {
   },
   postAddproduct: (req, res) => {
     let file = req.files;
-
+let admin=req.session.admin
     const fileName = file.map((file) => {
       return file.filename;
     });
+let product = req.body;
+product.img = fileName;
 
-    let product = req.body;
-
-    product.img = fileName;
 
     adminUserHelpers.addProduct(product).then((response) => {
-      res.redirect("/admin/dashboard");
+      res.redirect("/admin/dashboard",admin);
     });
-  },
+  }
+,
 
   getViewproduct: async (req, res) => {
     data = req.body;
@@ -302,7 +303,7 @@ let pages=Math.ceil(docCount/perPage)
 
 
   getOrderList: async (req, res) => {
-    let userId = req.session.user;
+    let userId = req.session.admin;
     let i=req.query.id
 let perPage=10
 let docCount=await adminUserHelpers.documentCount()
@@ -310,7 +311,7 @@ let pages=Math.ceil(docCount/perPage)
 
     await adminUserHelpers.getOrders(i,perPage).then((orders) => {
 
-      res.render("admin/orderList", { layout: "adminLayout", orders });
+      res.render("admin/orderList", { layout: "adminLayout", orders,pages ,userId});
     });
   },
 
@@ -334,6 +335,7 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   addCoupon: async (req, res) => {
+    
     res.render("admin/addCoupon", { layout: "adminLayout" });
   },
 

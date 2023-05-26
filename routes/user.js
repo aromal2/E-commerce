@@ -27,13 +27,13 @@ router.post("/cart/:id", userController.addtoCart);
 
 router.get("/viewCart", middleware.userauth, userController.viewCart);
 
-router.put("/changeQuantity", userController.changeQuantity);
+router.put("/changeQuantity", middleware.userauth, userController.changeQuantity);
 
-router.delete("/deleteProduct", userController.deleteProductcart);
+router.delete("/deleteProduct", middleware.userauth, userController.deleteProductcart);
 
 router.get("/accountPage", middleware.userauth, userController.getAddress);
 
-router.post("/accountPage", userController.postAddress);
+router.post("/accountPage", middleware.userauth,userController.postAddress);
 
 router.get("/editAddress/:id",middleware.userauth,userController.geteditAddress);
 
@@ -45,25 +45,25 @@ router.post("/checkoutPage", userController.postCheckoutpage);
 
 router.get("/orderSuccess",middleware.userauth,userController.orderSuccess)
 
-router.get("/orderDetails/:id", userController.getorderDetails);
+router.get("/orderDetails/:id", middleware.userauth, userController.getorderDetails);
 
- router.post("/getOrdercancel", userController.getOrdercancel);
+ router.post("/getOrdercancel", middleware.userauth, userController.getOrdercancel);
  
  router.post("/returnOrder",userController.returnOrder)
 
-router.get("/otpLogin", userController.otpLogin);
+router.get("/otpLogin",  middleware.userauth,userController.otpLogin);
 
 router.post("/send-otp", userController.sendOtp);
 
-router.get("/validateCoupon/:id",userController.validateCoupon)
+router.get("/validateCoupon/:id", middleware.userauth,userController.validateCoupon)
 
-router.get("/applyCoupon",userController.applyCoupon)
+router.get("/applyCoupon", middleware.userauth,userController.applyCoupon)
 
 router.post("/verifyPayment",userController.postVerifypayment)
 
-router.get("/sort/:id",userController.sort)
+router.get("/sort/:id", middleware.userauth,userController.sort)
 
-router.get("/sortCategory/:id",userController.sortCategory)
+router.get("/sortCategory/:id", middleware.userauth,userController.sortCategory)
 
 router.post("/search",userController.search)
 
