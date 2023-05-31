@@ -186,17 +186,15 @@ console.log(count,"456789");
 
   getAddress: async (req, res) => {
     let user=req.session.user
-    console.log(user,"56789");
-    let username=req.session.user.username
+    
+    
    let userId = req.session.user._id;
    
   let count= await userHelpers.countCart(userId.toString())
-  console.log(count,"4333333333333333");
-
-    let address = await userHelpers.viewAddress(userId.toString());
-    let orderList = await userHelpers.getOrderlist(userId.toString());
-
-    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count,username});
+    let address = await userHelpers.viewAddress(userId.toString())
+    let orderList = await userHelpers.getOrderlist(userId.toString())
+     
+    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count});
   },
 
   postAddress: async (req, res) => {
