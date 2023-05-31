@@ -1047,7 +1047,13 @@
                       <a href="#" class="qty-down"
                         ><i class="fi-rs-angle-small-down"></i
                       ></a>
-                      <span class="qty-val"><%=product[0].quantity%></span>
+
+                      <% if (product[0].quantity === 0) { %>
+                        <span class="qty-val">out of stock</span>
+                      <% } %>
+                        <span class="qty-val"><%= product[0].quantity %></span>
+                    
+                      
                       <a href="#" class="qty-up"
                         ><i class="fi-rs-angle-small-up"></i
                       ></a>

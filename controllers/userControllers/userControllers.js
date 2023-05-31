@@ -3,6 +3,7 @@ const userHelpers = require("../../helpers/userHelpers/userHelpers");
 const { cart } = require("../../schema/models");
 const adminUserhelpers = require("../../helpers/adminHelpers/adminUserhelpers");
 
+var failStatus =null
 let user, count;
 module.exports = {
   //ejs file edukka
@@ -44,16 +45,22 @@ module.exports = {
     let data = req.body;
 
     userHelpers.ploginpage(data).then((response) => {
+      console.log(response,"54321");
       req.session.user = response.user;
       req.session.userLoggedIn = true;
       user = req.session.user;
+      error =response.error
 
-      if (response.lstatus == true) {
+      let lstatus=response.lstatus
+      
+      if (lstatus == true) {
+
         res.redirect("/");
       } else {
-        //user=false
-        layout = 'Layout'
-        res.render("user/login", { layout, user: null });
+        
+        console.log(lstatus,"7890");
+        res.render("user/login" ,{ layout:"Layout", user: null ,failStatus:lstatus});
+        failStatus=null
       }
     });
   },
@@ -107,6 +114,8 @@ module.exports = {
   getSingleproduct: async (req, res) => {
     console.log(req.params);
     let product = await userHelpers.viewSingleproduct(req.params.id);
+
+    
     user = req.session.user;
     let count=0
     res.render("user/singleProductview", { layout: "Layout", product, user,count });
@@ -176,14 +185,16 @@ console.log(count,"456789");
 
   getAddress: async (req, res) => {
     let user=req.session.user
+    console.log(user,"56789");
+    let username=req.session.user.username
    let userId = req.session.user._id;
    
   let count= await userHelpers.countCart(userId)
 
-    let address = await userHelpers.viewAddress(userId);
+    let address = await userHelpers.viewAddress(userId.toString());
     let orderList = await userHelpers.getOrderlist(userId.toString());
 
-    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count});
+    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count,username});
   },
 
   postAddress: async (req, res) => {
@@ -277,6 +288,8 @@ let user=req.session.user
           res.json({ codstatus: true });
           userHelpers.reduceWallet(userId._id.toString(), total);
         }
+
+
       });
   },
 

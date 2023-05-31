@@ -55,12 +55,14 @@ module.exports = {
                 if (status) {
                   response.user = user;
                   response.lstatus = true;
+                  response.password=true;
                   let userName = user.username;
                   let id = user._id;
 
                   resolve(response);
                 } else {
                   response.lstatus = false;
+                  response.password=false
                   resolve(response);
                 }
               });
@@ -68,7 +70,7 @@ module.exports = {
             resolve({ blockedstatus: true });
           }
         } else {
-          resolve({ lstatus: false });
+          resolve({ lstatus: false ,email:false});
         }
       } catch (err) {
         throw err;
@@ -347,6 +349,7 @@ module.exports = {
   },
 
   viewAddress: (userId) => {
+    console.log(userId,"usrr");
     try {
       return new Promise(async (resolve, reject) => {
         await DB.address
@@ -364,6 +367,13 @@ module.exports = {
                 item: "$address",
               },
             },
+            {
+            $project: {
+              item: 1,
+            },
+          }
+          
+            
           ])
           .then((response) => {
             resolve(response);
@@ -393,7 +403,9 @@ module.exports = {
           },
           
         ]);
+        
         resolve(response);
+        console.log(response);
       } catch (error) {
         reject(error);
       }
@@ -434,7 +446,7 @@ module.exports = {
             },
             {
               $set: {
-                address: address,
+                "address.$": address,
               },
             }
           )
@@ -568,6 +580,7 @@ module.exports = {
           resolve(response);
         });
       }
+      
 
       await DB.cart.deleteMany({ user: userId }).then(() => {
         resolve();

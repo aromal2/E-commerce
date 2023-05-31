@@ -38,14 +38,14 @@
                 </ul> 
               </li> -->
               <% if(locals.user){ %>
-              <li><i class="fi-rs-user"></i><%= user.username %><a></a>
+              <li style="color: white;"><i class="fi-rs-user"></i><%= user.username %><a></a>
               </li>
-              <li></i><a href="/logout">Logout </a>
+              <li style="color:beige"></i><a href="/logout">Logout </a>
               </li>
               <% }else{ %>
-              <li></i><a href="/login">Log In </a>
+              <li style="color: white;"></i><a href="/login">Log In </a>
               </li>
-              <li></i><a href="/signup"> Sign Up</a>
+              <li style="color: white;"></i><a href="/signup"> Sign Up</a>
               </li>
               <% } %>
             </ul>

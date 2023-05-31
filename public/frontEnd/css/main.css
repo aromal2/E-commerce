@@ -132,7 +132,7 @@ a {
 }
 
 a:hover {
-  color: #046963;
+  color:black;
 }
 
 /*--- Common Classes---------------------*/
@@ -882,13 +882,13 @@ button.submit, button[type='submit'] {
   padding: 12px 40px;
   color: #ffffff;
   border: none;
-  background-color: #088178;
-  border: 1px solid #046963;
+  background-color: #292b2c;
+  border: 1px solid #292b2c;
   border-radius: 5px;
 }
 
 button.submit:hover, button[type='submit']:hover {
-  background-color: #046963 !important;
+  background-color: #080807 !important;
 }
 
 .btn-brand:hover {
@@ -2181,7 +2181,7 @@ label {
 }
 
 .nav-tabs .nav-link.active {
-  color: #088178;
+  color: black;
   background-color: #fde1bd;
 }
 
@@ -2240,7 +2240,7 @@ label {
 
 .dashboard-menu ul li a.active {
   color: #fff;
-  background-color: #088178;
+  background-color: #080807;
 }
 
 .dashboard-menu ul li a.active i {
@@ -5227,7 +5227,7 @@ h6.post-title {
 }
 
 .header-info > ul > li a {
-  color: #1a1a1a;
+  color: #fff;
   font-weight: 500;
 }
 
@@ -6446,8 +6446,8 @@ h6.post-title {
 
 .header-style-1 .header-top-ptb-1 {
   padding: 13px 0;
-  border-bottom: 3px solid #39b4ac;
-  background-color: #d8f4e2;
+  border-bottom: 3px solid #000;
+  background-color: black;
   background-image: none;
 }
 
@@ -6796,7 +6796,7 @@ span.fi-rs-apps {
 }
 
 .main-menu > nav > ul > li > a.active {
-  color: #088178;
+  color: #080807;
 }
 
 .main-menu > nav > ul > li ul.sub-menu {
@@ -6997,7 +6997,7 @@ span.fi-rs-apps {
 }
 
 .main-menu > nav > ul > li:hover > a {
-  color: #088178;
+  color: #080807;
 }
 
 .main-menu > nav > ul > li:hover ul.sub-menu {
@@ -7383,7 +7383,7 @@ span.fi-rs-apps {
 
 .pagination-area .page-item.active .page-link, .pagination-area .page-item:hover .page-link {
   color: #fff;
-  background: #088178;
+  background: #080807;
 }
 
 .pagination-area .page-link {

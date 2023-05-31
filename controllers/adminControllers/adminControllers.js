@@ -56,10 +56,12 @@ module.exports = {
     let Men = 0,
       Women = 0,
       Unisex = 0;
+
     orderByCategory.forEach((Products) => {
+      console.log(Products,"7777777777777777777");
       if (Products.category == "MEN") Men++;
 
-      if (Products.category == "women") Women++;
+      if (Products.category == "WOMEN") Women++;
       console.log(Women,"567890");
       if (Products.category == "UNISEX") Unisex++;
     });
@@ -194,7 +196,7 @@ module.exports = {
   },
   postAddproduct: (req, res) => {
     let file = req.files;
-let admin=req.session.admin
+
     const fileName = file.map((file) => {
       return file.filename;
     });
@@ -203,7 +205,7 @@ product.img = fileName;
 
 
     adminUserHelpers.addProduct(product).then((response) => {
-      res.redirect("/admin/dashboard",admin);
+      res.redirect("/admin/dashboard");
     });
   }
 ,
