@@ -72,8 +72,9 @@ module.exports = {
   },
 
   otpLogin: (req, res) => {
+
     res.render("user/otpLogin", { layout: "Layout" });
-    req.session.otpLoginError = false;
+    req.session.otpLoginError = false
   },
 
   sendOtp: (req, res) => {
@@ -189,7 +190,8 @@ console.log(count,"456789");
     let username=req.session.user.username
    let userId = req.session.user._id;
    
-  let count= await userHelpers.countCart(userId)
+  let count= await userHelpers.countCart(userId.toString())
+  console.log(count,"4333333333333333");
 
     let address = await userHelpers.viewAddress(userId.toString());
     let orderList = await userHelpers.getOrderlist(userId.toString());
