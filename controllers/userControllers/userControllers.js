@@ -74,7 +74,7 @@ module.exports = {
 
   otpLogin: (req, res) => {
 
-    res.render("user/log", { layout: "Layout"});
+    res.render("user/loginOtp", { layout: "Layout"});
     req.session.otpLoginError = false
   },
 
