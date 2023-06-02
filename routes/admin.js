@@ -47,6 +47,10 @@ router.get("/listProduct/:id",middleware.auth, adminController.listProduct);
 
 router.get("/unlistCategory/:id",middleware.auth, adminController.unlistCategory);
 
+router.get("/listCategory/:id",middleware.auth, adminController.listCategory);
+
+
+
 router.get("/orderDetails",middleware.auth, adminController.getOrderList);
 
 router.get("/viewOneorder",middleware.auth, adminController.viewOneorder);

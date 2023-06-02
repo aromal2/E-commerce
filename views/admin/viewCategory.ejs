@@ -47,11 +47,19 @@
                     <a href="/admin/categoryEdit?id=<%=category._id%>"  class="btn btn-dark btn-sm">edit</a>
                 </td>
                 
-                
+                <% if (category.unlist) { %>
+
+                    <td>
+                        <a  href="/admin/listCategory/<%=category._id %>" class="btn btn-dark btn-sm" >list</a>
+                       </td>
+                   
+                      <% }
+                      else {%>
+                    
                     <td>
                      <a href="/admin/unlistCategory/<%=category._id %>" class="btn btn-dark btn-sm" >unlist</a>
                     </td>
-
+                    <%} %>
                  </tr>
                  <% }
                 )

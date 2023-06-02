@@ -123,7 +123,7 @@ module.exports = {
   getAddproductcategory: () => {
     return new Promise(async (resolve, reject) => {
       await dbAdmin.category
-        .find()
+        .find({unlist:false})
         .exec()
         .then((response) => {
           resolve(response);
@@ -348,6 +348,26 @@ console.log(slug);
           }
         )
         .then((result) => {
+          resolve(result);
+        });
+    });
+  },
+
+
+
+  listCategory: (data) => {
+    return new Promise(async (resolve, reject) => {
+      await dbAdmin.category
+        .updateOne(
+          { _id: data },
+          {
+            $set: {
+              unlist: false,
+            },
+          }
+        )
+        .then((result) => {
+          console.log(result,"iiiiiiiiiii");
           resolve(result);
         });
     });

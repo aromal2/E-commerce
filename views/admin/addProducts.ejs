@@ -128,7 +128,7 @@
             </div> <!-- card end// -->
           </div>
           <div>
-            <button type="submit"  class="btn  btn-primary rounded font-sm mr-5 hover-up">Save</button>
+            <button type="submit"  class="btn  btn-primary rounded font-sm mr-5 hover-up" onclick="validateForm()">Save</button>
            <a href="/admin/dashboard"> <button class="btn  btn-danger rounded font-sm hover-up">Cancel</button></a>
           </div>
         </div>
@@ -138,81 +138,54 @@
   
   <script>
  // Get the form and all the form inputs
-const myForm = document.getElementById("myForm");
-const nameInput = document.getElementById("name");
-const brandInput = document.getElementById("brand");
-const descriptionInput = document.getElementById("description");
-const priceInput = document.getElementById("price");
-const quantityInput = document.getElementById("quantity");
 
-// Listen for the form submit event
-myForm.addEventListener("submit", function(event) {
-  // Prevent the form from submitting
-  event.preventDefault();
+function validateForm() {
+    // Get the form inputs
+    const nameInput = document.getElementById("name");
+    const brandInput = document.getElementById("brand");
+    const descriptionInput = document.getElementById("description");
+    const priceInput = document.getElementById("price");
+    const quantityInput = document.getElementById("quantity");
 
-  // Validate the form inputs
-  let isValid = true;
-  
-  if (nameInput.value.trim() === "") {
-    isValid = false;
-    document.getElementById("error1").textContent = "Please enter a product name";
-  } else {
-    document.getElementById("error1").textContent = "";
+    // Validate the form inputs
+    let isValid = true;
+
+    if (nameInput.value.trim() === "") {
+      isValid = false;
+      document.getElementById("error1").textContent = "Please enter a product name";
+    } else {
+      document.getElementById("error1").textContent = "";
+    }
+
+    if (brandInput.value.trim() === "") {
+      isValid = false;
+      document.getElementById("error2").textContent = "Please enter a brand name";
+    } else {
+      document.getElementById("error2").textContent = "";
+    }
+
+    if (descriptionInput.value.trim() === "") {
+      isValid = false;
+      document.getElementById("error3").textContent = "Please enter a description";
+    } else {
+      document.getElementById("error3").textContent = "";
+    }
+
+    if (priceInput.value.trim() === "") {
+      isValid = false;
+      document.getElementById("error4").textContent = "Please enter a price";
+    } else {
+      document.getElementById("error4").textContent = "";
+    }
+
+    if (quantityInput.value.trim() === "") {
+      isValid = false;
+      document.getElementById("error5").textContent = "Please enter a quantity";
+    } else {
+      document.getElementById("error5").textContent = "";
+    }
+
+    // If all inputs are valid, submit the form
+    return isValid;
   }
-  
-  if (brandInput.value.trim() === "") {
-    isValid = false;
-    document.getElementById("error2").textContent = "Please enter a brand name";
-  } else {
-    document.getElementById("error2").textContent = "";
-  }
-  
-  if (descriptionInput.value.trim() === "") {
-    isValid = false;
-    document.getElementById("error3").textContent = "Please enter a description";
-  } else {
-    document.getElementById("error3").textContent = "";
-  }
-  
-  if (priceInput.value.trim() === "") {
-    isValid = false;
-    document.getElementById("error4").textContent = "Please enter a price";
-  } else {
-    document.getElementById("error4").textContent = "";
-  }
-  
-  if (quantityInput.value.trim() === "") {
-    isValid = false;
-    document.getElementById("error5").textContent = "Please enter a quantity";
-  } else {
-    document.getElementById("error5").textContent = "";
-  }
-
-  // If all inputs are valid, submit the form
-  if (isValid) {
-    myForm.submit()
-  }
-});
-
-function slugify()
-{
-
-  $.ajax({
-      url: '/admin/generateCoupon',
-      method: 'post',
-      success: (response) => {
-  
-        document.getElementById('couponName').value = response
-      
-    //     $('#couponName').val(response.couponCode);
-      }
-    });
-      
-}
-
-      
-    </script>
-  
-  
-
-  
+  </script>

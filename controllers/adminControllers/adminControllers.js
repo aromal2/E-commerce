@@ -7,7 +7,7 @@ let admin;
 
 module.exports = {
   getDashboard: async (req, res) => {
-    let admins = req.session.admin;
+    let admin = req.session.admin
     let totalProducts,
       days = [];
     let ordersPerDay = {};
@@ -83,7 +83,7 @@ module.exports = {
       }
       res.render("admin/dashboard", {
         layout: "adminLayout",
-        admins,
+        admin,
         total,
         totalProducts,
         totalOrders,
@@ -306,6 +306,15 @@ let pages=Math.ceil(docCount/perPage)
       res.redirect("/admin/dashboard");
     });
   },
+
+  listCategory: async (req, res) => {
+    let data = req.params.id;
+    await adminUserHelpers.listCategory(req.params.id).then((response) => {
+      res.redirect("/admin/dashboard");
+    });
+  },
+
+
 
 
 

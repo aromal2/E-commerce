@@ -47,7 +47,7 @@ router.get("/orderSuccess",middleware.userauth,userController.orderSuccess)
 
 router.get("/orderDetails/:id", middleware.userauth, userController.getorderDetails);
 
- router.post("/getOrdercancel", middleware.userauth, userController.getOrdercancel);
+ router.post("/getOrdercancel",  userController.getOrdercancel);
  
  router.post("/returnOrder",userController.returnOrder)
 

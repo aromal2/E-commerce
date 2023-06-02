@@ -55,7 +55,7 @@
                 </div>
               </div>
               <div class="d-grid">
-                <button type="button" class="btn btn-primary" onclick="addcategory()">Create category</button>
+                <button type="button" class="btn btn-primary" onclick="validate()">Create category</button>
               </div>
             </form>
           </div>
@@ -68,65 +68,65 @@
 
 
 <script>
-//  function validate()
-//     {
-//         const category = document.getElementById('category')
-//         const subcategory=document.getElementById('sub-category')
-//         const description=document.getElementById('description')
+ function validate()
+    {
+        const category = document.getElementById('category')
+        const subcategory=document.getElementById('sub-category')
+        const description=document.getElementById('description')
 
-//         let categoryvalue=category.value.trim()
-//         let subcategoryvalue=subcategory.value.trim()
-//         let descriptionvalue=description.value.trim()
+        let categoryvalue=category.value.trim()
+        let subcategoryvalue=subcategory.value.trim()
+        let descriptionvalue=description.value.trim()
 
-//         const error1=category.parentElement.querySelector('p')
-//         const error2=subcategory.parentElement.querySelector('p')
-//         const error3=description.parentElement.querySelector('p')
+        const error1=category.parentElement.querySelector('p')
+        const error2=subcategory.parentElement.querySelector('p')
+        const error3=description.parentElement.querySelector('p')
 
-//         error1.innerText=''
-//         error2.innerText=''
-//         error3.innerText=''
+        error1.innerText=''
+        error2.innerText=''
+        error3.innerText=''
 
-//         let flag =1
-//         if(categoryvalue=='')
-//        {
-//           error1.innerText='Field is required'
-//           flag=2
-//        }
-//       else if(category.length<2)
-//        {
-//         error1.innerText='Enter a valid Username'
-//         flag=2
-//        }
+        let flag =1
+        if(categoryvalue=='')
+       {
+          error1.innerText='Field is required'
+          flag=2
+       }
+      else if(category.length<2)
+       {
+        error1.innerText='Enter a valid Username'
+        flag=2
+       }
 
-//        if(subcategoryvalue=='')
-//        {
-//         error2.innerText='field is required'
-//         flag=2
-//        }
-//        else if(subcategory.length<2)
-//        {
-//         error2.innerText='Enter a valid subcategory'
-//         flag=2
-//        }
+       if(subcategoryvalue=='')
+       {
+        error2.innerText='field is required'
+        flag=2
+       }
+       else if(subcategory.length<2)
+       {
+        error2.innerText='Enter a valid subcategory'
+        flag=2
+       }
 
-//        if(descriptionvalue=='')
-//        {
-//         error3.innerText='field is required'
-//         flag=2
-//        }
-//        else if(description.length<2)
-//        {
-//         error3.innerText='Enter a valid Username'
-//         flag=2
-//        }
+       if(descriptionvalue=='')
+       {
+        error3.innerText='field is required'
+        flag=2
+       }
+       else if(description.length<2)
+       {
+        error3.innerText='Enter a valid Username'
+        flag=2
+       }
          
-//        if(flag==1)
-//        {
-//     addcategory(categoryvalue,subcategoryvalue,descriptionvalue)
-//        }
+       if(flag==1)
+       {
+    addcategory(categoryvalue,subcategoryvalue,descriptionvalue)
+       }
 
       
-//     }
+    }
 
 
     function addcategory() {

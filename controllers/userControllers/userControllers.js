@@ -9,9 +9,10 @@ module.exports = {
   //ejs file edukka
   getHomePage: async (req, res) => {
     if (req.session.user) {
-      user = req.session.user;
+      let user=req.session.user
+     let  userId = req.session.user._id;
       // let userId = req.session.user
-      let count = await userHelpers.countCart(user._id);
+      let count = await userHelpers.countCart(userId.toString());
       res.render("user/homepage", { layout: "Layout", user, count });
     } else {
       user = req.session.user;
@@ -116,9 +117,9 @@ module.exports = {
     console.log(req.params);
     let product = await userHelpers.viewSingleproduct(req.params.id);
 
-    
+    let  userId = req.session.user
     user = req.session.user;
-    let count=0
+    let count= await userHelpers.countCart(userId._id);
     res.render("user/singleProductview", { layout: "Layout", product, user,count });
   },
 
@@ -210,13 +211,15 @@ console.log(count,"456789");
     let addressId = req.params.id;
 let user=req.session.user
     let userId = req.session.user._id;
+    let count = await userHelpers.countCart(userId.toString());
+
 
     let address = await userHelpers.geteditAddress(
       addressId,
       userId.toString(),user
     );
 
-    res.render("user/editAddress", { layout: "Layout", address });
+    res.render("user/editAddress", { layout: "Layout", address ,user,count});
   },
 
   posteditAddress: async (req, res) => {
