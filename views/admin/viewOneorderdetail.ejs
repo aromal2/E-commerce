@@ -72,7 +72,7 @@
             <div class="text-center "><button class="rounded-pill border border-dark rounded-lg" onclick="orderStatus('<%=order[0].item._id%>','Delivered')">Delivered</button> </div>
             <br>
 
-            if
+            
             <div class="text-center "><button class="rounded-pill border border-dark rounded-lg" onclick="orderStatus('<%=order[0].item._id%>','Cancel')">Cancel</button> </div>
            
           
@@ -127,6 +127,7 @@ function orderStatus(orderId,status)
       },
       method:'PUT',
       success:(order)=>{
+        location.reload()
       
         console.log(order,"------------------------");
         // Swal.fire({
