@@ -444,11 +444,17 @@ console.log(slug);
     });
   },
   postCoupon: (data) => {
+    console.log(data,"66666666666666666");
+
+
     return new Promise(async (resolve, reject) => {
+
+     
       dbAdmin
         .coupon(data)
         .save()
         .then((order) => {
+          console.log(order,"345678");
           resolve(order);
         });
     });

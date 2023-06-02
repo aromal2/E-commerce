@@ -109,6 +109,28 @@
         );
 
 
+    
+          }else {
+        Swal.fire("Cancel");
+      }
+    });
+  }
+    
+
+  function deleteCoupon(couponId) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "...........................",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+           
             $.ajax({
               url: "/admin/deleteCoupon" ,
               data:{
@@ -120,12 +142,10 @@
             location.reload(response)
               },
             });
-    
-          }else {
-        Swal.fire("Cancel");
-      }
-    });
-  }
-    
+            swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        });
+    }
+  </script>
     
   </script>

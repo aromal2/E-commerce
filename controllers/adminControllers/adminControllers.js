@@ -356,11 +356,13 @@ let pages=Math.ceil(docCount/perPage)
   addCoupon: async (req, res) => {
     let admin = req.session.admin;
     
+
+    
     res.render("admin/addCoupon", { layout: "adminLayout" ,admin});
   },
 
   postCoupon: async (req, res) => {
-    
+    console.log(req.body);
     let couponData = {
       couponName: req.body.couponName,
       expiry: req.body.expiry,
@@ -370,7 +372,12 @@ let pages=Math.ceil(docCount/perPage)
       maxDiscountValue: req.body.maxDiscountValue,
     };
 
-    adminUserHelpers.postCoupon(couponData).then((order) => {});
+    
+    
+
+    adminUserHelpers.postCoupon(couponData).then((order) => {
+
+    });
   },
 
   generateCoupon: async (req, res) => {
