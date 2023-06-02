@@ -346,6 +346,7 @@ let pages=Math.ceil(docCount/perPage)
 
   orderStatus: async (req, res) => {
     let orderData = req.body;
+    console.log(orderData,"23456789");
 
     await adminUserHelpers.OrderStatus(orderData).then((order) => {
       res.send(order);

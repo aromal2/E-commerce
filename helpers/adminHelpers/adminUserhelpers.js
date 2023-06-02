@@ -425,6 +425,7 @@ console.log(slug);
           }
         )
         .then((response) => {
+          console.log(response);
           resolve(response);
         });
     });

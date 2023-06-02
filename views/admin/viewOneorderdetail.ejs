@@ -71,6 +71,8 @@
             <br>
             <div class="text-center "><button class="rounded-pill border border-dark rounded-lg" onclick="orderStatus('<%=order[0].item._id%>','Delivered')">Delivered</button> </div>
             <br>
+
+            if
             <div class="text-center "><button class="rounded-pill border border-dark rounded-lg" onclick="orderStatus('<%=order[0].item._id%>','Cancel')">Cancel</button> </div>
            
           
@@ -97,23 +99,23 @@
 
 function orderStatus(orderId,status)
 {
-  Swal.fire({
-      title: "Are you sure?",
-      text: "You want to cancel the order",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#DD6B55",
-      confirmButtonText: "Yes",
-      cancelButtonText: "No",
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-    }).then(function (result) {
-      if (result.isConfirmed) {
-        Swal.fire(
-          "Deleted!",
-          "Your imaginary file has been deleted.",
-          "success"
-        );
+  // Swal.fire({
+  //     title: "Are you sure?",
+  //     text: "You want to cancel the order",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#DD6B55",
+  //     confirmButtonText: "Yes",
+  //     cancelButtonText: "No",
+  //     allowEscapeKey: false,
+  //     allowOutsideClick: false,
+  //   }).then(function (result) {
+  //     if (result.isConfirmed) {
+  //       Swal.fire(
+  //         "Deleted!",
+  //         "Your imaginary file has been deleted.",
+  //         "success"
+  //       );
 
         $.ajax({
       
@@ -127,13 +129,14 @@ function orderStatus(orderId,status)
       success:(order)=>{
       
         console.log(order,"------------------------");
-        Swal.fire({
-            title:'Status Updated',
-            icon:'success',
-            timer:5000
-          }).then (()=>{
-            location.reload()
-          })
+        // Swal.fire({
+        //     title:'Status Updated',
+        //     icon:'success',
+        //     timer:5000
+        //   }).then (()=>{
+          // then (()=>{
+          //   location.reload()
+          // })
 
       },
     },
@@ -141,9 +144,9 @@ function orderStatus(orderId,status)
 
   )
 }
-else {
-        Swal.fire("Cancel");
-      }
-    });
-  }
+// else {
+//         Swal.fire("Cancel");
+//       }
+//     });
+//   }
 </script>
