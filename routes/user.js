@@ -51,7 +51,7 @@ router.get("/orderDetails/:id", middleware.userauth, userController.getorderDeta
  
  router.post("/returnOrder",userController.returnOrder)
 
-router.get("/otpLogin", userController.otpLogin);
+router.get("/otp", userController.otpLogin);
 
 router.post("/send-otp", userController.sendOtp);
 
