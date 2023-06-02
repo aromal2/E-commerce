@@ -74,7 +74,8 @@ module.exports = {
 
   otpLogin: (req, res) => {
 
-    res.render("user/otpLogin", { layout: "Layout" });
+   
+    res.render("user/otpLogin", { layout: "Layout"});
     req.session.otpLoginError = false
   },
 
@@ -84,6 +85,8 @@ module.exports = {
     userHelpers.findUser(phone).then((user) => {
       if (user) {
         req.session.user = user;
+        req.session.userLoggedIn = true;
+        
         res.json(true);
       } else {
         req.session.user = null;
