@@ -80,7 +80,7 @@ module.exports = {
   },
 
   sendOtp: (req, res) => {
-    phone = Number(req.body.phoneno);
+   let  phone = Number(req.body.phoneno);
     console.log(phone);
     userHelpers.findUser(phone).then((user) => {
       if (user) {
