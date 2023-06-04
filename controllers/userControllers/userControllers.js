@@ -184,6 +184,7 @@ console.log(count,"456789");
 
     
     res.render("user/wishlist", {
+      layout: "Layout",
       users,
       user,
       wishlistItems,
