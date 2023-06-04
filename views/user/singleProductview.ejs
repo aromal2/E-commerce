@@ -197,12 +197,12 @@
                   >
                     Add to cart
                   </button>
-                  <a
+                  <!-- <button
                     aria-label="Add To Wishlist"
                     class="action-btn hover-up"
-                    href="shop-wishlist.html"
+                    onclick="addtoWishlist('<%-product[0]._id%>')"
                     ><i class="fi-rs-heart"></i
-                  ></a>
+                  ></button> -->
                   <a
                     aria-label="Compare"
                     class="action-btn hover-up"
@@ -1062,7 +1062,7 @@
                         <button class="button button-add-to-cart" onclick="addtoCart('<%-product[0]._id%>')">
                           Add to cart
                         </button>
-                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html">
+                        <a aria-label="Add To Wishlist" class="action-btn hover-up" href="/getWishlist/<%-product[0]._id%>">
                           <i class="fi-rs-heart"></i>
                         </a>
                         <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html">
@@ -1554,7 +1554,10 @@ function addtoCart(productId) {
 }
 
 
-  function addtoCarts(id){
-    console.log('haii');
-  }
+
+
+
+
+
+
 </script>

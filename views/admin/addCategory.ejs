@@ -19,17 +19,17 @@
               <div class="mb-4">
                 <label for="product_name" class="form-label">Category</label>
                 <input type="text" placeholder="Type here" class="form-control" name="category" id="category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
-                <p id="err" class="text-danger"></p>
+                <p id="error1" class="text-danger"></p>
               </div>
               <div class="mb-4">
                 <label for="product_slug" class="form-label">Sub-Category</label>
                 <input type="text" placeholder="Type here" class="form-control" name="sub-category" id="sub-category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
-                <p id="err" class="text-danger"></p>
+                <p id="error2" class="text-danger"></p>
               </div>
               <div class="mb-4">
                 <label class="form-label">Description</label>
                 <textarea placeholder="Type here" class="form-control" name="description" id="description"></textarea>
-                <p id="err" class="text-danger"></p>
+                <p id="error3" class="text-danger"></p>
               </div>
               <div class="mb-4">
                 <label class="form-label">Offer Percentage</label>
@@ -43,13 +43,10 @@
                 <label class="form-label">Offer Validity</label>
                 <div class="input-group">
                   <div class="row gx-2">
-                    <div class="col">
-                      <input type="date" name="startdate" id="startdate" class="form-control">
-                      <span id="date-error1" style="display: none; color: red;">Invalid Start Date</span>
-                    </div>
+                   
                     <div class="col">
                       <input type="date" name="enddate" id="enddate" class="form-control">
-                      <span id="date-error2" style="display: none; color: red;">Invalid End Date</span>
+                      <span id="date-error2" style="display: none; color: red;"> End Date</span>
                     </div>
                   </div>
                 </div>
@@ -92,11 +89,21 @@
           error1.innerText='Field is required'
           flag=2
        }
+       else if (categoryvalue.length > 15) {
+  isValid = false;
+  document.getElementById("error1").textContent = "Category should not exceed 10 characters";
+}
+
+
       else if(category.length<2)
        {
         error1.innerText='Enter a valid Username'
         flag=2
-       }
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(category.value)) {
+                  isValid = false;
+                  document.getElementById("error1").textContent =
+                    "No space first";
+                }
 
        if(subcategoryvalue=='')
        {
@@ -107,7 +114,11 @@
        {
         error2.innerText='Enter a valid subcategory'
         flag=2
-       }
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(subcategory.value)) {
+                  isValid = false;
+                  document.getElementById("error2").textContent =
+                    "No space first";
+                }
 
        if(descriptionvalue=='')
        {
@@ -118,10 +129,15 @@
        {
         error3.innerText='Enter a valid Username'
         flag=2
-       }
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(description.value)) {
+                  isValid = false;
+                  document.getElementById("error3").textContent =
+                    "No space first";
+                }
          
        if(flag==1)
        {
+        console.log(flag=1);
     addcategory(categoryvalue,subcategoryvalue,descriptionvalue)
        }
 

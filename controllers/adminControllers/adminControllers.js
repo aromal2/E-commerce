@@ -49,7 +49,7 @@ module.exports = {
     paymentCount.push(codCount);
     paymentCount.push(WalletCount);
 
-    console.log(paymentCount,"oooopppppppp");
+  
 
     let orderByCategory = await adminUserHelpers.getOrderByCategory();
 
@@ -58,11 +58,11 @@ module.exports = {
       Unisex = 0;
 
     orderByCategory.forEach((Products) => {
-      console.log(Products,"7777777777777777777");
+    
       if (Products.category == "MEN") Men++;
 
       if (Products.category == "WOMEN") Women++;
-      console.log(Women,"567890");
+      
       if (Products.category == "UNISEX") Unisex++;
     });
     let category = [];
@@ -71,7 +71,7 @@ module.exports = {
     category.push(Unisex);
 
 
-    console.log(category,"34567890");
+    
 
     await adminUserHelpers.getAllOrders().then((response) => {
       var totalOrders = response.length;
@@ -101,7 +101,7 @@ module.exports = {
 
   postLogin: (req, res) => {
     let data = req.body;
-    console.log(data, "4321");
+
     
     adminHelpers.doLogin(data).then((loginAction) => {
       let admin = (req.session.admin = loginAction);
@@ -147,7 +147,7 @@ module.exports = {
   },
 
   postCategory: (req, res) => {
-    console.log(req.body);
+    
 
     adminUserHelpers.addCategory(req.body).then((response) => {
       res.redirect("/admin/category");
@@ -163,21 +163,21 @@ module.exports = {
 
   categoryEdit: async (req, res) => {
     let admin = req.session.admin;
-    console.log(req.query.id, "23456789");
+
     adminUserHelpers.getCategoryedit(req.query.id).then((response) => {
-      console.log(response, "234567");
+      
       res.render("admin/editCategory", { layout: "adminLayout", response ,admin});
     });
   },
 
   postCategoryedit: async (req, res) => {
-    console.log(req.query);
+    
 
     adminUserHelpers.postCategoryedit();
   },
 
   postEditcategory: async (req, res) => {
-    console.log(req.body);
+
     adminUserHelpers.updateCategory(req.params.id, req.body);
     adminUserHelpers.categoryOffer(req.params.id, req.body);
     res.send(true);
@@ -212,7 +212,7 @@ product.img = fileName;
 
   getViewproduct: async (req, res) => {
     data = req.body;
-    console.log(req.query.i);
+
     let i=req.query.i
     let perPage=6
     let docCount=await adminUserHelpers.documentCount()
@@ -234,7 +234,7 @@ let pages=Math.ceil(docCount/perPage)
 
   editProduct: async (req, res) => {
   
-  console.log(req.query);
+  
     let admin = req.session.admin;
     let editCategory = await adminUserhelpers.viewAddcategory();
      let editProduct = await adminUserHelpers.editViewproduct(req.query.id);
@@ -251,12 +251,12 @@ let pages=Math.ceil(docCount/perPage)
     
      let id= req.params.id
      let files=req.files
-     console.log(req.body,"bodyyyyyyyyyyy");
-     console.log(files,'--------------------------');
-    console.log(req.params.id,"paramsjjjjj");
+  
+    
+
     let image = []
     let previousImages = await adminUserHelpers.getPreviousImages(id)
-    console.log(previousImages);
+    
     
     if (req.files.image1) {
       image.push(req.files.image1[0].filename)
@@ -300,22 +300,90 @@ let pages=Math.ceil(docCount/perPage)
     });
   },
     // })
-  unlistCategory: async (req, res) => {
-    let data = req.params.id;
-    await adminUserHelpers.unlistCategory(req.params.id).then((response) => {
-      res.redirect("/admin/dashboard");
-    });
-  },
+    unlistCategory: async (req, res) => {
+      try {
+      
+        let data = req.params.id;
+        await adminUserHelpers.unlistCategory(data).then(async(result)=>{
+          await adminUserHelpers.unlistShop(data).then((resp)=>{
+            
+            res.redirect("/admin/viewCategory");
+          })
+        })
+       
+      } catch (error) {
+        // Handle the error
+        console.error(error);
+        res.redirect("/admin/viewCategory");
+      }
+    },
+    
 
-  listCategory: async (req, res) => {
-    let data = req.params.id;
-    await adminUserHelpers.listCategory(req.params.id).then((response) => {
-      res.redirect("/admin/dashboard");
-    });
-  },
+    listCategory: async (req, res) => {
+      try {
+        let data = req.params.id;
+        await adminUserHelpers.listCategory(data).then(async(result)=>{
+          await adminUserHelpers.listShop(data).then((resp)=>{
+            
+            res.redirect("/admin/viewCategory");
+          })
+        })
+       
+      } catch (error) {
+        // Handle the error
+        console.error(error);
+        // Redirect to an error page or display an error message
+        res.redirect("/error");
+      }
+    },
+
+    getAddBanner: (req, res) => {
+      let admins = req.session.admin;
+  
+      res.render("admin/addBanner", { layout: "adminLayout", admins });
+    },
+
+    postAddBanner: (req, res) => {
+    
+      adminUserHelpers.addBanner(req.body, req.file.filename).then((response) => {
+        if (response) {
+          res.redirect("/admin/addBanner");
+        } else {
+          res.status(505);
+        }
+      });
+    },
+
+    viewBanner:(req,res)=>{
+    
+        adminUserHelpers.listBanner().then((response) => {
+          let admins = req.session.admin;
+    
+          res.render("admin/viewBanner", {
+            layout: "adminLayout",
+            response,
+            admins,
+          });
+        });
+      },
+
+      editBanner:(req,res)=>{
+        
+       
+
+        adminUserHelpers.editBanner(req.query.banner).then((response)=>{
+          res.render("admin/editBanner",{layout:"adminLayout",response})
+        })
+      },
+
+editpostBanner:(req,res)=>{
+  
 
 
-
+  adminUserHelpers.editpostBanner(req.query.editbanner,req.body,req.file.filename).then((response)=>{
+    res.redirect("/admin/dashboard")
+  }
+)},
 
 
   getOrderList: async (req, res) => {
@@ -346,7 +414,7 @@ let pages=Math.ceil(docCount/perPage)
 
   orderStatus: async (req, res) => {
     let orderData = req.body;
-    console.log(orderData,"23456789");
+    
 
     await adminUserHelpers.OrderStatus(orderData).then((order) => {
       res.send(order);
@@ -362,7 +430,7 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   postCoupon: async (req, res) => {
-    console.log(req.body);
+    
     let couponData = {
       couponName: req.body.couponName,
       expiry: req.body.expiry,
@@ -397,10 +465,10 @@ let pages=Math.ceil(docCount/perPage)
   },
 
   deleteCoupon: (req, res) => {
-    console.log(req.body);
+  
     
     adminUserHelpers.deleteCoupon(req.body.coupon).then((response) => {
-      console.log(response);
+      
       res.send(response);
     });
   },
@@ -417,13 +485,13 @@ let pages=Math.ceil(docCount/perPage)
         isNaN(year) ? "0000" : year
       }`;
     };
-    console.log(orders, "567890432qqqqq");
+    
 
     res.render("admin/salesReport", { layout: "adminLayout", orders, getDate ,admin});
   },
 
   postSalesreport: async (req, res) => {
-    console.log(req.body, "body");
+    
     let Details = [];
     const getDate = (date) => {
       let orderDate = new Date(date);
@@ -437,9 +505,9 @@ let pages=Math.ceil(docCount/perPage)
 
     await adminUserHelpers.postReport(req.body).then((orderData) => {
       let admin = req.session.admin;
-      console.log(orderData, "23456789");
+  
 
-      res.render("admin/salesReport1", { layout: "adminLayout", orderData,admin });
+      res.render("admin/salesreport1", { layout: "adminLayout", orderData,admin });
     });
   },
 }

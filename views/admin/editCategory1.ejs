@@ -5,14 +5,16 @@
           <h2 class="text-center">Edit Category</h2>
           <form  id="form">
             <label for="">Category Name</label>
-            <input type="text" name="Categoryname" class="form-control" value="<%=response.CategoryName%>"/>
+            <input type="text" name="Categoryname" class="form-control" value="<%=response.CategoryName%>" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase" id="category">
+            <p id="error1" class="text-danger"></p>
             <label for="">SubCategory </label>
-            <input type="text" name="Subcategoryname" class="form-control" value="<%=response.subCategory%>"/>
+            <input type="text" name="Subcategoryname" class="form-control" value="<%=response.subCategory%>" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase" id="sub-category">
+            <p id="error2" class="text-danger"></p>
             <!-- <label for="">Add an offer</label>
             <input type="text" name="editCategoryoffer" class="form-control" value="0"/> -->
             <label for="">OfferPercentage </label>
-            <input type="text" name="offerprice" class="form-control" value="<%=response.categoryOfferpercentage%>"/>
-        
+            <input type="text" name="offerprice" class="form-control" value="<%=response.categoryOfferpercentage%>" id="description">
+            <p id="error4" class="text-danger"></p>
              <button class="btn btn-dark text-white mt-4"  onclick="editCategory('<%=response._id %>')">Submit</button> 
           </form>
         </div>
@@ -47,6 +49,85 @@
   
   </style>
   <script>
+
+function validate()
+    {
+        const category = document.getElementById('category')
+        const subcategory=document.getElementById('sub-category')
+        const description=document.getElementById('description')
+
+        let categoryvalue=category.value.trim()
+        let subcategoryvalue=subcategory.value.trim()
+        let descriptionvalue=description.value.trim()
+
+        const error1=category.parentElement.querySelector('p')
+        const error2=subcategory.parentElement.querySelector('p')
+        const error3=description.parentElement.querySelector('p')
+
+        error1.innerText=''
+        error2.innerText=''
+        error3.innerText=''
+
+        let flag =1
+        if(categoryvalue=='')
+       {
+          error1.innerText='Field is required'
+          flag=2
+       }
+       else if (categoryvalue.length > 15) {
+  isValid = false;
+  document.getElementById("error1").textContent = "Category should not exceed 10 characters";
+}
+
+
+      else if(category.length<2)
+       {
+        error1.innerText='Enter a valid Username'
+        flag=2
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(category.value)) {
+                  isValid = false;
+                  document.getElementById("error1").textContent =
+                    "No space first";
+                }
+
+       if(subcategoryvalue=='')
+       {
+        error2.innerText='field is required'
+        flag=2
+       }
+       else if(subcategory.length<2)
+       {
+        error2.innerText='Enter a valid subcategory'
+        flag=2
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(subcategory.value)) {
+                  isValid = false;
+                  document.getElementById("error2").textContent =
+                    "No space first";
+                }
+
+       if(descriptionvalue=='')
+       {
+        error3.innerText='field is required'
+        flag=2
+       }
+       else if(description.length<2)
+       {
+        error3.innerText='Enter a valid Username'
+        flag=2
+       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(description.value)) {
+                  isValid = false;
+                  document.getElementById("error3").textContent =
+                    "No space first";
+                }
+         
+       if(flag==1)
+       {
+        console.log(flag=1);
+    editCategory(categoryvalue,subcategoryvalue,descriptionvalue)
+       }
+
+      
+    }
     function editCategory(id){
       
         $.ajax({

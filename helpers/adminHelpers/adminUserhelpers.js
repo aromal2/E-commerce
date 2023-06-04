@@ -338,18 +338,25 @@ console.log(slug);
 
   unlistCategory: (data) => {
     return new Promise(async (resolve, reject) => {
-      await dbAdmin.category
-        .updateOne(
-          { _id: data },
+      try {
+        await dbAdmin.category.updateOne(
+          {
+            CategoryName: data,
+          },
           {
             $set: {
               unlist: true,
             },
           }
-        )
-        .then((result) => {
-          resolve(result);
-        });
+        ).then((result)=>{
+          resolve(result)
+          console.log(result);
+          
+        })
+       
+      } catch (error) {
+        reject(error);
+      }
     });
   },
 
@@ -357,22 +364,74 @@ console.log(slug);
 
   listCategory: (data) => {
     return new Promise(async (resolve, reject) => {
-      await dbAdmin.category
-        .updateOne(
-          { _id: data },
+      try {
+        await dbAdmin.category.updateOne(
+          {
+            CategoryName: data,
+          },
           {
             $set: {
               unlist: false,
             },
           }
-        )
-        .then((result) => {
-          console.log(result,"iiiiiiiiiii");
-          resolve(result);
-        });
+        ).then((result)=>{
+          resolve(result)
+          console.log(result,"listcateg");
+          
+        })
+        
+      } catch (error) {
+        reject(error);
+      }
     });
   },
-  
+
+  listShop: (data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await dbAdmin.product.updateMany(
+          {
+            category: data,
+          },
+          {
+            $set: {
+              unlist: false,
+            },
+          }
+        ).then((result)=>{
+          console.log(result,"listshopppppp");
+          resolve(result)
+          
+        })
+        
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
+
+  unlistShop: (data) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await dbAdmin.product.updateMany(
+          {
+            category: data,
+          },
+          {
+            $set: {
+              unlist: true,
+            },
+          }
+        ).then((result)=>{
+          console.log(result,"unlistshop");
+        resolve(result)
+        })
+       
+      } catch (error) {
+        reject(error);
+      }
+    });
+  },
 
   getOrders: () => {
     try {
@@ -678,5 +737,61 @@ console.log(response);
         reject(error)
       }
     })
+  },
+
+  addBanner: (texts, Image) => {
+
+    return new Promise(async (resolve, reject) => {
+
+      let banner = dbAdmin.banner({
+        title: texts.title,
+        description: texts.description,
+        image: Image
+
+      })
+      await banner.save().then((response) => {
+        console.log(response,"77777777456789");
+        resolve(response)
+      })
+    })
+  },
+
+  listBanner: () => {
+
+    return new Promise(async (resolve, reject) => {
+      await dbAdmin.banner.find().exec().then((response) => {
+        resolve(response)
+      })
+    })
+  },
+
+  editBanner:(bannerId)=>{
+    return new Promise(async (resolve, reject) => {
+      await dbAdmin.banner.find({_id:new ObjectId(bannerId)}).exec().then((response) => {
+        console.log(response)
+        resolve(response)
+      })
+    })
+  },
+
+  editpostBanner: (bannerid, texts, Image) => {
+
+    return new Promise(async (resolve, reject) => {
+
+      let response = await dbAdmin.banner.updateOne({ _id: bannerid },
+        {
+          $set: {
+
+            title: texts.title,
+            description: texts.description,
+            image: Image
+          }
+
+        })
+        console.log(response);
+      resolve(response)
+    })
+
+  },
   }
-}  
+  

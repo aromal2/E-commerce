@@ -5,10 +5,12 @@
           <h2 class="text-center">Edit Category</h2>
           <form id="form">
             <label for="editCategoryname">Category Name</label>
-            <input type="text" name="editCategoryname" id="editCategoryname" class="form-control" value="<%=response.CategoryName %>"/>
+            <input type="text" name="editCategoryname"  class="form-control" value="<%=response.CategoryName %>" id="category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;"/>
+            <p id="error1" class="text-danger"></p>
             <label for="editCategoryoffer">Add an offer</label>
-            <input type="number" name="editCategoryoffer" id="editCategoryoffer" class="form-control" value="<%=response.categoryOfferpercentage%>"/>
-            <button onclick="editCategory('<%=response._id%>'); event.preventDefault();">Submit</button>
+            <input type="number" name="editCategoryoffer" id="sub-category" class="form-control" value="<%=response.categoryOfferpercentage%>"/>
+            
+            <button onclick="validate(); event.preventDefault();">Submit</button>
           </form>
         </div>
       </div>
@@ -39,6 +41,43 @@
   </style>
   
   <script>
+
+
+  function validate() {
+  const category = document.getElementById('category');
+  const error1 = category.parentElement.querySelector('p');
+
+  error1.innerText = '';
+
+  let flag = 1;
+  const categoryValue = category.value.trim();
+
+  if (categoryValue === '') {
+    error1.innerText = 'Category Name is required';
+    flag = 2;
+ } else if (categoryValue.length > 15) {
+  error1.innerText = 'Category should not exceed 15 characters';
+  flag = 2;
+} else if (categoryValue.length < 2) {
+  error1.innerText = 'Enter a valid Category Name';
+  flag = 2;
+}
+
+
+
+
+
+
+  if (flag === 1) {
+    // Call the editCategory function with the necessary argument(s)
+    function editCategory(categoryId);
+    console.log('Validation successful');
+  }
+}
+
+
+
+
     function editCategory(categoryId) {
       console.log(categoryId);
       // Add your code for editing the category here

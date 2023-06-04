@@ -23,7 +23,7 @@ const userschema = new mongoose.Schema({
     default: 0,
   },
     coupon: Array,
-});
+})
 
 const adminSchema = new mongoose.Schema({
   email: {
@@ -187,6 +187,48 @@ const couponSchema = new mongoose.Schema({
   },
 });
 
+const wishlistSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+
+  wishlistItems: [
+    {
+      productId: String,
+    },
+  ],
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+});
+
+
+const bannerSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+
+  created_at: {
+    type: Date,
+    default: Date.now,
+  },
+  updated_at: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 
 
 module.exports = {
@@ -197,5 +239,7 @@ module.exports = {
   cart: mongoose.model("cart", cartSchema),
   address: mongoose.model("address", addressSchema),
   order: mongoose.model("order", orderschema),
-  coupon: mongoose.model("coupon",couponSchema)
+  coupon: mongoose.model("coupon",couponSchema),
+  wishlist: mongoose.model("wishlist", wishlistSchema),
+  banner: mongoose.model("Banner", bannerSchema),
 };

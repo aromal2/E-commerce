@@ -49,6 +49,18 @@ router.get("/unlistCategory/:id",middleware.auth, adminController.unlistCategory
 
 router.get("/listCategory/:id",middleware.auth, adminController.listCategory);
 
+router.get("/addBanner", middleware.auth,adminController.getAddBanner)
+
+router.post("/addBanner",multer.addBannerupload, adminController.postAddBanner)
+
+router.get("/viewBanner",middleware.auth, adminController.viewBanner)
+
+router.get("/editBanner",middleware.auth, adminController.editBanner)
+
+router.post("/editBanner",multer.editBannerupload, adminController.editpostBanner)
+
+
+
 
 
 router.get("/orderDetails",middleware.auth, adminController.getOrderList);

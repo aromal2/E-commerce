@@ -5,7 +5,7 @@ const userController = require("../controllers/userControllers/userControllers")
 const middleware = require("../middleware/Middleware");
 
 /* GET home page. */
-router.get("/", userController.getHomePage);
+router.get("/",middleware.userauth, userController.getHomePage);
 
 router.get("/login", userController.getLoginpage);
 
@@ -26,6 +26,12 @@ router.get("/singleproductView/:id", userController.getSingleproduct);
 router.post("/cart/:id", userController.addtoCart);
 
 router.get("/viewCart", middleware.userauth, userController.viewCart);
+
+router.get("/getWishlist/:id",userController.getWishlist)
+
+router.get("/viewWishlist", middleware.userauth,userController.viewWishlist)
+
+router.delete("/deleteWishlist",userController.deleteFromWishlist)
 
 router.put("/changeQuantity", middleware.userauth, userController.changeQuantity);
 

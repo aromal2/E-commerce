@@ -1,191 +1,382 @@
 <div class="container">
-    <div class="screen-overlay"></div>
-    <main class="main-wrap mx-auto">
-      <section class="content-main">
-        <div class="row">
-          <div class="col-12">
-            <div class="content-header">
-              <h2 class="content-title">Add New Product</h2>
-            </div>
+  <div class="screen-overlay"></div>
+  <main class="main-wrap mx-auto">
+    <section class="content-main">
+      <div class="row">
+        <div class="col-12">
+          <div class="content-header">
+            <h2 class="content-title">Add New Product</h2>
           </div>
-          <div class="col-lg-12">
-            <div class="card mb-4">
-              <div class="card-body">
-                <form class="myForm" id="myForm" method="post" action="/admin/addProduct" enctype="multipart/form-data">
-                  <div class="row">
-                    <div class="col-lg-6 mb-3">
-                      <label for="product_name" class="form-label">Product Name</label>
-                      <input type="text" name="name" placeholder="Type here" class="form-control" id="name"  >
-                      <p id="error1" class="text-danger"></p>
+        </div>
+        <div class="col-lg-12">
+          <div class="card mb-4">
+            <div class="card-body">
+              <form
+                class="myForm"
+                id="myForm"
+                method="post"
+                action="/admin/addProduct"
+                enctype="multipart/form-data"
+              >
+                <div class="row">
+                  <div class="col-lg-6 mb-3">
+                    <label for="product_name" class="form-label"
+                      >Product Name</label
+                    >
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Type here"
+                      class="form-control"
+                      id="name"
+                    />
+                    <p id="error1" class="text-danger"></p>
+                  </div>
+                  <div class="col-lg-6 mb-3">
+                    <label for="product_brand" class="form-label">Brand</label>
+                    <input
+                      type="text"
+                      name="brand"
+                      placeholder="Type here"
+                      class="form-control"
+                      id="brand"
+                      style="text-transform: capitalize"
+                    />
+                    <p id="error2" class="text-danger"></p>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label class="form-label">Description</label>
+                  <textarea
+                    placeholder="Type here"
+                    name="description"
+                    id="description"
+                    class="form-control"
+                    rows="4"
+                  ></textarea>
+                  <p id="error3" class="text-danger"></p>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="mb-4">
+                      <label class="form-label">Price</label>
+                      <div class="row gx-2">
+                        <input
+                          placeholder="₹"
+                          name="price"
+                          id="price"
+                          type="text"
+                          class="form-control"
+                        />
+                        <p id="error4" class="text-danger"></p>
+                      </div>
                     </div>
-                    <div class="col-lg-6 mb-3">
-                      <label for="product_brand" class="form-label">Brand</label>
-                      <input type="text" name="brand" placeholder="Type here" class="form-control" id="brand"  style="text-transform:capitalize ">
-                      <p id="error2" class="text-danger"></p>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="mb-4">
+                      <label class="form-label">Quantity</label>
+                      <div class="row gx-2">
+                        <input
+                          placeholder="₹"
+                          name="quantity"
+                          id="quantity"
+                          type="text"
+                          class="form-control"
+                        />
+                        <p id="error5" class="text-danger"></p>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Slugify</label>
-                      <div class="col-sm-9">
-                        <div class="input-group ">
-                          <input type="text" id="couponName" value="" class="form-control" placeholder="Generate Coupon Code" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                          <div class="input-group-append">
-                            <a class="btn btn-outline-info" onclick="slugify()">Generate Code</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>-->
-  
-                  <div class="mb-4">
-                    <label class="form-label">Description</label>
-                    <textarea placeholder="Type here" name="description" id="description" class="form-control" rows="4" ></textarea>
-                    <p id="error3" class="text-danger"></p>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="mb-4">
-                        <label class="form-label">Price</label>
-                        <div class="row gx-2">
-                          <input placeholder="₹" name="price" id="price" type="text" class="form-control">
-                          <p id="error4" class="text-danger"></p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
+                  <!-- <div class="col-lg-4">
                       <div class="mb-4">
                         <label class="form-label">Quantity</label>
                         <input name="quantity" id="quantity" type="number" min="1" max="100" required class="form-control" step="1" pattern="[0-9]*" inputmode="numeric" >
                         <p id="error5" class="text-danger"></p>
                       </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <label class="form-label">Category</label>
-                      <select class="form-select" name="category" id="cars">
-                        <% response.forEach(function(response) { %>
-                        <option><%=response.CategoryName %></option>
-                        <% } )%>
-                      </select>
-                    
-                    
+                    </div> -->
+                  <div class="col-lg-4">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" name="category" id="cars">
+                      <% response.forEach(function(response) { %>
+                      <option><%=response.CategoryName %></option>
+                      <% } )%>
+                    </select>
                   </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4>Media</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="input-upload">
+                        <img
+                          src="/imgs/theme/upload.svg"
+                          id="imgView1"
+                          alt=""
+                        />
+                        <input
+                          class="form-control"
+                          name="file"
+                          onchange="viewImage1(event)"
+                          type="file"
+                          accept="image/*"
+                          id="image"
+                        />
+                        <p id="error6" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- card end// -->
+                </div>
+                <div class="col-lg-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4>Media</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="input-upload">
+                        <img
+                          src="/imgs/theme/upload.svg"
+                          id="imgView2"
+                          alt=""
+                        />
+                        <input
+                          class="form-control"
+                          name="file"
+                          onchange="viewImage2(event)"
+                          type="file"
+                          accept="image/*"
+                          id="image"
+                        />
+                        <p id="error7" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- card end// -->
+                </div>
+                <div class="col-lg-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4>Media</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="input-upload">
+                        <img
+                          src="/imgs/theme/upload.svg"
+                          id="imgView3"
+                          alt=""
+                        />
+                        <input
+                          class="form-control"
+                          name="file"
+                          onchange="viewImage3(event)"
+                          type="file"
+                          accept="image/*"
+                          id="image"
+                        />
+                        <p id="error8" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- card end// -->
+                </div>
+                <div class="col-lg-6">
+                  <div class="card mb-4">
+                    <div class="card-header">
+                      <h4>Media</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="input-upload">
+                        <img
+                          src="/imgs/theme/upload.svg"
+                          id="imgView4"
+                          alt=""
+                        />
+                        <input
+                          class="form-control"
+                          name="file"
+                          onchange="viewImage4(event)"
+                          type="file"
+                          accept="image/*"
+                          id="image"
+                        />
+                        <p id="error9" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- card end// -->
+                </div>
+                <div>
+                  <button
+                    class="btn btn-primary rounded font-sm mr-5 hover-up"
+                    type="button"
+                    onclick="validateForm()"
+                  >
+                    Save
+                  </button>
+                  <a href="/admin/dashboard">
+                    <button class="btn btn-danger rounded font-sm hover-up">
+                      Cancel
+                    </button></a
+                  >
+                </div>
+              </form>
+            </div>
+
+            <script>
+              // Get the form and all the form inputs
+
+              function validateForm() {
                 
-              </div>
-            </div> <!-- card end// -->
-          </div>
-          <div class="col-lg-6">
-            <div class="card mb-4">
-              <div class="card-header">
-                <h4>Media</h4>
-              </div>
-              <div class="card-body">
-                <div class="input-upload">
-                  <img src="/imgs/theme/upload.svg" id="imgView1" alt="">
-                  <input class="form-control" name="file" onchange="viewImage1(event)" type="file" accept="image/*">
-                </div>
-              </div>
-            </div> <!-- card end// -->
-          </div>
-          <div class="col-lg-6">
-            <div class="card mb-4">
-              <div class="card-header">
-                <h4>Media</h4>
-              </div>
-              <div class="card-body">
-                <div class="input-upload">
-                  <img src="/imgs/theme/upload.svg" id="imgView2" alt="">
-                  <input class="form-control" name="file" onchange="viewImage2(event)" type="file" accept="image/*">
-                </div>
-              </div>
-            </div> <!-- card end// -->
-          </div>
-          <div class="col-lg-6">
-            <div class="card mb-4">
-              <div class="card-header">
-                <h4>Media</h4>
-              </div>
-              <div class="card-body">
-                <div class="input-upload">
-                  <img src="/imgs/theme/upload.svg" id="imgView3" alt="">
-                  <input class="form-control" name="file" onchange="viewImage3(event)" type="file" accept="image/*">
-                </div>
-              </div>
-            </div> <!-- card end// -->
-          </div>
-          <div class="col-lg-6">
-            <div class="card mb-4">
-              <div class="card-header">
-                <h4>Media</h4>
-              </div>
-              <div class="card-body">
-                <div class="input-upload">
-                  <img src="/imgs/theme/upload.svg" id="imgView4" alt="">
-                  <input class="form-control" name="file" onchange="viewImage4(event)" type="file" accept="image/*">
-                </div>
-              </div>
-            </div> <!-- card end// -->
-          </div>
-          <div>
-            <button type="submit"  class="btn  btn-primary rounded font-sm mr-5 hover-up" onclick="validateForm()">Save</button>
-           <a href="/admin/dashboard"> <button class="btn  btn-danger rounded font-sm hover-up">Cancel</button></a>
+              
+                const nameInput = document.getElementById("name");
+                const brandInput = document.getElementById("brand");
+                const descriptionInput = document.getElementById("description");
+                const priceInput = document.getElementById("price");
+                const quantityInput = document.getElementById("quantity");
+                const imageInput = document.getElementById("image");
+
+                // Validate the form inputs
+                let isValid = true;
+
+                // Validate Product Name
+                // Validate Product Name
+                // Validate Product Name
+                if (nameInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error1").textContent =
+                    "Please enter a product name";
+                } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(nameInput.value)) {
+                  isValid = false;
+                  document.getElementById("error1").textContent =
+                    "Product name should start with a letter and can contain letters and spaces";
+                } else {
+                  document.getElementById("error1").textContent = "";
+                }
+
+                // Validate Brand
+                if (brandInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error2").textContent =
+                    "Please enter a brand name";
+                } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(brandInput.value)) {
+                  isValid = false;
+                  document.getElementById("error2").textContent =
+                    "No space first";
+                } else {
+                  document.getElementById("error2").textContent = "";
+                }
+
+                // Validate Description
+                if (descriptionInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error3").textContent =
+                    "Please enter a description";
+                } else if (
+                  !/^[A-Za-z][A-Za-z\s]*$/.test(descriptionInput.value)
+                ) {
+                  isValid = false;
+                  document.getElementById("error3").textContent =
+                    "No space first";
+                } else {
+                  document.getElementById("error3").textContent = "";
+                }
+
+                // Validate Price
+                if (priceInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error4").textContent =
+                    "Please enter a price";
+                } else if (
+                  isNaN(parseFloat(priceInput.value)) ||
+                  !Number.isInteger(parseFloat(priceInput.value))
+                ) {
+                  isValid = false;
+                  document.getElementById("error4").textContent =
+                    "Please enter a valid whole number price";
+                } else if (parseFloat(priceInput.value) <= 0) {
+                  isValid = false;
+                  document.getElementById("error4").textContent =
+                    "Price must be greater than 0";
+                }
+                else if (/\s/.test(quantityInput.value)) {
+                  isValid = false;
+                  document.getElementById("error4").textContent =
+                    "Quantity should not contain spaces";
+                } else {
+                  document.getElementById("error4").textContent = "";
+                }
+
+                // Validate Quantity
+                if (quantityInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error5").textContent =
+                    "Please enter a quantity";
+                } else if (
+                  isNaN(parseInt(quantityInput.value)) ||
+                  !Number.isInteger(parseFloat(quantityInput.value))
+                ) {
+                  isValid = false;
+                  document.getElementById("error5").textContent =
+                    "Please enter a valid whole number quantity";
+                } else if (parseInt(quantityInput.value) <= 0) {
+                  isValid = false;
+                  document.getElementById("error5").textContent =
+                    "Quantity must be greater than 0";
+                } else if (/\s/.test(quantityInput.value)) {
+                  isValid = false;
+                  document.getElementById("error5").textContent =
+                    "Quantity should not contain spaces";
+                } else {
+                  document.getElementById("error5").textContent = "";
+                }
+
+                if (imageInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error6").textContent =
+                    "Please upload  image";
+                } else {
+                  document.getElementById("error6").textContent = "";
+                }
+
+                if (imageInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error7").textContent =
+                    "Please upload  image";
+                } else {
+                  document.getElementById("error7").textContent = "";
+                }
+
+                if (imageInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error8").textContent =
+                    "Please upload  image";
+                } else {
+                  document.getElementById("error8").textContent = "";
+                }
+
+                if (imageInput.value.trim() === "") {
+                  isValid = false;
+                  document.getElementById("error9").textContent =
+                    "Please upload  image";
+                } else {
+                  document.getElementById("error9").textContent = "";
+                }
+
+                // If all inputs are valid, submit the form
+                if (isValid) {
+                  console.log(isValid, "=====================================");
+                  document.getElementById("myForm").submit();
+                }
+              }
+            </script>
           </div>
         </div>
-      </form>
-      </section> <!-- content-main end// -->
-  </div>
-  
-  <script>
- // Get the form and all the form inputs
-
-function validateForm() {
-    // Get the form inputs
-    const nameInput = document.getElementById("name");
-    const brandInput = document.getElementById("brand");
-    const descriptionInput = document.getElementById("description");
-    const priceInput = document.getElementById("price");
-    const quantityInput = document.getElementById("quantity");
-
-    // Validate the form inputs
-    let isValid = true;
-
-    if (nameInput.value.trim() === "") {
-      isValid = false;
-      document.getElementById("error1").textContent = "Please enter a product name";
-    } else {
-      document.getElementById("error1").textContent = "";
-    }
-
-    if (brandInput.value.trim() === "") {
-      isValid = false;
-      document.getElementById("error2").textContent = "Please enter a brand name";
-    } else {
-      document.getElementById("error2").textContent = "";
-    }
-
-    if (descriptionInput.value.trim() === "") {
-      isValid = false;
-      document.getElementById("error3").textContent = "Please enter a description";
-    } else {
-      document.getElementById("error3").textContent = "";
-    }
-
-    if (priceInput.value.trim() === "") {
-      isValid = false;
-      document.getElementById("error4").textContent = "Please enter a price";
-    } else {
-      document.getElementById("error4").textContent = "";
-    }
-
-    if (quantityInput.value.trim() === "") {
-      isValid = false;
-      document.getElementById("error5").textContent = "Please enter a quantity";
-    } else {
-      document.getElementById("error5").textContent = "";
-    }
-
-    // If all inputs are valid, submit the form
-    return isValid;
-  }
-  </script>
+      </div>
+    </section>
+  </main>
+</div>
