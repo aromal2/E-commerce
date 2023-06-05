@@ -277,8 +277,10 @@ console.log(slug);
       await dbAdmin.category.updateOne(
         { _id: id },
         { $set: { CategoryName: editCategoryname, categoryOfferpercentage: editCategoryoffer } }
-      );
-      resolve(); // Resolve the Promise to indicate successful update
+      ).then((result)=>{
+        resolve(result);
+      })
+       // Resolve the Promise to indicate successful update
     } catch (error) {
       reject(error); // Reject the Promise if an error occurs
     }
