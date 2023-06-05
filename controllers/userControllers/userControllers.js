@@ -3,21 +3,26 @@ const userHelpers = require("../../helpers/userHelpers/userHelpers");
 const { cart } = require("../../schema/models");
 const adminUserhelpers = require("../../helpers/adminHelpers/adminUserhelpers");
 
-var failStatus =null
+var failStatus = null;
 let user, count;
 module.exports = {
   //ejs file edukka
   getHomePage: async (req, res) => {
     if (req.session.user) {
-      let user=req.session.user
-     let  userId = req.session.user._id;
-     let bannerData = await userHelpers.getBannetData();
+      let user = req.session.user;
+      let userId = req.session.user._id;
+      let bannerData = await userHelpers.getBannetData();
       const count = await userHelpers.countCart(userId.toString());
-      res.render("user/homepage", { layout: "Layout", user, count,bannerData});
+      res.render("user/homepage", {
+        layout: "Layout",
+        user,
+        count,
+        bannerData,
+      });
     } else {
       user = req.session.user;
 
-      res.render("user/homepage", { layout: "Layout", user ,bannerData});
+      res.render("user/homepage", { layout: "Layout", user, bannerData });
     }
   },
 
@@ -25,12 +30,12 @@ module.exports = {
 
   getLoginpage: (req, res) => {
     user = req.session.user;
-    const count=0
-    res.render("user/login", { layout: "Layout", user ,count});
+    const count = 0;
+    res.render("user/login", { layout: "Layout", user, count });
   },
   getSignuppage: (req, res) => {
-    const count=0
-    res.render("user/signup", { layout: "Layout", user,count });
+    const count = 0;
+    res.render("user/signup", { layout: "Layout", user, count });
   },
   postSignuppage: (req, res) => {
     let data = req.body;
@@ -46,22 +51,24 @@ module.exports = {
     let data = req.body;
 
     userHelpers.ploginpage(data).then((response) => {
-      console.log(response,"54321");
+      console.log(response, "54321");
       req.session.user = response.user;
       req.session.userLoggedIn = true;
       user = req.session.user;
-      error =response.error
+      error = response.error;
 
-      let lstatus=response.lstatus
-      
+      let lstatus = response.lstatus;
+
       if (lstatus == true) {
-
         res.redirect("/");
       } else {
-        
-        console.log(lstatus,"7890");
-        res.render("user/login" ,{ layout:"Layout", user: null ,failStatus:lstatus});
-        failStatus=null
+        console.log(lstatus, "7890");
+        res.render("user/login", {
+          layout: "Layout",
+          user: null,
+          failStatus: lstatus,
+        });
+        failStatus = null;
       }
     });
   },
@@ -73,19 +80,18 @@ module.exports = {
   },
 
   otpLogin: (req, res) => {
-
-    res.render("user/loginOtp", { layout: "Layout"});
-    req.session.otpLoginError = false
+    res.render("user/loginOtp", { layout: "Layout" });
+    req.session.otpLoginError = false;
   },
 
   sendOtp: (req, res) => {
-   let  phone = Number(req.body.phoneno);
+    let phone = Number(req.body.phoneno);
     console.log(phone);
     userHelpers.findUser(phone).then((user) => {
       if (user) {
         req.session.user = user;
         req.session.userLoggedIn = true;
-        
+
         res.json(true);
       } else {
         req.session.user = null;
@@ -100,29 +106,33 @@ module.exports = {
     let i = req.query.i;
     let perPage = 6;
     let docCount = await userHelpers.documentCount();
-    
+
     let pages = Math.ceil(docCount / perPage);
-    
+
     // let shop = await userHelpers.getShop();
-   let  userId = req.session.user
-   
+    let userId = req.session.user;
+
     const count = await userHelpers.countCart(userId._id);
-   let  user = req.session.user;
-    let shop = await userHelpers.pageview(perPage, i)
-    let layout = 'Layout'
+    let user = req.session.user;
+    let shop = await userHelpers.pageview(perPage, i);
+    let layout = "Layout";
 
     res.render("user/shop", { layout, shop, user, count, pages });
   },
-
 
   getSingleproduct: async (req, res) => {
     console.log(req.params);
     let product = await userHelpers.viewSingleproduct(req.params.id);
 
-    let  userId = req.session.user
+    let userId = req.session.user;
     user = req.session.user;
-    const count= await userHelpers.countCart(userId._id);
-    res.render("user/singleProductview", { layout: "Layout", product, user,count });
+    const count = await userHelpers.countCart(userId._id);
+    res.render("user/singleProductview", {
+      layout: "Layout",
+      product,
+      user,
+      count,
+    });
   },
 
   addtoCart: async (req, res) => {
@@ -134,14 +144,14 @@ module.exports = {
   },
 
   viewCart: async (req, res) => {
-   let user = req.session.user;
+    let user = req.session.user;
     let userId = req.session.user;
     let userID = userId._id;
 
     let userIdd = userID.toString();
 
     const count = await userHelpers.countCart(userId._id);
-console.log(count,"456789");
+    console.log(count, "456789");
     let totalAmount = await userHelpers.totalAmount(userId._id.toString());
 
     userHelpers.listCart(userId._id.toString()).then((cartItems) => {
@@ -153,57 +163,50 @@ console.log(count,"456789");
         count,
         total,
         userIdd,
-        user
+        user,
       });
     });
   },
 
   getWishlist: async (req, res) => {
-    console.log(req.params,"suiiiiiiiiiiiiii");
-    let userId=req.session.user
-    console.log(userId,"uuuuuuuuuuuuuuuuu");
+    console.log(req.params, "suiiiiiiiiiiiiii");
+    let userId = req.session.user;
+    console.log(userId, "uuuuuuuuuuuuuuuuu");
     userHelpers
       .addToWishlist(req.params.id, userId._id.toString())
       .then((data) => {
-      
-      res.redirect("/")
-      })
-   } ,
+        res.redirect("/");
+      });
+  },
 
-   viewWishlist: async (req, res) => {
-    let user = req.session.user
+  viewWishlist: async (req, res) => {
+    let user = req.session.user;
     console.log(req.session.user);
-    let users = req.session.user._id
+    let users = req.session.user._id;
     console.log(users);
-    const count=await userHelpers.countCart(users)
-     
-    wishcount = await userHelpers.wishCount(users)
+    const count = await userHelpers.countCart(users);
+
+    wishcount = await userHelpers.wishCount(users);
     console.log(wishcount);
-    
+
     let wishlistItems = await userHelpers.viewWishlist(users);
 
-    
     res.render("user/wishlist", {
       layout: "Layout",
       users,
       user,
       wishlistItems,
       wishcount,
-      count
+      count,
     });
   },
 
   deleteFromWishlist: async (req, res) => {
-    
     let deleteData = await userHelpers.deleteWishlist(req.body);
     if (deleteData) {
       res.json(true);
     }
   },
-
-  
-
-
 
   changeQuantity: async (req, res) => {
     const { user, cart, product, count, quantity } = req.body;
@@ -235,16 +238,21 @@ console.log(count,"456789");
   },
 
   getAddress: async (req, res) => {
-    let user=req.session.user
-    
-    
-   let userId = req.session.user._id;
-   
-  let count= await userHelpers.countCart(userId.toString())
-    let address = await userHelpers.viewAddress(userId.toString())
-    let orderList = await userHelpers.getOrderlist(userId.toString())
-     
-    res.render("user/accountPage", { layout: "Layout", address, orderList ,user,count});
+    let user = req.session.user;
+
+    let userId = req.session.user._id;
+
+    let count = await userHelpers.countCart(userId.toString());
+    let address = await userHelpers.viewAddress(userId.toString());
+    let orderList = await userHelpers.getOrderlist(userId.toString());
+
+    res.render("user/accountPage", {
+      layout: "Layout",
+      address,
+      orderList,
+      user,
+      count,
+    });
   },
 
   postAddress: async (req, res) => {
@@ -252,28 +260,28 @@ console.log(count,"456789");
     let addressId = address._id.toString();
     await userHelpers.addAddress(req.body, addressId).then((response) => {
       console.log(response);
-      res.send(response)
+      res.send(response);
     });
   },
 
   geteditAddress: async (req, res) => {
     let addressId = req.params.id;
-let user=req.session.user
+    let user = req.session.user;
     let userId = req.session.user._id;
     let count = await userHelpers.countCart(userId.toString());
 
-
     let address = await userHelpers.geteditAddress(
       addressId,
-      userId.toString(),user
+      userId.toString(),
+      user
     );
 
-    res.render("user/editAddress", { layout: "Layout", address ,user,count});
+    res.render("user/editAddress", { layout: "Layout", address, user, count });
   },
 
   posteditAddress: async (req, res) => {
     let addressId = req.body;
-    console.log(addressId,"ytrews");
+    console.log(addressId, "ytrews");
 
     let userId = req.session.user;
     await userHelpers
@@ -285,7 +293,7 @@ let user=req.session.user
 
   getCheckoutpage: async (req, res) => {
     let userId = req.session.user;
-let user=req.session.user
+    let user = req.session.user;
     let walletAmount;
 
     const count = await userHelpers.countCart(userId._id.toString());
@@ -315,7 +323,7 @@ let user=req.session.user
       total,
       viewAddress,
       walletAmount,
-      user
+      user,
     });
   },
 
@@ -340,17 +348,14 @@ let user=req.session.user
           res.json({ codstatus: true });
           userHelpers.reduceWallet(userId._id.toString(), total);
         }
-
-
       });
   },
 
   orderSuccess: (req, res) => {
-    
-    let user=req.session.user
+    let user = req.session.user;
     const count = 0;
-    console.log(user,'/////');
-    res.render("user/orderSuccess", { layout: "Layout", user, count});
+    console.log(user, "/////");
+    res.render("user/orderSuccess", { layout: "Layout", user, count });
   },
 
   postVerifypayment: (req, res) => {
@@ -372,12 +377,11 @@ let user=req.session.user
   },
 
   getorderDetails: async (req, res) => {
-
-console.log(req.params.id);
+    console.log(req.params.id);
     let users = req.session.user._id;
-let user=req.session.user
+    let user = req.session.user;
     let orderId = req.params.id;
-    console.log(orderId,"oooooooooooooooooo");
+    console.log(orderId, "oooooooooooooooooo");
     let getAddress = await userHelpers.getAddress(users, orderId);
     const count = await userHelpers.countCart(users);
 
@@ -393,7 +397,8 @@ let user=req.session.user
         data,
         products,
         users,
-        user,count
+        user,
+        count,
       });
     });
   },
@@ -429,7 +434,7 @@ let user=req.session.user
   },
 
   applyCoupon: async (req, res) => {
-    let code = req.query.code
+    let code = req.query.code;
     let total = await userHelpers.totalAmount(req.session.user._id);
     userHelpers.applyCoupon(code, total).then((response) => {
       console.log(response, "-------------------");

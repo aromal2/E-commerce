@@ -2,10 +2,8 @@ const dbAdmin = require("../../schema/models");
 const bcrypt = require("bcrypt");
 const { ObjectId } = require("mongodb");
 const couponCode = require("coupon-code");
-const mongoose = require('mongoose');
-const slugify = require('slugify');
-
-
+const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 module.exports = {
   //   getUser:()=>
@@ -110,10 +108,7 @@ module.exports = {
     });
   },
 
-  postCategoryedit: () => {
-
-
-  },
+  postCategoryedit: () => {},
 
   // getEditcategory:async (categoryId) => {
 
@@ -126,7 +121,7 @@ module.exports = {
   getAddproductcategory: () => {
     return new Promise(async (resolve, reject) => {
       await dbAdmin.category
-        .find({unlist:false})
+        .find({ unlist: false })
         .exec()
         .then((response) => {
           resolve(response);
@@ -135,14 +130,13 @@ module.exports = {
   },
 
   addProduct: (data) => {
-
     const string1 = data.name;
-const string2 = data.brand;
+    const string2 = data.brand;
 
-const combinedString = string1 + ' ' + string2;
-const slug = slugify(combinedString);
+    const combinedString = string1 + " " + string2;
+    const slug = slugify(combinedString);
 
-console.log(slug);
+    console.log(slug);
     return new Promise((resolve, reject) => {
       // prod= dbAdmin.product.find({productName:data.name})
 
@@ -154,7 +148,7 @@ console.log(slug);
         quantity: data.quantity,
         category: data.category,
         image: data.img,
-        slug:slug
+        slug: slug,
       });
       productD.save().then((result) => {
         resolve(result);
@@ -162,13 +156,15 @@ console.log(slug);
     });
   },
 
-  viewProductlist: (i,perPage) => {
+  viewProductlist: (i, perPage) => {
     return new Promise(async (resolve, reject) => {
       await dbAdmin.product
         .find({})
-        .sort({ _id: -1 }).limit(perPage).skip((i-1)*perPage)
+        .sort({ _id: -1 })
+        .limit(perPage)
+        .skip((i - 1) * perPage)
         .then((result) => {
-          console.log(result,"4567890");
+          console.log(result, "4567890");
           resolve(result);
         });
     });
@@ -186,7 +182,7 @@ console.log(slug);
     console.log(productId, "000000000000123456");
     try {
       let validObjectId;
-  
+
       if (mongoose.Types.ObjectId.isValid(productId)) {
         validObjectId = new mongoose.Types.ObjectId(productId);
       } else {
@@ -194,20 +190,25 @@ console.log(slug);
         // e.g., if it's an integer or a different format
         validObjectId = productId;
       }
-  
+
       const response = await dbAdmin.product.findOne({ _id: validObjectId });
-      console.log(response,"66666666");
+      console.log(response, "66666666");
       return response;
     } catch (error) {
       console.error("MongoDB Error:", error.message);
       // throw error;
     }
   },
-  
-  
 
   postEditproduct: async (id, data, images) => {
-    console.log(id,"--------", data,"8888888", images,"---------0----------------------------");
+    console.log(
+      id,
+      "--------",
+      data,
+      "8888888",
+      images,
+      "---------0----------------------------"
+    );
     return new Promise(async (resolve, reject) => {
       const imageStrings = images.map((image) => String(image));
       await dbAdmin.product
@@ -221,7 +222,7 @@ console.log(slug);
               Price: data.price,
               quantity: data.quantity,
               category: data.category,
-              image: imageStrings
+              image: imageStrings,
             },
           }
         )
@@ -231,84 +232,66 @@ console.log(slug);
         })
         .catch((error) => {
           console.log(error);
-        
         });
     });
-  }
-  ,
-
+  },
   getPreviousImages: (proId) => {
     try {
-        return new Promise(async (resolve, reject) => {
-            await dbAdmin.product.findOne({ _id: proId }).then((response) => {
-              console.log(response,"response");
-                resolve(response.image)
-            })
-        })
+      return new Promise(async (resolve, reject) => {
+        await dbAdmin.product.findOne({ _id: proId }).then((response) => {
+          console.log(response, "response");
+          resolve(response.image);
+        });
+      });
     } catch (error) {
-        console.log(error.message);
+      console.log(error.message);
     }
-
-},
-
-  // postEditcategory1:async (data, categoryId) => {
-  //   console.log(data,']]]]]]]]]]]]]]]]]]]]');
-
-  // return new Promise(async (resolve, reject) => {
-  //   await dbAdmin.category
-  //     .updateOne(
-  //       { _id: categoryId },
-  //       {
-  //         $set: {
-  //           CategoryName: data.Categoryname,
-  //           subCategory: data.Subcategoryname,
-  //           categoryOfferpercentage:data.offerprice
-  //         },
-  //       }
-  //     )
-  //     .then((result) => {});
-  // });
+  },
 
   updateCategory: (id, body) => {
-  const { editCategoryname, editCategoryoffer } = body;
-  console.log(id, body);
-  return new Promise(async (resolve, reject) => {
-    try {
-      await dbAdmin.category.updateOne(
-        { _id: id },
-        { $set: { CategoryName: editCategoryname, categoryOfferpercentage: editCategoryoffer } }
-      ).then((result)=>{
-        resolve(result);
-      })
-       // Resolve the Promise to indicate successful update
-    } catch (error) {
-      reject(error); // Reject the Promise if an error occurs
-    }
-  });
-},
-
-  
+    const { editCategoryname, editCategoryoffer } = body;
+    console.log(id, body);
+    return new Promise(async (resolve, reject) => {
+      try {
+        await dbAdmin.category
+          .updateOne(
+            { _id: id },
+            {
+              $set: {
+                CategoryName: editCategoryname,
+                categoryOfferpercentage: editCategoryoffer,
+              },
+            }
+          )
+          .then((result) => {
+            resolve(result);
+          });
+        // Resolve the Promise to indicate successful update
+      } catch (error) {
+        reject(error); // Reject the Promise if an error occurs
+      }
+    });
+  },
 
   categoryOffer: async (id, body) => {
     const { editCategoryname, editCategoryoffer } = body;
-    
+
     try {
       let category = await dbAdmin.category.findOne({ _id: new ObjectId(id) });
       console.log(category);
-      
+
       if (category.categoryOfferpercentage != editCategoryoffer) {
         await dbAdmin.product.updateMany(
           { category: editCategoryname },
           { $set: { offerPercentage: editCategoryoffer } }
         );
       }
-      
-      console.log('Category updated successfully');
+
+      console.log("Category updated successfully");
     } catch (error) {
-      console.error('Error updating category:', error);
+      console.error("Error updating category:", error);
     }
   },
-  
 
   unlist: (data) => {
     return new Promise(async (resolve, reject) => {
@@ -327,7 +310,7 @@ console.log(slug);
     });
   },
 
-  list:(data)=>{
+  list: (data) => {
     return new Promise(async (resolve, reject) => {
       await dbAdmin.product
         .updateOne(
@@ -344,52 +327,48 @@ console.log(slug);
     });
   },
 
-  
-
   unlistCategory: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await dbAdmin.category.updateOne(
-          {
-            CategoryName: data,
-          },
-          {
-            $set: {
-              unlist: true,
+        await dbAdmin.category
+          .updateOne(
+            {
+              CategoryName: data,
             },
-          }
-        ).then((result)=>{
-          resolve(result)
-          console.log(result);
-          
-        })
-       
+            {
+              $set: {
+                unlist: true,
+              },
+            }
+          )
+          .then((result) => {
+            resolve(result);
+            console.log(result);
+          });
       } catch (error) {
         reject(error);
       }
     });
   },
 
-
-
   listCategory: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await dbAdmin.category.updateOne(
-          {
-            CategoryName: data,
-          },
-          {
-            $set: {
-              unlist: false,
+        await dbAdmin.category
+          .updateOne(
+            {
+              CategoryName: data,
             },
-          }
-        ).then((result)=>{
-          resolve(result)
-          console.log(result,"listcateg");
-          
-        })
-        
+            {
+              $set: {
+                unlist: false,
+              },
+            }
+          )
+          .then((result) => {
+            resolve(result);
+            console.log(result, "listcateg");
+          });
       } catch (error) {
         reject(error);
       }
@@ -399,21 +378,21 @@ console.log(slug);
   listShop: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await dbAdmin.product.updateMany(
-          {
-            category: data,
-          },
-          {
-            $set: {
-              unlist: false,
+        await dbAdmin.product
+          .updateMany(
+            {
+              category: data,
             },
-          }
-        ).then((result)=>{
-          console.log(result,"listshopppppp");
-          resolve(result)
-          
-        })
-        
+            {
+              $set: {
+                unlist: false,
+              },
+            }
+          )
+          .then((result) => {
+            console.log(result, "listshopppppp");
+            resolve(result);
+          });
       } catch (error) {
         reject(error);
       }
@@ -423,20 +402,21 @@ console.log(slug);
   unlistShop: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
-        await dbAdmin.product.updateMany(
-          {
-            category: data,
-          },
-          {
-            $set: {
-              unlist: true,
+        await dbAdmin.product
+          .updateMany(
+            {
+              category: data,
             },
-          }
-        ).then((result)=>{
-          console.log(result,"unlistshop");
-        resolve(result)
-        })
-       
+            {
+              $set: {
+                unlist: true,
+              },
+            }
+          )
+          .then((result) => {
+            console.log(result, "unlistshop");
+            resolve(result);
+          });
       } catch (error) {
         reject(error);
       }
@@ -513,17 +493,14 @@ console.log(slug);
     });
   },
   postCoupon: (data) => {
-    console.log(data,"66666666666666666");
-
+    console.log(data, "66666666666666666");
 
     return new Promise(async (resolve, reject) => {
-
-     
       dbAdmin
         .coupon(data)
         .save()
         .then((order) => {
-          console.log(order,"345678");
+          console.log(order, "345678");
           resolve(order);
         });
     });
@@ -540,8 +517,7 @@ console.log(slug);
   deleteCoupon: (couponId) => {
     return new Promise(async (resolve, reject) => {
       dbAdmin.coupon.deleteOne({ _id: couponId }).then((response) => {
-
-        resolve(response)
+        resolve(response);
       });
     });
   },
@@ -559,7 +535,6 @@ console.log(slug);
         },
       ]);
 
-
       resolve(response);
     });
   },
@@ -576,7 +551,7 @@ console.log(slug);
           },
         },
       ]);
-console.log(response);
+      console.log(response);
       resolve(response);
     });
   },
@@ -695,28 +670,29 @@ console.log(response);
     });
   },
 
-  
   postReport: (date) => {
     let start = new Date(date.startdate);
     let end = new Date(date.enddate);
-    
+
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await dbAdmin.order.aggregate([
-          {
-            $unwind: "$orders",
-          },
-          {
-            $match: {
-              "orders.orderStatus": "Delivered",
-              "orders.createdAt": {
-                $gte: new Date(start),
-                $lte: new Date(end),
+        const response = await dbAdmin.order
+          .aggregate([
+            {
+              $unwind: "$orders",
+            },
+            {
+              $match: {
+                "orders.orderStatus": "Delivered",
+                "orders.createdAt": {
+                  $gte: new Date(start),
+                  $lte: new Date(end),
+                },
               },
             },
-          },
-        ]).exec();
-    
+          ])
+          .exec();
+
         console.log(response, "78909");
         resolve(response);
       } catch (error) {
@@ -729,7 +705,7 @@ console.log(response);
     return new Promise(async (resolve, reject) => {
       try {
         const result = await dbAdmin.product.countDocuments();
-      
+
         resolve(result);
       } catch (error) {
         reject(error);
@@ -737,71 +713,66 @@ console.log(response);
     });
   },
 
-  slugify:(productName)=>{
-    return new Promise(async(resolve,reject)=>{
+  slugify: (productName) => {
+    return new Promise(async (resolve, reject) => {
       try {
-
-
-      } catch(error)
-      {
-        reject(error)
+      } catch (error) {
+        reject(error);
       }
-    })
+    });
   },
 
   addBanner: (texts, Image) => {
-
     return new Promise(async (resolve, reject) => {
-
       let banner = dbAdmin.banner({
         title: texts.title,
         description: texts.description,
-        image: Image
-
-      })
+        image: Image,
+      });
       await banner.save().then((response) => {
-        console.log(response,"77777777456789");
-        resolve(response)
-      })
-    })
+        console.log(response, "77777777456789");
+        resolve(response);
+      });
+    });
   },
 
   listBanner: () => {
-
     return new Promise(async (resolve, reject) => {
-      await dbAdmin.banner.find().exec().then((response) => {
-        resolve(response)
-      })
-    })
+      await dbAdmin.banner
+        .find()
+        .exec()
+        .then((response) => {
+          resolve(response);
+        });
+    });
   },
 
-  editBanner:(bannerId)=>{
+  editBanner: (bannerId) => {
     return new Promise(async (resolve, reject) => {
-      await dbAdmin.banner.find({_id:new ObjectId(bannerId)}).exec().then((response) => {
-        console.log(response)
-        resolve(response)
-      })
-    })
+      await dbAdmin.banner
+        .find({ _id: new ObjectId(bannerId) })
+        .exec()
+        .then((response) => {
+          console.log(response);
+          resolve(response);
+        });
+    });
   },
 
   editpostBanner: (bannerid, texts, Image) => {
-
     return new Promise(async (resolve, reject) => {
-
-      let response = await dbAdmin.banner.updateOne({ _id: bannerid },
+      let response = await dbAdmin.banner.updateOne(
+        { _id: bannerid },
         {
           $set: {
-
             title: texts.title,
             description: texts.description,
-            image: Image
-          }
-
-        })
-        console.log(response);
-      resolve(response)
-    })
-
+            image: Image,
+          },
+        }
+      );
+      console.log(response);
+      resolve(response);
+    });
   },
-  }
-  
+};

@@ -231,8 +231,6 @@
               // Get the form and all the form inputs
 
               function validateForm() {
-                
-              
                 const nameInput = document.getElementById("name");
                 const brandInput = document.getElementById("brand");
                 const descriptionInput = document.getElementById("description");
@@ -302,8 +300,7 @@
                   isValid = false;
                   document.getElementById("error4").textContent =
                     "Price must be greater than 0";
-                }
-                else if (/\s/.test(quantityInput.value)) {
+                } else if (/\s/.test(quantityInput.value)) {
                   isValid = false;
                   document.getElementById("error4").textContent =
                     "Quantity should not contain spaces";

@@ -1,4 +1,3 @@
-
 <section class="content-main">
   <div class="content-header">
     <div>
@@ -76,139 +75,132 @@
           <canvas id="myChart3" height="120px"></canvas>
         </article>
       </div>
-     
     </div>
     <div class="col-xl-3 col-lg-12">
       <div class="card mb-4">
         <article class="card-body">
           <h5 class="card-title">Payment Mode</h5>
-          <canvas id="myChart4" ></canvas>
+          <canvas id="myChart4"></canvas>
         </article>
       </div>
-      
     </div>
 
     <div class="col-xl-3 col-lg-12">
       <div class="card mb-4">
         <article class="card-body">
           <h5 class="card-title">category Sales</h5>
-          <canvas id="myChart9" ></canvas>
+          <canvas id="myChart9"></canvas>
         </article>
       </div>
-      
     </div>
 
     <div>
-      <p  id="days"style="visibility: hidden;" > <%= JSON.stringify(locals.ordersPerDay) %></p>
-      <p style="visibility: hidden;" id="payment"><%= JSON.stringify(locals.paymentCount) %> </p>
-      <p style="visibility: hidden;" id="category"> <%= JSON.stringify(locals.category) %> </p>
-
-
+      <p id="days" style="visibility: hidden">
+        <%= JSON.stringify(locals.ordersPerDay) %>
+      </p>
+      <p style="visibility: hidden" id="payment">
+        <%= JSON.stringify(locals.paymentCount) %>
+      </p>
+      <p style="visibility: hidden" id="category">
+        <%= JSON.stringify(locals.category) %>
+      </p>
     </div>
-    
   </div>
-  
- 
 </section>
 <!-- content-main end// -->
 <footer class="main-footer font-xs">
-  <script src="/controllers/admincontroller/adminlogin.js"> </script>
+  <script src="/controllers/admincontroller/adminlogin.js"></script>
   <body>
+    <script>
+      const x1Values = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+      const y1Values = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
 
+      new Chart("myChart3", {
+        type: "line",
+        data: {
+          labels: x1Values,
+          datasets: [
+            {
+              fill: false,
+              lineTension: 0,
+              backgroundColor: "rgba(0,0,255,1.0)",
+              borderColor: "rgba(0,0,255,0.1)",
+              data: y1Values,
+            },
+          ],
+        },
+        options: {
+          legend: { display: false },
+          scales: {
+            yAxes: [{ ticks: { min: 6, max: 16 } }],
+          },
+        },
+      });
 
-<script>
-const x1Values = [50,60,70,80,90,100,110,120,130,140,150];
-const y1Values = [7,8,8,9,9,9,10,11,14,14,15];
+      var xValues = ["COD", "Wallet", "Online"];
+      var yValues = [];
+      let paymentData = JSON.parse(
+        document.getElementById("payment").innerHTML
+      );
 
-new Chart("myChart3", {
-  type: "line",
-  data: {
-    labels: x1Values,
-    datasets: [{
-      fill: false,
-      lineTension: 0,
-      backgroundColor: "rgba(0,0,255,1.0)",
-      borderColor: "rgba(0,0,255,0.1)",
-      data: y1Values
-    }]
-  },
-  options: {
-    legend: {display: false},
-    scales: {
-      yAxes: [{ticks: {min: 6, max:16}}],
-    }
-  }
-});
+      console.log(paymentData, "33333333333333333333");
+      console.log(yValues, "y");
 
+      yValues.push(paymentData[0]);
+      yValues.push(paymentData[1]);
+      yValues.push(paymentData[2]);
 
+      var barColors = ["#b91d47", "#00aba9", "#2b5797", "#e8c3b9", "#1e7145"];
 
+      new Chart("myChart4", {
+        type: "pie",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          title: {
+            display: true,
+            text: "Based on Payment ",
+          },
+        },
+      });
 
-var xValues = ["COD", "Wallet", "Online"];
-var yValues = [];
-let paymentData= JSON.parse(document.getElementById('payment').innerHTML)
+      var xValues = ["Men", "Women", "Unisex"];
+      var yValues = [];
+      var barColors = ["green", "blue", "brown"];
+      let categoryData = JSON.parse(
+        document.getElementById("category").innerHTML
+      );
 
-console.log(paymentData,"33333333333333333333");
-console.log(yValues,"y");
+      yValues.push(categoryData[0]);
+      yValues.push(categoryData[1]);
+      yValues.push(categoryData[2]);
 
-yValues.push(paymentData[0])
-yValues.push(paymentData[1])
-yValues.push(paymentData[2])
-
-var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
-
-
-new Chart("myChart4", {
-  type: "pie",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Based on Payment "
-    }
-  }
-});
-
-
-var xValues = ["Men", "Women", "Unisex"];
-var yValues = [];
-var barColors = ["green","blue","brown"];
- let categoryData=JSON.parse(document.getElementById('category').innerHTML)
-
- yValues.push(categoryData[0])
- yValues.push(categoryData[1])
- yValues.push(categoryData[2])
- 
-new Chart("myChart9", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "Based on Category Sales"
-    }
-  }
-});
-
-
-</script>
-
-   
+      new Chart("myChart9", {
+        type: "bar",
+        data: {
+          labels: xValues,
+          datasets: [
+            {
+              backgroundColor: barColors,
+              data: yValues,
+            },
+          ],
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Based on Category Sales",
+          },
+        },
+      });
+    </script>
+  </body>
+</footer>

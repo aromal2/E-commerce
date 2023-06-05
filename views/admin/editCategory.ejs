@@ -5,10 +5,24 @@
         <h2 class="text-center">Edit Category</h2>
         <form id="form">
           <label for="editCategoryname">Category Name</label>
-          <input type="text" name="editCategoryname" class="form-control" value="<%=response.CategoryName %>" id="category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;" />
+          <input
+            type="text"
+            name="editCategoryname"
+            class="form-control"
+            value="<%=response.CategoryName %>"
+            id="category"
+            oninput="this.value = this.value.replace(/\s/g, '').toUpperCase()"
+            style="text-transform: uppercase"
+          />
           <p id="error1" class="text-danger"></p>
           <label for="editCategoryoffer">Add an offer</label>
-          <input type="number" name="editCategoryoffer" id="sub-category" class="form-control" value="<%=response.categoryOfferpercentage%>" />
+          <input
+            type="number"
+            name="editCategoryoffer"
+            id="sub-category"
+            class="form-control"
+            value="<%=response.categoryOfferpercentage%>"
+          />
           <p id="error2" class="text-danger"></p>
           <button type="button" onclick="validate()">Submit</button>
         </form>
@@ -42,55 +56,57 @@
 
 <script>
   function validate() {
-    const category = document.getElementById('category');
-    const error1 = document.getElementById('error1');
-    const subCategory = document.getElementById('sub-category');
-    const error2 = document.getElementById('error2');
+    const category = document.getElementById("category");
+    const error1 = document.getElementById("error1");
+    const subCategory = document.getElementById("sub-category");
+    const error2 = document.getElementById("error2");
 
     // Reset error messages
-    error1.innerText = '';
-    error2.innerText = '';
+    error1.innerText = "";
+    error2.innerText = "";
 
     let flag = true;
     const categoryValue = category.value.trim();
     const subCategoryValue = subCategory.value.trim();
 
-    if (categoryValue === '') {
-      error1.innerText = 'Category Name is required';
+    if (categoryValue === "") {
+      error1.innerText = "Category Name is required";
       flag = false;
     } else if (categoryValue.length > 15) {
-      error1.innerText = 'Category should not exceed 15 characters';
+      error1.innerText = "Category should not exceed 15 characters";
       flag = false;
-    } else if (categoryValue.length < 2) {
-      error1.innerText = 'Enter a valid Category Name';
+    } else if (categoryValue.indexOf(" ") === 0) {
+    error1.innerText = "Category Name should not start with a space";
+    flag = false;
+  }
+    if (subCategoryValue === "") {
+      error2.innerText = "Category offer is required";
       flag = false;
-    }
-
-    if (subCategoryValue === '') {
-      error2.innerText = 'Category offer is required';
-      flag = false;
-    } else if (parseFloat(subCategoryValue) <= 0 || isNaN(parseFloat(subCategoryValue))) {
-      error2.innerText = 'Please enter a valid category offer';
+    } else if (
+      parseFloat(subCategoryValue) <= 0 ||
+      isNaN(parseFloat(subCategoryValue))
+    ) {
+      error2.innerText = "Please enter a valid category offer";
       flag = false;
     }
 
     if (flag) {
-      editCategory('<%=response._id %>');
+      editCategory("<%=response._id %>");
     }
   }
 
   function editCategory(categoryId) {
     $.ajax({
       url: `/admin/editCategory/${categoryId}`,
-      method: 'POST',
-      data: $('#form').serialize(),
-      success: function(result) {
-        location.href = '/admin/dashboard';
+      method: "POST",
+      data: $("#form").serialize(),
+      success: function (result) {
+        location.href = "/admin/dashboard";
       },
-      error: function(error) {
+      error: function (error) {
         console.log(error);
         // Handle any errors that occur during the AJAX request
-      }
+      },
     });
   }
 </script>

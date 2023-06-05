@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const userschema = new mongoose.Schema({
   username: {
     type: String,
@@ -16,14 +15,14 @@ const userschema = new mongoose.Schema({
   },
   blocked: {
     type: Boolean,
-   default: false,
+    default: false,
   },
   wallet: {
     type: Number,
     default: 0,
   },
-    coupon: Array,
-})
+  coupon: Array,
+});
 
 const adminSchema = new mongoose.Schema({
   email: {
@@ -80,7 +79,7 @@ const productSchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-   slug:String
+  slug: String,
 });
 
 const categorySchema = mongoose.Schema({
@@ -94,14 +93,14 @@ const categorySchema = mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  categoryOfferpercentage:{
-    type:Number,
-    default:0
+  categoryOfferpercentage: {
+    type: Number,
+    default: 0,
   },
   createdAt: {
     type: Date,
     default: new Date(),
-  }
+  },
 });
 
 const cartSchema = mongoose.Schema({
@@ -204,7 +203,6 @@ const wishlistSchema = new mongoose.Schema({
   },
 });
 
-
 const bannerSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -229,8 +227,6 @@ const bannerSchema = new mongoose.Schema({
   },
 });
 
-
-
 module.exports = {
   user: mongoose.model("user", userschema),
   admin: mongoose.model("admin", adminSchema),
@@ -239,7 +235,7 @@ module.exports = {
   cart: mongoose.model("cart", cartSchema),
   address: mongoose.model("address", addressSchema),
   order: mongoose.model("order", orderschema),
-  coupon: mongoose.model("coupon",couponSchema),
+  coupon: mongoose.model("coupon", couponSchema),
   wishlist: mongoose.model("wishlist", wishlistSchema),
   banner: mongoose.model("Banner", bannerSchema),
 };

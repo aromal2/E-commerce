@@ -8,7 +8,11 @@
         <p class="ms-1">Add, edit, or delete a category</p>
       </div>
       <div>
-        <input type="text" placeholder="Search Categories" class="form-control bg-white">
+        <input
+          type="text"
+          placeholder="Search Categories"
+          class="form-control bg-white"
+        />
       </div>
     </div>
     <div class="card ms-1">
@@ -18,24 +22,53 @@
             <form id="formId">
               <div class="mb-4">
                 <label for="product_name" class="form-label">Category</label>
-                <input type="text" placeholder="Type here" class="form-control" name="category" id="category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="form-control"
+                  name="category"
+                  id="category"
+                  oninput="this.value = this.value.toUpperCase()"
+                  style="text-transform: uppercase"
+                />
                 <p id="error1" class="text-danger"></p>
               </div>
               <div class="mb-4">
-                <label for="product_slug" class="form-label">Sub-Category</label>
-                <input type="text" placeholder="Type here" class="form-control" name="sub-category" id="sub-category" oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
+                <label for="product_slug" class="form-label"
+                  >Sub-Category</label
+                >
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="form-control"
+                  name="sub-category"
+                  id="sub-category"
+                  oninput="this.value = this.value.toUpperCase()"
+                  style="text-transform: uppercase"
+                />
                 <p id="error2" class="text-danger"></p>
               </div>
               <div class="mb-4">
                 <label class="form-label">Description</label>
-                <textarea placeholder="Type here" class="form-control" name="description" id="description"></textarea>
+                <textarea
+                  placeholder="Type here"
+                  class="form-control"
+                  name="description"
+                  id="description"
+                ></textarea>
                 <p id="error3" class="text-danger"></p>
               </div>
               <div class="mb-4">
                 <label class="form-label">Offer Percentage</label>
                 <div class="input-group">
                   <span class="input-group-text">%</span>
-                  <input placeholder="Price" name="offerprice" id="offerprice" type="text" class="form-control">
+                  <input
+                    placeholder="Price"
+                    name="offerprice"
+                    id="offerprice"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
                 <p id="error4" class="text-danger"></p>
               </div>
@@ -43,16 +76,28 @@
                 <label class="form-label">Offer Validity</label>
                 <div class="input-group">
                   <div class="row gx-2">
-                   
                     <div class="col">
-                      <input type="date" name="enddate" id="enddate" class="form-control">
-                      <span id="date-error2" style="display: none; color: red;"> End Date</span>
+                      <input
+                        type="date"
+                        name="enddate"
+                        id="enddate"
+                        class="form-control"
+                      />
+                      <span id="date-error2" style="display: none; color: red">
+                        End Date</span
+                      >
                     </div>
                   </div>
                 </div>
               </div>
               <div class="d-grid">
-                <button type="button" class="btn btn-primary" onclick="validate()">Create category</button>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="validate()"
+                >
+                  Create category
+                </button>
               </div>
             </form>
           </div>
@@ -62,112 +107,82 @@
   </section>
 </main>
 
-
-
 <script>
- function validate()
-    {
-        const category = document.getElementById('category')
-        const subcategory=document.getElementById('sub-category')
-        const description=document.getElementById('description')
+  function validate() {
+    const category = document.getElementById("category");
+    const subcategory = document.getElementById("sub-category");
+    const description = document.getElementById("description");
 
-        let categoryvalue=category.value.trim()
-        let subcategoryvalue=subcategory.value.trim()
-        let descriptionvalue=description.value.trim()
+    let categoryvalue = category.value.trim();
+    let subcategoryvalue = subcategory.value.trim();
+    let descriptionvalue = description.value.trim();
 
-        const error1=category.parentElement.querySelector('p')
-        const error2=subcategory.parentElement.querySelector('p')
-        const error3=description.parentElement.querySelector('p')
+    const error1 = category.parentElement.querySelector("p");
+    const error2 = subcategory.parentElement.querySelector("p");
+    const error3 = description.parentElement.querySelector("p");
 
-        error1.innerText=''
-        error2.innerText=''
-        error3.innerText=''
+    error1.innerText = "";
+    error2.innerText = "";
+    error3.innerText = "";
 
-        let flag =1
-        if(categoryvalue=='')
-       {
-          error1.innerText='Field is required'
-          flag=2
-       }
-       else if (categoryvalue.length > 15) {
-  isValid = false;
-  document.getElementById("error1").textContent = "Category should not exceed 10 characters";
-}
-
-
-      else if(category.length<2)
-       {
-        error1.innerText='Enter a valid Username'
-        flag=2
-       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(category.value)) {
-                  isValid = false;
-                  document.getElementById("error1").textContent =
-                    "No space first";
-                }
-
-       if(subcategoryvalue=='')
-       {
-        error2.innerText='field is required'
-        flag=2
-       }
-       else if(subcategory.length<2)
-       {
-        error2.innerText='Enter a valid subcategory'
-        flag=2
-       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(subcategory.value)) {
-                  isValid = false;
-                  document.getElementById("error2").textContent =
-                    "No space first";
-                }
-
-       if(descriptionvalue=='')
-       {
-        error3.innerText='field is required'
-        flag=2
-       }
-       else if(description.length<2)
-       {
-        error3.innerText='Enter a valid Username'
-        flag=2
-       } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(description.value)) {
-                  isValid = false;
-                  document.getElementById("error3").textContent =
-                    "No space first";
-                }
-         
-       if(flag==1)
-       {
-        console.log(flag=1);
-    addcategory(categoryvalue,subcategoryvalue,descriptionvalue)
-       }
-
-      
+    let flag = 1;
+    if (categoryvalue == "") {
+      error1.innerText = "Field is required";
+      flag = 2;
+    } else if (categoryvalue.length > 15) {
+      isValid = false;
+      document.getElementById("error1").textContent =
+        "Category should not exceed 10 characters";
+    } else if (category.length < 2) {
+      error1.innerText = "Enter a valid Username";
+      flag = 2;
+    } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(category.value)) {
+      isValid = false;
+      document.getElementById("error1").textContent = "No space first";
     }
 
+    if (subcategoryvalue == "") {
+      error2.innerText = "field is required";
+      flag = 2;
+    } else if (subcategory.length < 2) {
+      error2.innerText = "Enter a valid subcategory";
+      flag = 2;
+    } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(subcategory.value)) {
+      isValid = false;
+      document.getElementById("error2").textContent = "No space first";
+    }
 
-    function addcategory() {
-        
-   
+    if (descriptionvalue == "") {
+      error3.innerText = "field is required";
+      flag = 2;
+    } else if (description.length < 2) {
+      error3.innerText = "Enter a valid Username";
+      flag = 2;
+    } else if (!/^[A-Za-z][A-Za-z\s]*$/.test(description.value)) {
+      isValid = false;
+      document.getElementById("error3").textContent = "No space first";
+    }
+
+    if (flag == 1) {
+      console.log((flag = 1));
+      addcategory(categoryvalue, subcategoryvalue, descriptionvalue);
+    }
+  }
+
+  function addcategory() {
     $.ajax({
-        url: '/admin/category',
-        method: 'POST',
-        data:$('#formId').serialize(),
+      url: "/admin/category",
+      method: "POST",
+      data: $("#formId").serialize(),
+    });
+  }
 
-    })
-}
-       
-        
-    //     // success: function(response) {
-    //     //     // Handle the response from the server if needed
-    //     //     console.log(response);
-    //     // },
-    //     // error: function(xhr, status, error) {
-    //     //     // Handle the error if the request fails
-    //     //     console.log(error);
-    //     // }
-    
-
-
-
-        </script>
-       
+  //     // success: function(response) {
+  //     //     // Handle the response from the server if needed
+  //     //     console.log(response);
+  //     // },
+  //     // error: function(xhr, status, error) {
+  //     //     // Handle the error if the request fails
+  //     //     console.log(error);
+  //     // }
+</script>

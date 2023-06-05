@@ -5,7 +5,7 @@ const userController = require("../controllers/userControllers/userControllers")
 const middleware = require("../middleware/Middleware");
 
 /* GET home page. */
-router.get("/",middleware.userauth, userController.getHomePage);
+router.get("/", middleware.userauth, userController.getHomePage);
 
 router.get("/login", userController.getLoginpage);
 
@@ -27,54 +27,78 @@ router.post("/cart/:id", userController.addtoCart);
 
 router.get("/viewCart", middleware.userauth, userController.viewCart);
 
-router.get("/getWishlist/:id",userController.getWishlist)
+router.get("/getWishlist/:id", userController.getWishlist);
 
-router.get("/viewWishlist", middleware.userauth,userController.viewWishlist)
+router.get("/viewWishlist", middleware.userauth, userController.viewWishlist);
 
-router.delete("/deleteWishlist",userController.deleteFromWishlist)
+router.delete("/deleteWishlist", userController.deleteFromWishlist);
 
-router.put("/changeQuantity", middleware.userauth, userController.changeQuantity);
+router.put(
+  "/changeQuantity",
+  middleware.userauth,
+  userController.changeQuantity
+);
 
-router.delete("/deleteProduct", middleware.userauth, userController.deleteProductcart);
+router.delete(
+  "/deleteProduct",
+  middleware.userauth,
+  userController.deleteProductcart
+);
 
-router.get("/accountPage",  middleware.userauth,userController.getAddress);
+router.get("/accountPage", middleware.userauth, userController.getAddress);
 
-router.post("/accountPage", middleware.userauth,userController.postAddress);
+router.post("/accountPage", middleware.userauth, userController.postAddress);
 
-router.get("/editAddress/:id",middleware.userauth,userController.geteditAddress);
+router.get(
+  "/editAddress/:id",
+  middleware.userauth,
+  userController.geteditAddress
+);
 
 router.post("/editAddress", userController.posteditAddress);
 
-router.get("/checkoutPage", middleware.userauth,userController.getCheckoutpage);
+router.get(
+  "/checkoutPage",
+  middleware.userauth,
+  userController.getCheckoutpage
+);
 
 router.post("/checkoutPage", userController.postCheckoutpage);
 
-router.get("/orderSuccess",middleware.userauth,userController.orderSuccess)
+router.get("/orderSuccess", middleware.userauth, userController.orderSuccess);
 
-router.get("/orderDetails/:id", middleware.userauth, userController.getorderDetails);
+router.get(
+  "/orderDetails/:id",
+  middleware.userauth,
+  userController.getorderDetails
+);
 
- router.post("/getOrdercancel",  userController.getOrdercancel);
- 
- router.post("/returnOrder",userController.returnOrder)
+router.post("/getOrdercancel", userController.getOrdercancel);
+
+router.post("/returnOrder", userController.returnOrder);
 
 router.get("/otp", userController.otpLogin);
 
 router.post("/send-otp", userController.sendOtp);
 
-router.get("/validateCoupon/:id", middleware.userauth,userController.validateCoupon)
+router.get(
+  "/validateCoupon/:id",
+  middleware.userauth,
+  userController.validateCoupon
+);
 
-router.get("/applyCoupon", middleware.userauth,userController.applyCoupon)
+router.get("/applyCoupon", middleware.userauth, userController.applyCoupon);
 
-router.post("/verifyPayment",userController.postVerifypayment)
+router.post("/verifyPayment", userController.postVerifypayment);
 
-router.get("/sort/:id", middleware.userauth,userController.sort)
+router.get("/sort/:id", middleware.userauth, userController.sort);
 
-router.get("/sortCategory/:id", middleware.userauth,userController.sortCategory)
+router.get(
+  "/sortCategory/:id",
+  middleware.userauth,
+  userController.sortCategory
+);
 
-router.post("/search",userController.search)
-
-
-
-
+router.post("/search", userController.search);
 
 module.exports = router;
