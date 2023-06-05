@@ -173,7 +173,7 @@ module.exports = {
 
   postEditcategory: async (req, res) => {
     console.log(req.body,"----------------------");
-console.log(req.params,"888888888");
+
     await adminUserHelpers.updateCategory(req.params.id, req.body).then((result)=>{
       res.send(result)
     })
