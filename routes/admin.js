@@ -23,7 +23,7 @@ router.get("/viewCategory",middleware.auth, adminController.viewCategory);
 
 router.get("/categoryEdit/",middleware.auth,adminController.categoryEdit)
 
-router.post("/categoryEdited/",adminController.postCategoryedit)
+
 
 router.post("/editCategory/:id", adminController.postEditcategory);
 

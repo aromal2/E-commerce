@@ -10,7 +10,7 @@
             <label for="editCategoryoffer">Add an offer</label>
             <input type="number" name="editCategoryoffer" id="sub-category" class="form-control" value="<%=response.categoryOfferpercentage%>"/>
             
-            <button onclick="validate(); event.preventDefault();">Submit</button>
+            <button onclick="editCategory('<%=response._id %>')">Submit</button>
           </form>
         </div>
       </div>
@@ -43,43 +43,43 @@
   <script>
 
 
-  function validate() {
-  const category = document.getElementById('category');
-  const error1 = category.parentElement.querySelector('p');
+  // function validate() {
+  // const category = document.getElementById('category');
+  // const error1 = category.parentElement.querySelector('p');
 
-  error1.innerText = '';
+  // error1.innerText = '';
 
-  let flag = 1;
-  const categoryValue = category.value.trim();
+//   let flag = 1;
+//   const categoryValue = category.value.trim();
 
-  if (categoryValue === '') {
-    error1.innerText = 'Category Name is required';
-    flag = 2;
- } else if (categoryValue.length > 15) {
-  error1.innerText = 'Category should not exceed 15 characters';
-  flag = 2;
-} else if (categoryValue.length < 2) {
-  error1.innerText = 'Enter a valid Category Name';
-  flag = 2;
-}
-
-
+//   if (categoryValue === '') {
+//     error1.innerText = 'Category Name is required';
+//     flag = 2;
+//  } else if (categoryValue.length > 15) {
+//   error1.innerText = 'Category should not exceed 15 characters';
+//   flag = 2;
+// } else if (categoryValue.length < 2) {
+//   error1.innerText = 'Enter a valid Category Name';
+//   flag = 2;
+// }
 
 
 
 
-  if (flag === 1) {
-    // Call the editCategory function with the necessary argument(s)
-    function editCategory(categoryId);
-    console.log('Validation successful');
-  }
-}
+
+
+//   if (flag === 1) {
+//     // Call the editCategory function with the necessary argument(s)
+//     function editCategory(categoryId);
+//     console.log('Validation successful');
+//   }
+// }
 
 
 
 
     function editCategory(categoryId) {
-      console.log(categoryId);
+    
       // Add your code for editing the category here
       $.ajax({
         url: `/admin/editCategory/${categoryId}`,

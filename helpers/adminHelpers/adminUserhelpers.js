@@ -110,7 +110,10 @@ module.exports = {
     });
   },
 
-  postCategoryedit: () => {},
+  postCategoryedit: () => {
+
+
+  },
 
   // getEditcategory:async (categoryId) => {
 
@@ -267,16 +270,21 @@ console.log(slug);
   // });
 
   updateCategory: (id, body) => {
-    const { editCategoryname, editCategoryoffer } = body;
-    console.log(id, body);
-    return new Promise(async (resolve, reject) => {
+  const { editCategoryname, editCategoryoffer } = body;
+  console.log(id, body);
+  return new Promise(async (resolve, reject) => {
+    try {
       await dbAdmin.category.updateOne(
         { _id: id },
         { $set: { CategoryName: editCategoryname, categoryOfferpercentage: editCategoryoffer } }
       );
-      
-    });
-  },
+      resolve(); // Resolve the Promise to indicate successful update
+    } catch (error) {
+      reject(error); // Reject the Promise if an error occurs
+    }
+  });
+},
+
   
 
   categoryOffer: async (id, body) => {

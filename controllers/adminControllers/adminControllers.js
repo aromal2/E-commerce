@@ -157,6 +157,7 @@ module.exports = {
   viewCategory: async (req, res) => {
     let admin = req.session.admin;
     let Categories = await adminUserHelpers.getCategory();
+    console.log(Categories,"99999999999999");
 
     res.render("admin/viewCategory", { layout: "adminLayout", Categories ,admin});
   },
@@ -170,16 +171,12 @@ module.exports = {
     });
   },
 
-  postCategoryedit: async (req, res) => {
-    
-
-    adminUserHelpers.postCategoryedit();
-  },
 
   postEditcategory: async (req, res) => {
-
-    adminUserHelpers.updateCategory(req.params.id, req.body);
-    adminUserHelpers.categoryOffer(req.params.id, req.body);
+    console.log(req.body,"----------------------");
+console.log(req.params,"888888888");
+    await adminUserHelpers.updateCategory(req.params.id, req.body);
+    
     res.send(true);
   },
 
