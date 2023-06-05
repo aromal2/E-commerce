@@ -157,8 +157,7 @@ module.exports = {
   viewCategory: async (req, res) => {
     let admin = req.session.admin;
     let Categories = await adminUserHelpers.getCategory();
-    console.log(Categories,"99999999999999");
-
+    
     res.render("admin/viewCategory", { layout: "adminLayout", Categories ,admin});
   },
 
